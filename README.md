@@ -7,4 +7,4 @@ Feel free to fork it and use as a starter pack for your modern e-commerce projec
 
 
 
-This project uses [Yarn 2 Zero installs](https://yarnpkg.com/features/zero-installs) to reduce build time. That said, your fist clone might take a few minutes.
+This project uses [Yarn 2 Zero Installs](https://yarnpkg.com/features/zero-installs) to reduce build time. That said, your fist clone might take a few minutes.
