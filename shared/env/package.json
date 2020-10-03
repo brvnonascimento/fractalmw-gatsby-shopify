@@ -1,0 +1,13 @@
+{
+    "name": "@fractalmw/env",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "license": "MIT",
+    "devDependencies": {
+        "typescript": "^4.0.2"
+    },
+    "dependencies": {
+        "env-var": "^6.3.0"
+    }
+}

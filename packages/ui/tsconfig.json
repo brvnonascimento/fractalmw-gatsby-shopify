@@ -1,0 +1,18 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "dist",
+        "rootDir": "src",
+        "sourceMap": true,
+        "module": "commonjs",
+        "declaration": true,
+        "declarationMap": true,
+        "composite": true,
+        "target": "esnext",
+        "jsx": "react",
+        "lib": ["dom", "es2015", "es2017"]
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}
