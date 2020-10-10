@@ -6,7 +6,7 @@ interface CompanyHeadingProps extends HeadingProps {
 }
 
 export const CompanyHeading = ({ name, ...props }: CompanyHeadingProps) => (
-  <Heading as="h1" size={'2xl'} {...props}>
+  <Heading as="h1" fontSize={{ xs: '2rem', lg: '3.3rem' }} {...props}>
     {name}
   </Heading>
 )

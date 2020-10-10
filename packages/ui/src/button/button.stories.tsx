@@ -1,22 +1,22 @@
 import React from 'react'
-import { FmwButton } from '.'
+import { FractalButton } from '.'
 import { ThemeProvider } from '@chakra-ui/core'
 
 export default {
   title: 'Button',
-  component: FmwButton
+  component: FractalButton
 }
 
 export const Success = () => (
   <ThemeProvider>
-    <FmwButton width="300px">Continuar</FmwButton>
+    <FractalButton width="300px">Continuar</FractalButton>
   </ThemeProvider>
 )
 
 export const SuccessDisabled = () => (
   <ThemeProvider>
-    <FmwButton width="300px" isDisabled>
+    <FractalButton width="300px" isDisabled>
       Continuar
-    </FmwButton>
+    </FractalButton>
   </ThemeProvider>
 )

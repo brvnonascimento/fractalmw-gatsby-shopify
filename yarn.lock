@@ -1824,6 +1824,7 @@ __metadata:
     gatsby-link: ^2.4.14
     gatsby-plugin-chakra-ui: ^0.1.4
     gatsby-plugin-graphql-codegen: ^2.7.1
+    gatsby-plugin-layout: ^1.3.13
     gatsby-plugin-react-helmet: ^3.3.12
     gatsby-plugin-react-svg: ^3.0.0
     gatsby-plugin-sharp: ^2.6.38
@@ -13335,6 +13336,15 @@ fsevents@^1.2.7:
     graphql: ^14.6.0
     typescript: ^3.7.5
   checksum: 8e1ea2df3ffb7f000caaf683c1279531d20aeab2f8e49b1329b9125863636886a02806fabf448f55957aab834e85fae4fb6380311391d2fc08f3b077d60f49c7
+  languageName: node
+  linkType: hard
+
+"gatsby-plugin-layout@npm:^1.3.13":
+  version: 1.3.13
+  resolution: "gatsby-plugin-layout@npm:1.3.13"
+  dependencies:
+    "@babel/runtime": ^7.11.2
+  checksum: 47b70c59e77e6c18f2684d8f5a262a6df2ba8191eb9de6d984317f3a66217f2602eac9bde035671bd4ae99dee73a153f0ef0c780d3fdeba945701964036a55cc
   languageName: node
   linkType: hard
 
