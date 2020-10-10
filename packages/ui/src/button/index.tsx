@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { Button, IButton } from '@chakra-ui/core'
 
-export interface FmwButtonProps {
+export interface FractalButtonProps {
   type?: IButton['type']
   background?: string
   color?: string
@@ -13,7 +13,7 @@ export interface FmwButtonProps {
   margin?: string
 }
 
-export const FmwButton = ({
+export const FractalButton = ({
   children,
   isDisabled = false,
   color = 'white',
@@ -21,7 +21,7 @@ export const FmwButton = ({
   borderRadius,
   type,
   margin
-}: FmwButtonProps) => {
+}: FractalButtonProps) => {
   return (
     <Button
       fontWeight="500"
