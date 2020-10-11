@@ -4279,36 +4279,3 @@ export type StringQueryOperatorInput = {
   regex?: Maybe<Scalars['String']>;
   glob?: Maybe<Scalars['String']>;
 };
-
-export type ProductsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ProductsQuery = { allShopifyProduct: { nodes: Array<(
-      Pick<ShopifyProduct, 'id' | 'title' | 'descriptionHtml'>
-      & { images?: Maybe<Array<Maybe<Pick<ShopifyProductImages, 'altText' | 'originalSrc'>>>>, variants?: Maybe<Array<Maybe<Pick<ShopifyProductVariant, 'id' | 'price' | 'sku'>>>>, options?: Maybe<Array<Maybe<Pick<ShopifyProductOption, 'name' | 'values'>>>> }
-    )> } };
-
-export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type HomePageQuery = { shopifyCollection?: Maybe<(
-    Pick<ShopifyCollection, 'title'>
-    & { products?: Maybe<Array<Maybe<(
-      Pick<ShopifyProduct, 'title'>
-      & { images?: Maybe<Array<Maybe<(
-        Pick<ShopifyProductImages, 'altText'>
-        & { localFile?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'srcWebp' | 'src'>> }> }> }
-      )>>> }
-    )>>> }
-  )>, allShopifyProduct: { nodes: Array<Pick<ShopifyProduct, 'productType'>> } };
-
-export type ProductPageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ProductPageQuery = { allShopifyProduct: { nodes: Array<(
-      Pick<ShopifyProduct, 'title' | 'id' | 'productType' | 'descriptionHtml'>
-      & { images?: Maybe<Array<Maybe<(
-        Pick<ShopifyProductImages, 'altText'>
-        & { localFile?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'srcWebp' | 'src'>> }> }> }
-      )>>>, options?: Maybe<Array<Maybe<Pick<ShopifyProductOption, 'values' | 'name'>>>>, variants?: Maybe<Array<Maybe<Pick<ShopifyProductVariant, 'id' | 'price' | 'sku'>>>> }
-    )> } };

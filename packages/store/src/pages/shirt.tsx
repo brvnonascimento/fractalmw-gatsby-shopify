@@ -20,6 +20,10 @@ import {
 } from '@chakra-ui/core'
 import { ShirtPageLayout } from '../layouts/ShirtPageLayout'
 import { RadioButton } from '../components/RadioButton'
+<<<<<<< HEAD
+=======
+import { Navbar } from '../components/Navbar'
+>>>>>>> 0e100fee3ba849eb71507b81c537823817c6b5b1
 import { Header } from '../components/Header'
 
 interface ProductPageProps {
@@ -31,10 +35,14 @@ export default ({ data }: ProductPageProps) => {
 
   return (
     <ShirtPageLayout>
+<<<<<<< HEAD
       <Header
         gridArea={'1 / 1 / 1 / 5'}
         background={'black'}
       />
+=======
+      <Header gridArea={'1 / 1 / 1 / 5'} />
+>>>>>>> 0e100fee3ba849eb71507b81c537823817c6b5b1
       <Breadcrumb
         gridArea={'2 / 2 / 2 / 4'}
         separator=">"
