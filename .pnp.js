@@ -3978,6 +3978,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:16.13.1"],
             ["react-helmet", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:6.1.0"],
             ["svg-react-loader", "npm:0.4.6"],
+            ["ts-node", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:9.0.0"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
           ],
           "linkType": "SOFT",
