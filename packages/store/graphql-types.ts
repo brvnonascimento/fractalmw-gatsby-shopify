@@ -1353,14 +1353,14 @@ export type Query = {
   allSitePage: SitePageConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
+  shopifyCollection?: Maybe<ShopifyCollection>;
+  allShopifyCollection: ShopifyCollectionConnection;
   shopifyProductOption?: Maybe<ShopifyProductOption>;
   allShopifyProductOption: ShopifyProductOptionConnection;
   shopifyProductVariant?: Maybe<ShopifyProductVariant>;
   allShopifyProductVariant: ShopifyProductVariantConnection;
   shopifyProduct?: Maybe<ShopifyProduct>;
   allShopifyProduct: ShopifyProductConnection;
-  shopifyCollection?: Maybe<ShopifyCollection>;
-  allShopifyCollection: ShopifyCollectionConnection;
   shopifyShop?: Maybe<ShopifyShop>;
   allShopifyShop: ShopifyShopConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
@@ -1500,6 +1500,7 @@ export type QuerySitePageArgs = {
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  context?: Maybe<SitePageContextFilterInput>;
   pluginCreator?: Maybe<SitePluginFilterInput>;
   pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   componentPath?: Maybe<StringQueryOperatorInput>;
@@ -1535,6 +1536,30 @@ export type QueryImageSharpArgs = {
 export type QueryAllImageSharpArgs = {
   filter?: Maybe<ImageSharpFilterInput>;
   sort?: Maybe<ImageSharpSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryShopifyCollectionArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  descriptionHtml?: Maybe<StringQueryOperatorInput>;
+  handle?: Maybe<StringQueryOperatorInput>;
+  image?: Maybe<ShopifyCollectionImageFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  shopifyId?: Maybe<StringQueryOperatorInput>;
+  products?: Maybe<ShopifyProductFilterListInput>;
+};
+
+
+export type QueryAllShopifyCollectionArgs = {
+  filter?: Maybe<ShopifyCollectionFilterInput>;
+  sort?: Maybe<ShopifyCollectionSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -1615,30 +1640,6 @@ export type QueryShopifyProductArgs = {
 export type QueryAllShopifyProductArgs = {
   filter?: Maybe<ShopifyProductFilterInput>;
   sort?: Maybe<ShopifyProductSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QueryShopifyCollectionArgs = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  description?: Maybe<StringQueryOperatorInput>;
-  descriptionHtml?: Maybe<StringQueryOperatorInput>;
-  handle?: Maybe<StringQueryOperatorInput>;
-  image?: Maybe<ShopifyCollectionImageFilterInput>;
-  title?: Maybe<StringQueryOperatorInput>;
-  updatedAt?: Maybe<DateQueryOperatorInput>;
-  shopifyId?: Maybe<StringQueryOperatorInput>;
-  products?: Maybe<ShopifyProductFilterListInput>;
-};
-
-
-export type QueryAllShopifyCollectionArgs = {
-  filter?: Maybe<ShopifyCollectionFilterInput>;
-  sort?: Maybe<ShopifyCollectionSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -3719,6 +3720,7 @@ export type SitePage = Node & {
   componentChunkName: Scalars['String'];
   matchPath?: Maybe<Scalars['String']>;
   isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
+  context?: Maybe<SitePageContext>;
   pluginCreator?: Maybe<SitePlugin>;
   pluginCreatorId?: Maybe<Scalars['String']>;
   componentPath?: Maybe<Scalars['String']>;
@@ -3749,6 +3751,106 @@ export type SitePageConnectionGroupArgs = {
   field: SitePageFieldsEnum;
 };
 
+export type SitePageContext = {
+  shirt?: Maybe<SitePageContextShirt>;
+};
+
+export type SitePageContextFilterInput = {
+  shirt?: Maybe<SitePageContextShirtFilterInput>;
+};
+
+export type SitePageContextShirt = {
+  title?: Maybe<Scalars['String']>;
+  handle?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  productType?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<Maybe<SitePageContextShirtImages>>>;
+  options?: Maybe<Array<Maybe<SitePageContextShirtOptions>>>;
+  variants?: Maybe<Array<Maybe<SitePageContextShirtVariants>>>;
+  descriptionHtml?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextShirtFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>;
+  handle?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  productType?: Maybe<StringQueryOperatorInput>;
+  images?: Maybe<SitePageContextShirtImagesFilterListInput>;
+  options?: Maybe<SitePageContextShirtOptionsFilterListInput>;
+  variants?: Maybe<SitePageContextShirtVariantsFilterListInput>;
+  descriptionHtml?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextShirtImages = {
+  altText?: Maybe<Scalars['String']>;
+  localFile?: Maybe<SitePageContextShirtImagesLocalFile>;
+};
+
+export type SitePageContextShirtImagesFilterInput = {
+  altText?: Maybe<StringQueryOperatorInput>;
+  localFile?: Maybe<SitePageContextShirtImagesLocalFileFilterInput>;
+};
+
+export type SitePageContextShirtImagesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextShirtImagesFilterInput>;
+};
+
+export type SitePageContextShirtImagesLocalFile = {
+  childImageSharp?: Maybe<SitePageContextShirtImagesLocalFileChildImageSharp>;
+};
+
+export type SitePageContextShirtImagesLocalFileChildImageSharp = {
+  fluid?: Maybe<SitePageContextShirtImagesLocalFileChildImageSharpFluid>;
+};
+
+export type SitePageContextShirtImagesLocalFileChildImageSharpFilterInput = {
+  fluid?: Maybe<SitePageContextShirtImagesLocalFileChildImageSharpFluidFilterInput>;
+};
+
+export type SitePageContextShirtImagesLocalFileChildImageSharpFluid = {
+  srcWebp?: Maybe<Scalars['String']>;
+  src?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextShirtImagesLocalFileChildImageSharpFluidFilterInput = {
+  srcWebp?: Maybe<StringQueryOperatorInput>;
+  src?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextShirtImagesLocalFileFilterInput = {
+  childImageSharp?: Maybe<SitePageContextShirtImagesLocalFileChildImageSharpFilterInput>;
+};
+
+export type SitePageContextShirtOptions = {
+  values?: Maybe<Array<Maybe<Scalars['String']>>>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextShirtOptionsFilterInput = {
+  values?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextShirtOptionsFilterListInput = {
+  elemMatch?: Maybe<SitePageContextShirtOptionsFilterInput>;
+};
+
+export type SitePageContextShirtVariants = {
+  id?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['String']>;
+  sku?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextShirtVariantsFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  price?: Maybe<StringQueryOperatorInput>;
+  sku?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextShirtVariantsFilterListInput = {
+  elemMatch?: Maybe<SitePageContextShirtVariantsFilterInput>;
+};
+
 export type SitePageEdge = {
   next?: Maybe<SitePage>;
   node: SitePage;
@@ -3762,6 +3864,20 @@ export type SitePageFieldsEnum =
   | 'componentChunkName'
   | 'matchPath'
   | 'isCreatedByStatefulCreatePages'
+  | 'context___shirt___title'
+  | 'context___shirt___handle'
+  | 'context___shirt___id'
+  | 'context___shirt___productType'
+  | 'context___shirt___images'
+  | 'context___shirt___images___altText'
+  | 'context___shirt___options'
+  | 'context___shirt___options___values'
+  | 'context___shirt___options___name'
+  | 'context___shirt___variants'
+  | 'context___shirt___variants___id'
+  | 'context___shirt___variants___price'
+  | 'context___shirt___variants___sku'
+  | 'context___shirt___descriptionHtml'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -3930,6 +4046,7 @@ export type SitePageFilterInput = {
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  context?: Maybe<SitePageContextFilterInput>;
   pluginCreator?: Maybe<SitePluginFilterInput>;
   pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   componentPath?: Maybe<StringQueryOperatorInput>;
@@ -4279,3 +4396,28 @@ export type StringQueryOperatorInput = {
   regex?: Maybe<Scalars['String']>;
   glob?: Maybe<Scalars['String']>;
 };
+
+export type ProductPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductPageQuery = { allShopifyProduct: { nodes: Array<(
+      Pick<ShopifyProduct, 'title' | 'handle' | 'id' | 'productType' | 'descriptionHtml'>
+      & { images?: Maybe<Array<Maybe<(
+        Pick<ShopifyProductImages, 'altText'>
+        & { localFile?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'srcWebp' | 'src'>> }> }> }
+      )>>>, options?: Maybe<Array<Maybe<Pick<ShopifyProductOption, 'values' | 'name'>>>>, variants?: Maybe<Array<Maybe<Pick<ShopifyProductVariant, 'id' | 'price' | 'sku'>>>> }
+    )> } };
+
+export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomePageQuery = { shopifyCollection?: Maybe<(
+    Pick<ShopifyCollection, 'title'>
+    & { products?: Maybe<Array<Maybe<(
+      Pick<ShopifyProduct, 'title' | 'handle'>
+      & { images?: Maybe<Array<Maybe<(
+        Pick<ShopifyProductImages, 'altText'>
+        & { localFile?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'srcWebp' | 'src'>> }> }> }
+      )>>> }
+    )>>> }
+  )>, allShopifyProduct: { nodes: Array<Pick<ShopifyProduct, 'productType'>> } };

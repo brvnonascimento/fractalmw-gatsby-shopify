@@ -1,17 +1,38 @@
 import React from 'react'
 import { Header } from '../components/Header'
 import { HomePageQuery } from '../../graphql-types'
-import { graphql, Link } from 'gatsby'
-import { Box, FormLabel, Grid, Heading, Image, Text } from '@chakra-ui/core'
+import { graphql, Link as GatsbyLink } from 'gatsby'
+import {
+  Box,
+  FormLabel,
+  Grid,
+  Heading,
+  Image,
+  Link,
+  List,
+  ListItem,
+  Text
+} from '@chakra-ui/core'
 import { CompanyHeading } from '../components/home/CompanyHeading'
 import { Helmet } from 'react-helmet'
 import { HomePageLayout } from '../layouts/HomePageLayout'
 
-export default ({ data: { shopifyCollection } }: { data: HomePageQuery }) => {
+export default ({
+  data: { shopifyCollection, allShopifyProduct }
+}: {
+  data: HomePageQuery
+}) => {
+  const categories = [
+    ...new Set(allShopifyProduct.nodes.map(({ productType }) => productType))
+  ]
+
+  console.log(categories)
+
   return (
     <HomePageLayout>
       <Helmet bodyAttributes={{ id: 'home-page-body' }} />
       <Header withBackground gridArea={'1 / -1'}>
+        <Grid></Grid>
         <CompanyHeading
           name={'Fractal Music Wear'}
           gridArea={{ xs: '3 / 1 / 3 / -1', md: '3 / 2' }}
@@ -34,59 +55,62 @@ export default ({ data: { shopifyCollection } }: { data: HomePageQuery }) => {
       </Header>
 
       <Grid as="main" gridArea={'2 / 1'}>
-        <Grid
-          as="section"
-          zIndex={2}
-          role={'listbox'}
-          paddingY={'5px'}
-          gridTemplateRows={'60% 1fr 10%'}
-          gridTemplateColumns={`repeat(${shopifyCollection.products.length}, 300px)`}
-          overflowX={'scroll'}
-          style={{ scrollbarWidth: 'none' }}
-        >
-          {shopifyCollection?.products.map(({ images, title }, i) => (
-            <>
-              <Image
-                role="listitem"
-                gridColumn={`${i + 1}`}
-                gridRow={'1 / 3'}
-                id={title}
-                display={'flex'}
-                loading={'lazy'}
-                margin={'10px'}
-                padding={'10px'}
-                alignSelf={'center'}
-                borderRadius={'10px'}
-                border={'1px'}
-                borderStyle={'groove'}
-                borderWidth={'2px'}
-                borderColor={'rgba(0, 0, 0, 0.5)'}
-                boxShadow={'6px 4px 0px rgba(240, 52, 52, 0.4)'}
-                src={images[0].localFile.childImageSharp.fluid.srcWebp}
-                fallbackSrc={images[0].localFile.childImageSharp.fluid.src}
-                alt={images[0].altText}
-                height={'310px'}
-                width={'282px'}
-              />
-              <FormLabel
-                as="label"
-                htmlFor={title}
-                display={'flex'}
-                alignSelf={'center'}
-                justifyContent={'center'}
-                gridArea={`2 / ${i + 1}`}
-                transform={'skewX(-20deg)'}
-                background={'rgba(240, 52, 52)'}
-                width={'60%'}
-                textAlign={'center'}
-                fontWeight={'bold'}
-                justifySelf={'center'}
-                color={'white'}
-              >
-                {title}
-              </FormLabel>
-            </>
-          ))}
+        <Grid as="section" zIndex={2} role={'listbox'} paddingTop={'15px'}>
+          <List
+            display={'grid'}
+            gridTemplateColumns={`repeat(${shopifyCollection.products.length}, 300px)`}
+            overflowX={'scroll'}
+            style={{ scrollbarWidth: 'none' }}
+          >
+            {shopifyCollection?.products.map(({ images, title, handle }, i) => (
+              <ListItem key={handle} gridColumn={`${i + 1}`}>
+                <Link
+                  as={GatsbyLink}
+                  to={`/produto/${handle}`}
+                  display={'grid'}
+                  gridTemplateRows={'repeat(8, 0.125fr)'}
+                >
+                  <Image
+                    role="listitem"
+                    id={title}
+                    gridArea={'1 / 1 / 4 / 1'}
+                    loading={'lazy'}
+                    margin={'10px'}
+                    padding={'10px'}
+                    borderRadius={'10px'}
+                    border={'1px'}
+                    borderStyle={'groove'}
+                    borderWidth={'2px'}
+                    borderColor={'rgba(0, 0, 0, 0.5)'}
+                    boxShadow={'6px 4px 0px rgba(240, 52, 52, 0.4)'}
+                    src={images[0].localFile.childImageSharp.fluid.srcWebp}
+                    fallbackSrc={images[0].localFile.childImageSharp.fluid.src}
+                    alt={images[0].altText}
+                    height={'310px'}
+                    width={'282px'}
+                  />
+                  <FormLabel
+                    as="label"
+                    gridArea={'7 / 1 / 9 / 1'}
+                    zIndex={2}
+                    alignSelf={'center'}
+                    marginBottom={'2em'}
+                    justifySelf={'center'}
+                    width={'200px'}
+                    htmlFor={title}
+                    justifyContent={'center'}
+                    transform={'skewX(-20deg)'}
+                    background={'rgba(240, 52, 52)'}
+                    textAlign={'center'}
+                    fontWeight={'bold'}
+                    color={'white'}
+                  >
+                    {title}
+                  </FormLabel>
+                </Link>
+              </ListItem>
+            ))}
+          </List>
         </Grid>
       </Grid>
 
@@ -168,6 +192,7 @@ export const pageQuery = graphql`
       title
       products {
         title
+        handle
         images {
           localFile {
             childImageSharp {

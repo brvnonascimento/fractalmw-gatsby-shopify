@@ -1,19 +1,39 @@
 import { GatsbyNode } from 'gatsby'
-import { ProductsQuery } from '../../graphql-types'
+import path from 'path'
+import { ProductPageQuery } from '../../graphql-types'
 
-export const createPages: GatsbyNode['createPages'] = async ({
-  graphql,
-  actions
-}) => {
-  const data: ProductsQuery = await graphql(`
-    query Products {
+interface ProductPageResult {
+  data?: ProductPageQuery
+  errors?: any
+}
+
+const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
+  const { data, errors }: ProductPageResult = await graphql(`
+    query ProductPage {
       allShopifyProduct {
         nodes {
-          id
           title
+          handle
+          id
+          productType
           images {
             altText
-            originalSrc
+            localFile {
+              childImageSharp {
+                fluid(
+                  maxHeight: 400
+                  maxWidth: 400
+                  jpegQuality: 50
+                  webpQuality: 50
+                ) {
+                  srcWebp
+                  src
+                }
+              }
+            }
+          }
+          options {
+            values
           }
           variants {
             id
@@ -30,9 +50,20 @@ export const createPages: GatsbyNode['createPages'] = async ({
     }
   `)
 
-  for (const {} of data.allShopifyProduct.nodes) {
+  if (!data?.allShopifyProduct?.nodes) {
+    console.log(errors)
+    throw new Error(errors)
+  }
+
+  for (const shirt of data.allShopifyProduct.nodes) {
+    const { handle } = shirt
+
     actions.createPage({
-      path: ''
+      path: `/produto/${handle}`,
+      component: path.resolve(__dirname, '../templates/shirt.tsx'),
+      context: {
+        shirt
+      }
     })
   }
 }
