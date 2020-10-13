@@ -1,38 +1,20 @@
 import React from 'react'
 import { Header } from '../components/Header'
-import { HomePageQuery } from '../../graphql-types'
-import { graphql, Link as GatsbyLink } from 'gatsby'
-import {
-  Box,
-  FormLabel,
-  Grid,
-  Heading,
-  Image,
-  Link,
-  List,
-  ListItem,
-  Text
-} from '@chakra-ui/core'
+import { Box, Grid, Heading, Image, Text } from '@chakra-ui/core'
 import { CompanyHeading } from '../components/home/CompanyHeading'
-import { Helmet } from 'react-helmet'
 import { HomePageLayout } from '../layouts/HomePageLayout'
+import { InlineCategoryList } from '../components/InlineCategortyList'
+import {
+  ShirtInlineList,
+} from '../components/InlineShirtList'
+import { useHomePageData } from '../hooks/home/useHomePageData'
 
-export default ({
-  data: { shopifyCollection, allShopifyProduct }
-}: {
-  data: HomePageQuery
-}) => {
-  const categories = [
-    ...new Set(allShopifyProduct.nodes.map(({ productType }) => productType))
-  ]
-
-  console.log(categories)
+export default () => {
+  const {shirtList, categoryList} = useHomePageData()
 
   return (
     <HomePageLayout>
-      <Helmet bodyAttributes={{ id: 'home-page-body' }} />
-      <Header withBackground gridArea={'1 / -1'}>
-        <Grid></Grid>
+      <Header withBackground gridArea={'1 / 1 / 3 / -1'}>
         <CompanyHeading
           name={'Fractal Music Wear'}
           gridArea={{ xs: '3 / 1 / 3 / -1', md: '3 / 2' }}
@@ -54,69 +36,25 @@ export default ({
         </Text>
       </Header>
 
-      <Grid as="main" gridArea={'2 / 1'}>
-        <Grid as="section" zIndex={2} role={'listbox'} paddingTop={'15px'}>
-          <List
-            display={'grid'}
-            gridTemplateColumns={`repeat(${shopifyCollection.products.length}, 300px)`}
-            overflowX={'scroll'}
-            style={{ scrollbarWidth: 'none' }}
-          >
-            {shopifyCollection?.products.map(({ images, title, handle }, i) => (
-              <ListItem key={handle} gridColumn={`${i + 1}`}>
-                <Link
-                  as={GatsbyLink}
-                  to={`/produto/${handle}`}
-                  display={'grid'}
-                  gridTemplateRows={'repeat(8, 0.125fr)'}
-                >
-                  <Image
-                    role="listitem"
-                    id={title}
-                    gridArea={'1 / 1 / 4 / 1'}
-                    loading={'lazy'}
-                    margin={'10px'}
-                    padding={'10px'}
-                    borderRadius={'10px'}
-                    border={'1px'}
-                    borderStyle={'groove'}
-                    borderWidth={'2px'}
-                    borderColor={'rgba(0, 0, 0, 0.5)'}
-                    boxShadow={'6px 4px 0px rgba(240, 52, 52, 0.4)'}
-                    src={images[0].localFile.childImageSharp.fluid.srcWebp}
-                    fallbackSrc={images[0].localFile.childImageSharp.fluid.src}
-                    alt={images[0].altText}
-                    height={'310px'}
-                    width={'282px'}
-                  />
-                  <FormLabel
-                    as="label"
-                    gridArea={'7 / 1 / 9 / 1'}
-                    zIndex={2}
-                    alignSelf={'center'}
-                    marginBottom={'2em'}
-                    justifySelf={'center'}
-                    width={'200px'}
-                    htmlFor={title}
-                    justifyContent={'center'}
-                    transform={'skewX(-20deg)'}
-                    background={'rgba(240, 52, 52)'}
-                    textAlign={'center'}
-                    fontWeight={'bold'}
-                    color={'white'}
-                  >
-                    {title}
-                  </FormLabel>
-                </Link>
-              </ListItem>
-            ))}
-          </List>
+      <Grid
+        as="main"
+        gridArea={'3 / 1 / 6 / 1'}
+        gridTemplateRows={'50px auto auto'}
+        paddingX={'20px'}
+      >
+        <Heading>Categorias</Heading>
+        <InlineCategoryList categories={categoryList} />
+        <Grid as="section" zIndex={2} role={'listbox'} marginTop={'30px'}>
+          <Heading>Destaques</Heading>
+          <ShirtInlineList
+            shirts={shirtList}
+          />
         </Grid>
       </Grid>
 
       <Heading
+        gridRow={6}
         size={'2xl'}
-        gridRow={3}
         justifySelf={'center'}
         alignSelf={'center'}
         paddingX={'2em'}
@@ -130,6 +68,7 @@ export default ({
         as="section"
         gridTemplateRows={{ xs: '840px 840px', md: '400px 40px 400px' }}
         gridTemplateColumns={{ xs: '100vw', md: '50vw 50vw' }}
+        gridRow={7}
       >
         <Heading
           as="h3"
@@ -185,51 +124,3 @@ export default ({
     </HomePageLayout>
   )
 }
-
-export const pageQuery = graphql`
-  query HomePage {
-    shopifyCollection(title: { eq: "Home" }) {
-      title
-      products {
-        title
-        handle
-        images {
-          localFile {
-            childImageSharp {
-              fluid(
-                maxHeight: 310
-                maxWidth: 282
-                jpegQuality: 50
-                webpQuality: 50
-              ) {
-                srcWebp
-                src
-              }
-            }
-          }
-          altText
-        }
-      }
-    }
-    allShopifyProduct {
-      nodes {
-        productType
-      }
-    }
-  }
-  # query HomePage {
-  #   # shopifyCollection(title: {eq: "Home"}) {
-  #   #   image {
-  #   #     src
-  #   #   }
-  #   #   description
-  #   #   products {
-  #   #     title
-  #   #     images {
-  #   #       altText
-  #   #       originalSrc
-  #   #     }
-  #   #   }
-  #   # }
-  # }
-`
