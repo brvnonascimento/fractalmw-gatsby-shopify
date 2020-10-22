@@ -2,8 +2,8 @@ node_modules/
 dist/
 coverage/
 .DS_Store/
-.cache/
-.env
+.cache
+.env*
 tsconfig.tsbuildinfo
 .yarn/*
 !.yarn/cache
