@@ -34,7 +34,7 @@ const config: GatsbyConfig = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-graphql-codegen',
-    // 'gatsby-plugin-transition-link',
+    'gatsby-plugin-transition-link',
     {
       resolve: 'gatsby-plugin-chakra-ui',
       options: { isUsingColorMode: false }
@@ -43,14 +43,14 @@ const config: GatsbyConfig = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `pages`,
-        path: path.resolve(__dirname, `../pages/`)
+        path: path.join(__dirname, `src/pages/`)
       }
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `data`,
-        path: path.resolve(__dirname, `../data/`),
+        path: path.join(__dirname, `src/data/`),
         ignore: [`**/\.*`] // ignore files starting with a dot
       }
     },

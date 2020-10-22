@@ -1,0 +1,1 @@
+exports.wrapRootElement = require("./src/layout/root").default
