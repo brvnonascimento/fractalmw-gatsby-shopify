@@ -34,7 +34,7 @@ const config: GatsbyConfig = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-graphql-codegen',
-    'gatsby-plugin-transition-link',
+    // 'gatsby-plugin-transition-link',
     {
       resolve: 'gatsby-plugin-chakra-ui',
       options: { isUsingColorMode: false }
