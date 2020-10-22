@@ -7,7 +7,7 @@
         "module": "commonjs",
         "target": "esnext",
         "jsx": "react",
-        "lib": ["dom", "es2015", "es2017"]
+        "lib": ["dom", "ES2020"]
     },
     "include": [
         "src"
@@ -15,6 +15,9 @@
     "references": [
         {
             "path": "../ui"
+        },
+        {
+            "path": "../../shared/utils"
         }
     ]
 }

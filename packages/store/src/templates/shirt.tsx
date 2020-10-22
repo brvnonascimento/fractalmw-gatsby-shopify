@@ -1,143 +1,253 @@
-import { Link } from 'gatsby'
 import React from 'react'
-import '../layouts/ShirtPageLayout.tsx'
+import '../layout/ShirtPageLayout.tsx'
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Button,
+  Box,
+  Divider,
   Heading,
   Image,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  RadioButtonGroup,
-  Select,
   Stack,
-  Text
+  Text,
+  useDisclosure
 } from '@chakra-ui/core'
-import { ShirtPageLayout } from '../layouts/ShirtPageLayout'
-import { RadioButton } from '../components/RadioButton'
-import { Header } from '../components/Header'
-import { SitePageContext } from '../../graphql-types'
+import { ShirtPageLayout } from '../layout/ShirtPageLayout'
+import { Header } from '../layout/fragments/Header'
+import { ShirtBreadcrumb } from '../features/buy/components/ShirtBreadcrumb'
+import { ShirtImageProps } from '../features/catalog/components/ShirtGrid'
+import { numberToBRL } from '../utils/price'
+import { groovyBorder } from '../components/styles/groovyBorder'
+import { BuyForm, BuyFormFieldsProps } from '../features/buy/components/BuyForm'
+import { ShirtImage } from '../components/ShirtImage'
+import { CartDrawer } from '../features/cart/components/CartDrawer'
+import { Table } from '../components/Table'
+import { useAddItemToCart, useCheckoutUrl, useRemoveItemFromCart } from 'gatsby-theme-shopify-manager'
+import { useShopifyCartItems } from '../features/cart/hooks/useShopifyCart'
+import { SEO } from '../components/SEO'
 
-interface ShirtTemplateProps {
-  pageContext: SitePageContext
+export interface ShirtTemplate {
+  id: string
+  variants: any[]
+  title: string
+  category: string
+  price: number
+  images: ShirtImageProps[]
+  description: string
+  sizes: string[]
+  models: string[]
+  colors: string[]
 }
 
-export default ({ pageContext }: ShirtTemplateProps) => {
-  const shirt = pageContext.shirt
+interface ShirtOptions {
+  size: string
+  model: string
+  color: string
+}
 
-  if(!shirt) {
+export interface ShirtTemplateProps {
+  pageContext: {
+    shirt: ShirtTemplate
+  }
+}
+
+export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
+  const { onOpen, isOpen, onClose } = useDisclosure()
+
+  const items = useShopifyCartItems()
+  const addItemToCart = useAddItemToCart()
+  const removeItemFromCart = useRemoveItemFromCart()
+  const checkoutUrl = useCheckoutUrl()
+
+  if (!shirt) {
     return null
   }
-  
+
+  const getVariantId = ({ color, model, size }: ShirtOptions) => {
+    const variant = shirt.variants.find(
+      ({ title }) =>
+        title.includes(color) && title.includes(model) && title.includes(size)
+    )
+
+    console.log(variant.id)
+
+    return variant.id.split(`Shopify__ProductVariant__`)[1]
+  }
+
+  const {
+    category,
+    title,
+    price,
+    images,
+    sizes,
+    models,
+    colors,
+    description
+  } = shirt
+
   return (
     <ShirtPageLayout>
-      <Header gridArea={'1 / 1 / 1 / 5'} background={'black'} />
-      <Breadcrumb
-        gridArea={'2 / 2 / 2 / 4'}
-        separator=">"
-        alignSelf={'center'}
-        fontWeight={'bold'}
-      >
-        <BreadcrumbItem>
-          <Link to="/">Fractal Music Wear</Link>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink>{shirt.productType}</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink>{shirt.title}</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
-
-      <Heading as="h1" gridArea={'3 / 3 / 4'}>
-        {shirt.title}
-      </Heading>
-
-      <Text gridArea={'5 / 3'} fontSize={'xl'} alignSelf={'center'}>
-        R$ 68.90
-      </Text>
-
-      <Image
-        gridArea={'3 / 2 / 4 / 2'}
-        src={shirt.images[0]?.localFile?.childImageSharp?.fluid?.srcWebp}
-        fallbackSrc={shirt.images[0]?.localFile?.childImageSharp?.fluid?.src}
-        alt={shirt.images[0]?.altText}
+      <SEO
+        title={`${title} - Fractal Music Wear`}
+        metaDescription={description}
+        image={images[0].src}
+        keywords={`${title.replace(' ', ',')}, ${description.replace(' ', ',')}`}
       />
+      <Header gridArea={'1 / 1 / 3 / 5'} withBackground color={'white'} />
 
-      <Text gridArea={'6 / 3'} textAlign={'left'}>
-        {shirt.descriptionHtml}
-      </Text>
+      <Box
+        as="main"
+        display={'grid'}
+        // gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
+        gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
+        gridTemplateColumns={{ xs: '1fr', lg: 'repeat(2, 0.5fr)' }}
+        gridTemplateRows={{ lg: '40px 100px 20px auto 150px 150px' }}
+      >
+        <ShirtBreadcrumb
+          category={category}
+          title={title}
+          gridColumn={{ lg: '1 / 3' }}
+          background={'white'}
+          padding={'5px'}
+          {...groovyBorder}
+        />
+        <Heading as="h1" gridColumn={{ lg: '2' }} marginTop={'4px'}>
+          {title}
+        </Heading>
 
-      <Select display={'flex'} width={'50%'} rootProps={{ gridArea: '9 / 3' }}>
-        {shirt.options
-          .find(({ name }) => name === 'model')
-          ?.values.map((model) => (
-            <option>{model}</option>
+        <Heading gridColumn={{ lg: '2' }} fontSize={'lg'}>
+          {numberToBRL(price)}
+        </Heading>
+
+        <ShirtImage
+          gridArea={{ lg: '2 / 1 / 5 / 1' }}
+          marginTop={'10px'}
+          width={'95%'}
+          maxWidth={'500px'}
+          maxHeight={'530px'}
+          src={images[0].src}
+          fallbackSrc={images[0].fallbackSrc}
+          alt={images[0].alt}
+        />
+        <Stack
+          isInline
+          gridArea={{ lg: '6 / 1' }}
+          height={'110px'}
+          width={'95%'}
+          padding={'5px'}
+          {...groovyBorder}
+        >
+          {images.map(({ src, fallbackSrc, alt }, i) => (
+            <Box key={i} as="picture" display={'flex'} alignContent={'center'}>
+              <Image
+                width={'100px'}
+                height={'100px'}
+                padding={'5px'}
+                src={src}
+                fallbackSrc={fallbackSrc}
+                alt={alt}
+              />
+
+              {i + 1 !== images.length && (
+                <Divider orientation={'vertical'} height={'90px'} />
+              )}
+            </Box>
           ))}
-      </Select>
+        </Stack>
 
-      <RadioButtonGroup
-        gridArea={{ gridArea: '10 / 3' }}
-        alignSelf={'center'}
-        display={'flex'}
-      >
-        {shirt.options
-          .find(({ name }) => name === 'size')
-          ?.values.map((size) => (
-            <RadioButton value={size} marginX={'5px'}>
-              {size?.toLocaleUpperCase()}
-            </RadioButton>
-          ))}
-      </RadioButtonGroup>
+        <Text
+          gridColumn={{ lg: '2' }}
+          textAlign={'left'}
+          alignSelf={'center'}
+          paddingRight={'1.5em'}
+        >
+          {description}
+        </Text>
 
-      <Stack isInline gridArea={'11 / 2 / 13 / 2'}>
-        {shirt.images?.map(({ localFile, altText }) => (
-          <Image
-            width={'100px'}
-            src={localFile?.childImageSharp?.fluid?.srcWebp}
-            fallbackSrc={localFile?.fluid?.src}
-            alt={altText}
-          />
-        ))}
-      </Stack>
-
-      <NumberInput
-        size="sm"
-        defaultValue={15}
-        min={10}
-        gridArea={'11 / 3'}
-        width={'150px'}
-        fontWeight={'bold'}
-      >
-        <NumberDecrementStepper
-          bg="pink.200"
-          _active={{ bg: 'pink.300' }}
-          children="-"
+        <BuyForm
+          gridColumn={{ xs: '1', lg: '2' }}
+          colors={colors}
+          models={models}
+          sizes={sizes}
+          onSubmit={async ({
+            color,
+            model,
+            quantity,
+            size
+          }: BuyFormFieldsProps) => {
+            try {
+              await addItemToCart(
+                getVariantId({ color, model, size }),
+                quantity
+              )
+              onOpen()
+            } catch (err) {
+              console.log(err)
+            }
+          }}
         />
-        <NumberInputField
-          focusBorderColor="red.200"
-          width={'50px'}
-          height={'100%'}
-        />
-        <NumberIncrementStepper
-          bg="green.200"
-          _active={{ bg: 'green.300' }}
-          children="+"
-        />
-      </NumberInput>
+      </Box>
 
-      <Button
-        gridArea={'12 / 3 / 14 / 3'}
-        alignSelf={'center'}
-        justifySelf={'center'}
-        width={'100%'}
+      <Box
+        as="section"
+        gridArea={'4 / 2 / 4 / 4'}
+        padding={'1em'}
+        {...groovyBorder}
       >
-        Adicionar ao Carrinho!
-      </Button>
+        <Heading as="h3" fontSize="1.5rem">
+          Guia de Medidas
+        </Heading>
+        <Divider />
+        <Table
+          mt="0.5em"
+          columns={[
+            {
+              header: 'Tamanho',
+              acessor: 'size'
+            },
+            {
+              header: 'Altura',
+              acessor: 'height'
+            },
+            {
+              header: 'Largura',
+              acessor: 'width'
+            }
+          ]}
+          data={[
+            {
+              size: 'P',
+              height: '70cm',
+              width: '49cm'
+            },
+            {
+              size: 'M',
+              height: '72cm',
+              width: '53cm'
+            },
+            {
+              size: 'G',
+              height: '74cm',
+              width: '54cm'
+            },
+            {
+              size: 'GG',
+              height: '76cm',
+              width: '56cm'
+            },
+            {
+              size: 'XG',
+              height: '80cm',
+              width: '65cm'
+            }
+          ]}
+        />
+      </Box>
+
+      <CartDrawer
+        checkoutUrl={checkoutUrl ?? ''}
+        onDeleteItem={removeItemFromCart}
+        items={items}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </ShirtPageLayout>
   )
 }

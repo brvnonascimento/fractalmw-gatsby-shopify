@@ -33,6 +33,155 @@ export type BooleanQueryOperatorInput = {
   nin?: Maybe<Array<Maybe<Scalars['Boolean']>>>;
 };
 
+export type CoreOptions = Node & {
+  shopName?: Maybe<Scalars['String']>;
+  accessToken?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+export type CoreOptionsConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<CoreOptionsEdge>;
+  nodes: Array<CoreOptions>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<CoreOptionsGroupConnection>;
+};
+
+
+export type CoreOptionsConnectionDistinctArgs = {
+  field: CoreOptionsFieldsEnum;
+};
+
+
+export type CoreOptionsConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: CoreOptionsFieldsEnum;
+};
+
+export type CoreOptionsEdge = {
+  next?: Maybe<CoreOptions>;
+  node: CoreOptions;
+  previous?: Maybe<CoreOptions>;
+};
+
+export type CoreOptionsFieldsEnum = 
+  | 'shopName'
+  | 'accessToken'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type CoreOptionsFilterInput = {
+  shopName?: Maybe<StringQueryOperatorInput>;
+  accessToken?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type CoreOptionsGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<CoreOptionsEdge>;
+  nodes: Array<CoreOptions>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type CoreOptionsSortInput = {
+  fields?: Maybe<Array<Maybe<CoreOptionsFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 
 export type DateQueryOperatorInput = {
   eq?: Maybe<Scalars['Date']>;
@@ -1353,14 +1502,16 @@ export type Query = {
   allSitePage: SitePageConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
-  shopifyCollection?: Maybe<ShopifyCollection>;
-  allShopifyCollection: ShopifyCollectionConnection;
+  coreOptions?: Maybe<CoreOptions>;
+  allCoreOptions: CoreOptionsConnection;
   shopifyProductOption?: Maybe<ShopifyProductOption>;
   allShopifyProductOption: ShopifyProductOptionConnection;
   shopifyProductVariant?: Maybe<ShopifyProductVariant>;
   allShopifyProductVariant: ShopifyProductVariantConnection;
   shopifyProduct?: Maybe<ShopifyProduct>;
   allShopifyProduct: ShopifyProductConnection;
+  shopifyCollection?: Maybe<ShopifyCollection>;
+  allShopifyCollection: ShopifyCollectionConnection;
   shopifyShop?: Maybe<ShopifyShop>;
   allShopifyShop: ShopifyShopConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
@@ -1499,15 +1650,15 @@ export type QuerySitePageArgs = {
   internalComponentName?: Maybe<StringQueryOperatorInput>;
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
   context?: Maybe<SitePageContextFilterInput>;
   pluginCreator?: Maybe<SitePluginFilterInput>;
   pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   componentPath?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
 };
 
 
@@ -1541,25 +1692,19 @@ export type QueryAllImageSharpArgs = {
 };
 
 
-export type QueryShopifyCollectionArgs = {
+export type QueryCoreOptionsArgs = {
+  shopName?: Maybe<StringQueryOperatorInput>;
+  accessToken?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
-  description?: Maybe<StringQueryOperatorInput>;
-  descriptionHtml?: Maybe<StringQueryOperatorInput>;
-  handle?: Maybe<StringQueryOperatorInput>;
-  image?: Maybe<ShopifyCollectionImageFilterInput>;
-  title?: Maybe<StringQueryOperatorInput>;
-  updatedAt?: Maybe<DateQueryOperatorInput>;
-  shopifyId?: Maybe<StringQueryOperatorInput>;
-  products?: Maybe<ShopifyProductFilterListInput>;
 };
 
 
-export type QueryAllShopifyCollectionArgs = {
-  filter?: Maybe<ShopifyCollectionFilterInput>;
-  sort?: Maybe<ShopifyCollectionSortInput>;
+export type QueryAllCoreOptionsArgs = {
+  filter?: Maybe<CoreOptionsFilterInput>;
+  sort?: Maybe<CoreOptionsSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -1640,6 +1785,30 @@ export type QueryShopifyProductArgs = {
 export type QueryAllShopifyProductArgs = {
   filter?: Maybe<ShopifyProductFilterInput>;
   sort?: Maybe<ShopifyProductSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryShopifyCollectionArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  descriptionHtml?: Maybe<StringQueryOperatorInput>;
+  handle?: Maybe<StringQueryOperatorInput>;
+  image?: Maybe<ShopifyCollectionImageFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  shopifyId?: Maybe<StringQueryOperatorInput>;
+  products?: Maybe<ShopifyProductFilterListInput>;
+};
+
+
+export type QueryAllShopifyCollectionArgs = {
+  filter?: Maybe<ShopifyCollectionFilterInput>;
+  sort?: Maybe<ShopifyCollectionSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -3719,15 +3888,15 @@ export type SitePage = Node & {
   internalComponentName: Scalars['String'];
   componentChunkName: Scalars['String'];
   matchPath?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
   isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
   context?: Maybe<SitePageContext>;
   pluginCreator?: Maybe<SitePlugin>;
   pluginCreatorId?: Maybe<Scalars['String']>;
   componentPath?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  parent?: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
 };
 
 export type SitePageConnection = {
@@ -3753,96 +3922,132 @@ export type SitePageConnectionGroupArgs = {
 
 export type SitePageContext = {
   shirt?: Maybe<SitePageContextShirt>;
+  shirts?: Maybe<Array<Maybe<SitePageContextShirts>>>;
+  currentPage?: Maybe<Scalars['Int']>;
+  lastPage?: Maybe<Scalars['Int']>;
 };
 
 export type SitePageContextFilterInput = {
   shirt?: Maybe<SitePageContextShirtFilterInput>;
+  shirts?: Maybe<SitePageContextShirtsFilterListInput>;
+  currentPage?: Maybe<IntQueryOperatorInput>;
+  lastPage?: Maybe<IntQueryOperatorInput>;
 };
 
 export type SitePageContextShirt = {
   title?: Maybe<Scalars['String']>;
-  handle?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-  productType?: Maybe<Scalars['String']>;
-  images?: Maybe<Array<Maybe<SitePageContextShirtImages>>>;
-  options?: Maybe<Array<Maybe<SitePageContextShirtOptions>>>;
   variants?: Maybe<Array<Maybe<SitePageContextShirtVariants>>>;
-  descriptionHtml?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
+  category?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  models?: Maybe<Array<Maybe<Scalars['String']>>>;
+  colors?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<Maybe<SitePageContextShirtImages>>>;
 };
 
 export type SitePageContextShirtFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
-  handle?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  productType?: Maybe<StringQueryOperatorInput>;
-  images?: Maybe<SitePageContextShirtImagesFilterListInput>;
-  options?: Maybe<SitePageContextShirtOptionsFilterListInput>;
   variants?: Maybe<SitePageContextShirtVariantsFilterListInput>;
-  descriptionHtml?: Maybe<StringQueryOperatorInput>;
+  price?: Maybe<FloatQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+  models?: Maybe<StringQueryOperatorInput>;
+  colors?: Maybe<StringQueryOperatorInput>;
+  images?: Maybe<SitePageContextShirtImagesFilterListInput>;
 };
 
 export type SitePageContextShirtImages = {
-  altText?: Maybe<Scalars['String']>;
-  localFile?: Maybe<SitePageContextShirtImagesLocalFile>;
+  src?: Maybe<Scalars['String']>;
+  fallbackSrc?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextShirtImagesFilterInput = {
-  altText?: Maybe<StringQueryOperatorInput>;
-  localFile?: Maybe<SitePageContextShirtImagesLocalFileFilterInput>;
+  src?: Maybe<StringQueryOperatorInput>;
+  fallbackSrc?: Maybe<StringQueryOperatorInput>;
+  alt?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextShirtImagesFilterListInput = {
   elemMatch?: Maybe<SitePageContextShirtImagesFilterInput>;
 };
 
-export type SitePageContextShirtImagesLocalFile = {
-  childImageSharp?: Maybe<SitePageContextShirtImagesLocalFileChildImageSharp>;
+export type SitePageContextShirts = {
+  title?: Maybe<Scalars['String']>;
+  variants?: Maybe<Array<Maybe<SitePageContextShirtsVariants>>>;
+  price?: Maybe<Scalars['Float']>;
+  category?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  sizes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  models?: Maybe<Array<Maybe<Scalars['String']>>>;
+  colors?: Maybe<Array<Maybe<Scalars['String']>>>;
+  images?: Maybe<Array<Maybe<SitePageContextShirtsImages>>>;
+  sku?: Maybe<Scalars['String']>;
 };
 
-export type SitePageContextShirtImagesLocalFileChildImageSharp = {
-  fluid?: Maybe<SitePageContextShirtImagesLocalFileChildImageSharpFluid>;
+export type SitePageContextShirtsFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>;
+  variants?: Maybe<SitePageContextShirtsVariantsFilterListInput>;
+  price?: Maybe<FloatQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  sizes?: Maybe<StringQueryOperatorInput>;
+  models?: Maybe<StringQueryOperatorInput>;
+  colors?: Maybe<StringQueryOperatorInput>;
+  images?: Maybe<SitePageContextShirtsImagesFilterListInput>;
+  sku?: Maybe<StringQueryOperatorInput>;
 };
 
-export type SitePageContextShirtImagesLocalFileChildImageSharpFilterInput = {
-  fluid?: Maybe<SitePageContextShirtImagesLocalFileChildImageSharpFluidFilterInput>;
+export type SitePageContextShirtsFilterListInput = {
+  elemMatch?: Maybe<SitePageContextShirtsFilterInput>;
 };
 
-export type SitePageContextShirtImagesLocalFileChildImageSharpFluid = {
-  srcWebp?: Maybe<Scalars['String']>;
+export type SitePageContextShirtsImages = {
   src?: Maybe<Scalars['String']>;
+  fallbackSrc?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']>;
 };
 
-export type SitePageContextShirtImagesLocalFileChildImageSharpFluidFilterInput = {
-  srcWebp?: Maybe<StringQueryOperatorInput>;
+export type SitePageContextShirtsImagesFilterInput = {
   src?: Maybe<StringQueryOperatorInput>;
+  fallbackSrc?: Maybe<StringQueryOperatorInput>;
+  alt?: Maybe<StringQueryOperatorInput>;
 };
 
-export type SitePageContextShirtImagesLocalFileFilterInput = {
-  childImageSharp?: Maybe<SitePageContextShirtImagesLocalFileChildImageSharpFilterInput>;
+export type SitePageContextShirtsImagesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextShirtsImagesFilterInput>;
 };
 
-export type SitePageContextShirtOptions = {
-  values?: Maybe<Array<Maybe<Scalars['String']>>>;
-  name?: Maybe<Scalars['String']>;
+export type SitePageContextShirtsVariants = {
+  id?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['String']>;
+  sku?: Maybe<Scalars['String']>;
 };
 
-export type SitePageContextShirtOptionsFilterInput = {
-  values?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
+export type SitePageContextShirtsVariantsFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  price?: Maybe<StringQueryOperatorInput>;
+  sku?: Maybe<StringQueryOperatorInput>;
 };
 
-export type SitePageContextShirtOptionsFilterListInput = {
-  elemMatch?: Maybe<SitePageContextShirtOptionsFilterInput>;
+export type SitePageContextShirtsVariantsFilterListInput = {
+  elemMatch?: Maybe<SitePageContextShirtsVariantsFilterInput>;
 };
 
 export type SitePageContextShirtVariants = {
   id?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['String']>;
   sku?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextShirtVariantsFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
   price?: Maybe<StringQueryOperatorInput>;
   sku?: Maybe<StringQueryOperatorInput>;
 };
@@ -3863,95 +4068,6 @@ export type SitePageFieldsEnum =
   | 'internalComponentName'
   | 'componentChunkName'
   | 'matchPath'
-  | 'isCreatedByStatefulCreatePages'
-  | 'context___shirt___title'
-  | 'context___shirt___handle'
-  | 'context___shirt___id'
-  | 'context___shirt___productType'
-  | 'context___shirt___images'
-  | 'context___shirt___images___altText'
-  | 'context___shirt___options'
-  | 'context___shirt___options___values'
-  | 'context___shirt___options___name'
-  | 'context___shirt___variants'
-  | 'context___shirt___variants___id'
-  | 'context___shirt___variants___price'
-  | 'context___shirt___variants___sku'
-  | 'context___shirt___descriptionHtml'
-  | 'pluginCreator___id'
-  | 'pluginCreator___parent___id'
-  | 'pluginCreator___parent___parent___id'
-  | 'pluginCreator___parent___parent___children'
-  | 'pluginCreator___parent___children'
-  | 'pluginCreator___parent___children___id'
-  | 'pluginCreator___parent___children___children'
-  | 'pluginCreator___parent___internal___content'
-  | 'pluginCreator___parent___internal___contentDigest'
-  | 'pluginCreator___parent___internal___description'
-  | 'pluginCreator___parent___internal___fieldOwners'
-  | 'pluginCreator___parent___internal___ignoreType'
-  | 'pluginCreator___parent___internal___mediaType'
-  | 'pluginCreator___parent___internal___owner'
-  | 'pluginCreator___parent___internal___type'
-  | 'pluginCreator___children'
-  | 'pluginCreator___children___id'
-  | 'pluginCreator___children___parent___id'
-  | 'pluginCreator___children___parent___children'
-  | 'pluginCreator___children___children'
-  | 'pluginCreator___children___children___id'
-  | 'pluginCreator___children___children___children'
-  | 'pluginCreator___children___internal___content'
-  | 'pluginCreator___children___internal___contentDigest'
-  | 'pluginCreator___children___internal___description'
-  | 'pluginCreator___children___internal___fieldOwners'
-  | 'pluginCreator___children___internal___ignoreType'
-  | 'pluginCreator___children___internal___mediaType'
-  | 'pluginCreator___children___internal___owner'
-  | 'pluginCreator___children___internal___type'
-  | 'pluginCreator___internal___content'
-  | 'pluginCreator___internal___contentDigest'
-  | 'pluginCreator___internal___description'
-  | 'pluginCreator___internal___fieldOwners'
-  | 'pluginCreator___internal___ignoreType'
-  | 'pluginCreator___internal___mediaType'
-  | 'pluginCreator___internal___owner'
-  | 'pluginCreator___internal___type'
-  | 'pluginCreator___resolve'
-  | 'pluginCreator___name'
-  | 'pluginCreator___version'
-  | 'pluginCreator___pluginOptions___isUsingColorMode'
-  | 'pluginCreator___pluginOptions___name'
-  | 'pluginCreator___pluginOptions___path'
-  | 'pluginCreator___pluginOptions___ignore'
-  | 'pluginCreator___pluginOptions___shopName'
-  | 'pluginCreator___pluginOptions___accessToken'
-  | 'pluginCreator___pluginOptions___apiVersion'
-  | 'pluginCreator___pluginOptions___verbose'
-  | 'pluginCreator___pluginOptions___paginationSize'
-  | 'pluginCreator___pluginOptions___includeCollections'
-  | 'pluginCreator___pluginOptions___pathCheck'
-  | 'pluginCreator___nodeAPIs'
-  | 'pluginCreator___browserAPIs'
-  | 'pluginCreator___ssrAPIs'
-  | 'pluginCreator___pluginFilepath'
-  | 'pluginCreator___packageJson___name'
-  | 'pluginCreator___packageJson___description'
-  | 'pluginCreator___packageJson___version'
-  | 'pluginCreator___packageJson___main'
-  | 'pluginCreator___packageJson___author'
-  | 'pluginCreator___packageJson___license'
-  | 'pluginCreator___packageJson___dependencies'
-  | 'pluginCreator___packageJson___dependencies___name'
-  | 'pluginCreator___packageJson___dependencies___version'
-  | 'pluginCreator___packageJson___devDependencies'
-  | 'pluginCreator___packageJson___devDependencies___name'
-  | 'pluginCreator___packageJson___devDependencies___version'
-  | 'pluginCreator___packageJson___peerDependencies'
-  | 'pluginCreator___packageJson___peerDependencies___name'
-  | 'pluginCreator___packageJson___peerDependencies___version'
-  | 'pluginCreator___packageJson___keywords'
-  | 'pluginCreatorId'
-  | 'componentPath'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -4037,7 +4153,114 @@ export type SitePageFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'isCreatedByStatefulCreatePages'
+  | 'context___shirt___title'
+  | 'context___shirt___variants'
+  | 'context___shirt___variants___id'
+  | 'context___shirt___variants___title'
+  | 'context___shirt___variants___price'
+  | 'context___shirt___variants___sku'
+  | 'context___shirt___price'
+  | 'context___shirt___category'
+  | 'context___shirt___description'
+  | 'context___shirt___sizes'
+  | 'context___shirt___models'
+  | 'context___shirt___colors'
+  | 'context___shirt___images'
+  | 'context___shirt___images___src'
+  | 'context___shirt___images___fallbackSrc'
+  | 'context___shirt___images___alt'
+  | 'context___shirts'
+  | 'context___shirts___title'
+  | 'context___shirts___variants'
+  | 'context___shirts___variants___id'
+  | 'context___shirts___variants___title'
+  | 'context___shirts___variants___price'
+  | 'context___shirts___variants___sku'
+  | 'context___shirts___price'
+  | 'context___shirts___category'
+  | 'context___shirts___description'
+  | 'context___shirts___sizes'
+  | 'context___shirts___models'
+  | 'context___shirts___colors'
+  | 'context___shirts___images'
+  | 'context___shirts___images___src'
+  | 'context___shirts___images___fallbackSrc'
+  | 'context___shirts___images___alt'
+  | 'context___shirts___sku'
+  | 'context___currentPage'
+  | 'context___lastPage'
+  | 'pluginCreator___id'
+  | 'pluginCreator___parent___id'
+  | 'pluginCreator___parent___parent___id'
+  | 'pluginCreator___parent___parent___children'
+  | 'pluginCreator___parent___children'
+  | 'pluginCreator___parent___children___id'
+  | 'pluginCreator___parent___children___children'
+  | 'pluginCreator___parent___internal___content'
+  | 'pluginCreator___parent___internal___contentDigest'
+  | 'pluginCreator___parent___internal___description'
+  | 'pluginCreator___parent___internal___fieldOwners'
+  | 'pluginCreator___parent___internal___ignoreType'
+  | 'pluginCreator___parent___internal___mediaType'
+  | 'pluginCreator___parent___internal___owner'
+  | 'pluginCreator___parent___internal___type'
+  | 'pluginCreator___children'
+  | 'pluginCreator___children___id'
+  | 'pluginCreator___children___parent___id'
+  | 'pluginCreator___children___parent___children'
+  | 'pluginCreator___children___children'
+  | 'pluginCreator___children___children___id'
+  | 'pluginCreator___children___children___children'
+  | 'pluginCreator___children___internal___content'
+  | 'pluginCreator___children___internal___contentDigest'
+  | 'pluginCreator___children___internal___description'
+  | 'pluginCreator___children___internal___fieldOwners'
+  | 'pluginCreator___children___internal___ignoreType'
+  | 'pluginCreator___children___internal___mediaType'
+  | 'pluginCreator___children___internal___owner'
+  | 'pluginCreator___children___internal___type'
+  | 'pluginCreator___internal___content'
+  | 'pluginCreator___internal___contentDigest'
+  | 'pluginCreator___internal___description'
+  | 'pluginCreator___internal___fieldOwners'
+  | 'pluginCreator___internal___ignoreType'
+  | 'pluginCreator___internal___mediaType'
+  | 'pluginCreator___internal___owner'
+  | 'pluginCreator___internal___type'
+  | 'pluginCreator___resolve'
+  | 'pluginCreator___name'
+  | 'pluginCreator___version'
+  | 'pluginCreator___pluginOptions___isUsingColorMode'
+  | 'pluginCreator___pluginOptions___name'
+  | 'pluginCreator___pluginOptions___path'
+  | 'pluginCreator___pluginOptions___ignore'
+  | 'pluginCreator___pluginOptions___shopName'
+  | 'pluginCreator___pluginOptions___accessToken'
+  | 'pluginCreator___pluginOptions___pathCheck'
+  | 'pluginCreator___nodeAPIs'
+  | 'pluginCreator___browserAPIs'
+  | 'pluginCreator___ssrAPIs'
+  | 'pluginCreator___pluginFilepath'
+  | 'pluginCreator___packageJson___name'
+  | 'pluginCreator___packageJson___description'
+  | 'pluginCreator___packageJson___version'
+  | 'pluginCreator___packageJson___main'
+  | 'pluginCreator___packageJson___author'
+  | 'pluginCreator___packageJson___license'
+  | 'pluginCreator___packageJson___dependencies'
+  | 'pluginCreator___packageJson___dependencies___name'
+  | 'pluginCreator___packageJson___dependencies___version'
+  | 'pluginCreator___packageJson___devDependencies'
+  | 'pluginCreator___packageJson___devDependencies___name'
+  | 'pluginCreator___packageJson___devDependencies___version'
+  | 'pluginCreator___packageJson___peerDependencies'
+  | 'pluginCreator___packageJson___peerDependencies___name'
+  | 'pluginCreator___packageJson___peerDependencies___version'
+  | 'pluginCreator___packageJson___keywords'
+  | 'pluginCreatorId'
+  | 'componentPath';
 
 export type SitePageFilterInput = {
   path?: Maybe<StringQueryOperatorInput>;
@@ -4045,15 +4268,15 @@ export type SitePageFilterInput = {
   internalComponentName?: Maybe<StringQueryOperatorInput>;
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
   context?: Maybe<SitePageContextFilterInput>;
   pluginCreator?: Maybe<SitePluginFilterInput>;
   pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   componentPath?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
 };
 
 export type SitePageGroupConnection = {
@@ -4209,10 +4432,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___ignore'
   | 'pluginOptions___shopName'
   | 'pluginOptions___accessToken'
-  | 'pluginOptions___apiVersion'
-  | 'pluginOptions___verbose'
-  | 'pluginOptions___paginationSize'
-  | 'pluginOptions___includeCollections'
   | 'pluginOptions___pathCheck'
   | 'nodeAPIs'
   | 'browserAPIs'
@@ -4335,19 +4554,7 @@ export type SitePluginPluginOptions = {
   ignore?: Maybe<Array<Maybe<Scalars['String']>>>;
   shopName?: Maybe<Scalars['String']>;
   accessToken?: Maybe<Scalars['String']>;
-  apiVersion?: Maybe<Scalars['Date']>;
-  verbose?: Maybe<Scalars['Boolean']>;
-  paginationSize?: Maybe<Scalars['Int']>;
-  includeCollections?: Maybe<Array<Maybe<Scalars['String']>>>;
   pathCheck?: Maybe<Scalars['Boolean']>;
-};
-
-
-export type SitePluginPluginOptionsApiVersionArgs = {
-  formatString?: Maybe<Scalars['String']>;
-  fromNow?: Maybe<Scalars['Boolean']>;
-  difference?: Maybe<Scalars['String']>;
-  locale?: Maybe<Scalars['String']>;
 };
 
 export type SitePluginPluginOptionsFilterInput = {
@@ -4357,10 +4564,6 @@ export type SitePluginPluginOptionsFilterInput = {
   ignore?: Maybe<StringQueryOperatorInput>;
   shopName?: Maybe<StringQueryOperatorInput>;
   accessToken?: Maybe<StringQueryOperatorInput>;
-  apiVersion?: Maybe<DateQueryOperatorInput>;
-  verbose?: Maybe<BooleanQueryOperatorInput>;
-  paginationSize?: Maybe<IntQueryOperatorInput>;
-  includeCollections?: Maybe<StringQueryOperatorInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
 };
 
@@ -4396,28 +4599,3 @@ export type StringQueryOperatorInput = {
   regex?: Maybe<Scalars['String']>;
   glob?: Maybe<Scalars['String']>;
 };
-
-export type ProductPageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ProductPageQuery = { allShopifyProduct: { nodes: Array<(
-      Pick<ShopifyProduct, 'title' | 'handle' | 'id' | 'productType' | 'descriptionHtml'>
-      & { images?: Maybe<Array<Maybe<(
-        Pick<ShopifyProductImages, 'altText'>
-        & { localFile?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'srcWebp' | 'src'>> }> }> }
-      )>>>, options?: Maybe<Array<Maybe<Pick<ShopifyProductOption, 'values' | 'name'>>>>, variants?: Maybe<Array<Maybe<Pick<ShopifyProductVariant, 'id' | 'price' | 'sku'>>>> }
-    )> } };
-
-export type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type HomePageQuery = { shopifyCollection?: Maybe<(
-    Pick<ShopifyCollection, 'title'>
-    & { products?: Maybe<Array<Maybe<(
-      Pick<ShopifyProduct, 'title' | 'handle'>
-      & { images?: Maybe<Array<Maybe<(
-        Pick<ShopifyProductImages, 'altText'>
-        & { localFile?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'srcWebp' | 'src'>> }> }> }
-      )>>> }
-    )>>> }
-  )>, allShopifyProduct: { nodes: Array<Pick<ShopifyProduct, 'productType'>> } };

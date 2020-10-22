@@ -4,7 +4,7 @@ import { baseLayoutProps } from './baseLayoutProps'
 
 export const HomePageLayout = ({ ...props }: GridProps) => (
   <Grid
-    gridTemplateRows={'530px auto 200px 1fr 300px'}
+    gridTemplateRows={'repeat(3, 175px) auto 200px 200px auto 200px'}
     {...baseLayoutProps}
     {...props}
   />
