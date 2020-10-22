@@ -2,15 +2,12 @@ import { useStaticQuery } from 'gatsby'
 import { useMemo } from 'react'
 import {
   ShirtImageProps,
-  ShirtInlineListProps
-} from '../../components/InlineShirtList'
+  ShirtGridProps
+} from '../../features/catalog/components/ShirtGrid'
 import { HomePageQuery } from '../../../graphql-types'
 
 export const useHomePageData = () => {
-  const {
-    allShopifyProduct,
-    shopifyCollection
-  }: HomePageQuery = useStaticQuery(graphql`
+  const { shopifyCollection }: HomePageQuery = useStaticQuery(graphql`
     query HomePage {
       shopifyCollection(title: { eq: "Home" }) {
         title
@@ -36,20 +33,15 @@ export const useHomePageData = () => {
           }
         }
       }
-      allShopifyProduct {
-        nodes {
-          productType
-        }
-      }
     }
   `)
 
-  const shirtList: ShirtInlineListProps['shirts'] = useMemo(() => {
+  const shirtList: ShirtGridProps['shirts'] = useMemo(() => {
     if (!shopifyCollection?.products) {
       return []
     }
 
-    const shirts: ShirtInlineListProps['shirts'] = shopifyCollection.products.map(
+    const shirts: ShirtGridProps['shirts'] = shopifyCollection.products.map(
       (shirt) => {
         if (!shirt) {
           throw new Error('One or more shirts are undefined.')
@@ -104,20 +96,7 @@ export const useHomePageData = () => {
     return shirts
   }, [])
 
-  const categoryList = useMemo(() => {
-    const categories = allShopifyProduct.nodes.map(({ productType }) => {
-      if (!productType) {
-        throw new Error(`One or more category is not valid.`)
-      }
-
-      return productType
-    })
-
-    return [...new Set(categories)]
-  }, [])
-
   return {
-    shirtList,
-    categoryList
+    shirtList
   }
 }
