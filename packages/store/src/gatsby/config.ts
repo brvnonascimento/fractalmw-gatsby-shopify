@@ -43,14 +43,14 @@ const config: GatsbyConfig = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `pages`,
-        path: path.join(__dirname, `src/pages/`)
+        path: path.resolve(__dirname, `../pages/`)
       }
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `data`,
-        path: path.join(__dirname, `src/data/`),
+        path: path.resolve(__dirname, `../data/`),
         ignore: [`**/\.*`] // ignore files starting with a dot
       }
     },
