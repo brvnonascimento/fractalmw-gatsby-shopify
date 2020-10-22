@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "shared/*"
   ],
   "dependencies": {
+    "@apollo/client": "^3.2.4",
     "@yarnpkg/pnpify": "^2.2.1",
     "concurrently": "^5.3.0",
     "dotenv": "^8.2.0",
