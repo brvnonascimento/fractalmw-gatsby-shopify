@@ -14,7 +14,7 @@
         "forceConsistentCasingInFileNames": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "strict": true,
+        "strict": true
     },
     "exclude": [
         "node_modules"

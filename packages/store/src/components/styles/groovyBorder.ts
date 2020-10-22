@@ -1,8 +1,7 @@
 export const groovyBorder = {
-  borderRadius: '10px',
   border: '1px',
   borderStyle: 'groove',
-  borderWidth: '2px',
+  borderWidth: '1px',
   borderColor: 'rgba(0, 0, 0, 0.5)',
-  boxShadow: '6px 4px 0px rgba(240, 52, 52, 0.4)'
-}
+  boxShadow: '6px 4px 0px rgba(118, 177, 196, 0.4)'
+} as const
