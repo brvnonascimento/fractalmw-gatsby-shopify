@@ -1,8 +1,7 @@
 import React, { memo } from 'react'
-import { Link } from 'gatsby'
-import { BoxProps, Breadcrumb, BreadcrumbItem } from '@chakra-ui/core'
+import { BoxProps, Breadcrumb, BreadcrumbItem, Link, Text } from '@chakra-ui/core'
 import { groovyBorder } from './styles/groovyBorder'
-import styled from '@emotion/styled'
+import GatsbyLink from 'gatsby-link'
 
 interface PaginationNav extends BoxProps {
   lastPage: number
@@ -22,17 +21,24 @@ export const PaginationNav = memo(({ lastPage, ...props }: PaginationNav) => {
       {...props}
     >
       {pages.map((page) => (
-        <BreadcrumbItem
+        <Link
+          as={GatsbyLink as any}
+          {...{ to: `/camisetas/${page}` }}
           key={page}
-          rounded={'lg'}
-          border={'1px'}
-          width={'30px'}
-          height={'30px'}
-          mx={'5px'}
-          pl={'7px'}
+          title={`Ir para página ${page}`}
         >
-          <Link to={`/camisetas/${page}`}>{page}</Link>
-        </BreadcrumbItem>
+          <BreadcrumbItem
+            rounded={'lg'}
+            border={'1px'}
+            width={'30px'}
+            height={'30px'}
+            mx={'5px'}
+            pl={'7px'}
+            color={'black'}
+          >
+            <Text as='span'>{page}</Text>
+          </BreadcrumbItem>
+        </Link>
       ))}
     </Breadcrumb>
   )
