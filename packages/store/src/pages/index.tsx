@@ -71,7 +71,7 @@ export default () => {
       >
         <Heading>Categorias</Heading>
         <InlineCategoryList categories={categories} />
-        <Grid as="section" zIndex={2} role={'listbox'} marginTop={'30px'}>
+        <Grid as="section" zIndex={2} marginTop={'30px'}>
           <Heading>Destaques</Heading>
           <ShirtGrid shirts={shirtList} isInline />
         </Grid>
