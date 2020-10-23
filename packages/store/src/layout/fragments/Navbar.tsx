@@ -47,7 +47,7 @@ export const Navbar = ({
   return (
     <>
       <Link as={GatsbyLink as any} {...{ to: '/' }}>
-        <Image role="logo" src={'/logo.png'} width="72px" {...logoStyle} />
+        <Image role="logo" alt='Fractal Music Wear Logo' src={'/logo.png'} width="72px" height='72px' {...logoStyle} />
       </Link>
 
       <NavLinks
