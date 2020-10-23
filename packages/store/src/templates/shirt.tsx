@@ -19,7 +19,11 @@ import { BuyForm, BuyFormFieldsProps } from '../features/buy/components/BuyForm'
 import { ShirtImage } from '../components/ShirtImage'
 import { CartDrawer } from '../features/cart/components/CartDrawer'
 import { Table } from '../components/Table'
-import { useAddItemToCart, useCheckoutUrl, useRemoveItemFromCart } from 'gatsby-theme-shopify-manager'
+import {
+  useAddItemToCart,
+  useCheckoutUrl,
+  useRemoveItemFromCart
+} from 'gatsby-theme-shopify-manager'
 import { useShopifyCartItems } from '../features/cart/hooks/useShopifyCart'
 import { SEO } from '../components/SEO'
 
@@ -88,7 +92,10 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         title={`${title} - Fractal Music Wear`}
         metaDescription={description}
         image={images[0].src}
-        keywords={`${title.replace(' ', ',')}, ${description.replace(' ', ',')}`}
+        keywords={`${title.replace(' ', ',')}, ${description.replace(
+          ' ',
+          ','
+        )}`}
       />
       <Header gridArea={'1 / 1 / 3 / 5'} withBackground color={'white'} />
 
@@ -120,7 +127,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           gridArea={{ lg: '2 / 1 / 5 / 1' }}
           marginTop={'10px'}
           width={'95%'}
-          maxWidth={'500px'}
+          alignSelf={'center'}
           maxHeight={'530px'}
           src={images[0].src}
           fallbackSrc={images[0].fallbackSrc}
@@ -128,7 +135,8 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         />
         <Stack
           isInline
-          gridArea={{ lg: '6 / 1' }}
+          gridArea={{ lg: '5 / 1' }}
+          my={'10px'}
           height={'110px'}
           width={'95%'}
           padding={'5px'}
@@ -152,17 +160,9 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           ))}
         </Stack>
 
-        <Text
-          gridColumn={{ lg: '2' }}
-          textAlign={'left'}
-          alignSelf={'center'}
-          paddingRight={'1.5em'}
-        >
-          {description}
-        </Text>
-
         <BuyForm
-          gridColumn={{ xs: '1', lg: '2' }}
+          gridColumn={{ xs: '1' }}
+          gridArea={{lg: '4 / 2 '}}
           colors={colors}
           models={models}
           sizes={sizes}
@@ -183,63 +183,66 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
             }
           }}
         />
+
+        <Text
+          gridArea={{lg: '5 / 2 / 6'}}
+          textAlign={'left'}
+          alignSelf={'center'}
+          paddingRight={'1.5em'}
+          mb='100px'
+        >
+          {description}
+        </Text>
       </Box>
 
-      <Box
-        as="section"
+      <Table
         gridArea={'4 / 2 / 4 / 4'}
         padding={'1em'}
+        title={'Guia de Medidas'}
         {...groovyBorder}
-      >
-        <Heading as="h3" fontSize="1.5rem">
-          Guia de Medidas
-        </Heading>
-        <Divider />
-        <Table
-          mt="0.5em"
-          columns={[
-            {
-              header: 'Tamanho',
-              acessor: 'size'
-            },
-            {
-              header: 'Altura',
-              acessor: 'height'
-            },
-            {
-              header: 'Largura',
-              acessor: 'width'
-            }
-          ]}
-          data={[
-            {
-              size: 'P',
-              height: '70cm',
-              width: '49cm'
-            },
-            {
-              size: 'M',
-              height: '72cm',
-              width: '53cm'
-            },
-            {
-              size: 'G',
-              height: '74cm',
-              width: '54cm'
-            },
-            {
-              size: 'GG',
-              height: '76cm',
-              width: '56cm'
-            },
-            {
-              size: 'XG',
-              height: '80cm',
-              width: '65cm'
-            }
-          ]}
-        />
-      </Box>
+        mt="0.5em"
+        columns={[
+          {
+            header: 'Tamanho',
+            acessor: 'size'
+          },
+          {
+            header: 'Altura',
+            acessor: 'height'
+          },
+          {
+            header: 'Largura',
+            acessor: 'width'
+          }
+        ]}
+        data={[
+          {
+            size: 'P',
+            height: '70cm',
+            width: '49cm'
+          },
+          {
+            size: 'M',
+            height: '72cm',
+            width: '53cm'
+          },
+          {
+            size: 'G',
+            height: '74cm',
+            width: '54cm'
+          },
+          {
+            size: 'GG',
+            height: '76cm',
+            width: '56cm'
+          },
+          {
+            size: 'XG',
+            height: '80cm',
+            width: '65cm'
+          }
+        ]}
+      />
 
       <CartDrawer
         checkoutUrl={checkoutUrl ?? ''}
