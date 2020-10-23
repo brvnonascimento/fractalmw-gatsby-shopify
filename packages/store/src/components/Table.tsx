@@ -1,6 +1,6 @@
 import React, { ReactNode, useMemo } from 'react'
 import styled from '@emotion/styled'
-import { Box, BoxProps } from '@chakra-ui/core'
+import { Box, BoxProps, Divider, Heading } from '@chakra-ui/core'
 
 export interface TableColumn {
   header: ReactNode
@@ -8,11 +8,12 @@ export interface TableColumn {
 }
 
 export interface TableProps extends BoxProps {
+  title: string
   columns: TableColumn[]
   data: any[]
 }
 
-export const Table = ({ columns, data, ...props }: TableProps) => {
+export const Table = ({ columns, title, data, ...props }: TableProps) => {
   const headers = useMemo(() => columns.map(({ header }) => header), [data])
 
   const acessors = useMemo(() => columns.map(({ acessor }) => acessor), [data])
@@ -26,6 +27,12 @@ export const Table = ({ columns, data, ...props }: TableProps) => {
       {...props}
     >
       <tbody>
+        <Box as="th" fontWeight="bold">
+          <Heading as="h3">
+            {title}
+          </Heading>
+        </Box>
+        <Divider />
         <TableRow>
           {headers.map((header, i) => (
             <TableHeader key={i}>{header}</TableHeader>
