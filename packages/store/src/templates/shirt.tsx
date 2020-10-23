@@ -3,6 +3,7 @@ import '../layout/ShirtPageLayout.tsx'
 import {
   Box,
   Divider,
+  Flex,
   Heading,
   Image,
   Stack,
@@ -102,10 +103,12 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
       <Box
         as="main"
         display={'grid'}
+        padding={'10px'}
+        mt={'10px'}
         // gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
         gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
         gridTemplateColumns={{ xs: '1fr', lg: 'repeat(2, 0.5fr)' }}
-        gridTemplateRows={{ lg: '40px 100px 20px auto 150px 150px' }}
+        gridTemplateRows={{ lg: '40px 100px 20px repeat(3, auto)' }}
       >
         <ShirtBreadcrumb
           category={category}
@@ -119,50 +122,66 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           {title}
         </Heading>
 
-        <Heading gridColumn={{ lg: '2' }} fontSize={'lg'}>
+        <Heading
+          gridColumn={{ lg: '2' }}
+          gridRow={{ xs: '4', lg: '3' }}
+          fontSize={'lg'}
+        >
           {numberToBRL(price)}
         </Heading>
 
-        <ShirtImage
-          gridArea={{ lg: '2 / 1 / 5 / 1' }}
-          marginTop={'10px'}
-          width={'95%'}
-          alignSelf={'center'}
-          maxHeight={'530px'}
-          src={images[0].src}
-          fallbackSrc={images[0].fallbackSrc}
-          alt={images[0].alt}
-        />
-        <Stack
-          isInline
-          gridArea={{ lg: '5 / 1' }}
-          my={'10px'}
-          height={'110px'}
-          width={'95%'}
-          padding={'5px'}
-          {...groovyBorder}
+        <Flex
+          direction={'column'}
+          gridArea={{ lg: '2 / 1 / 6' }}
+          justifySelf={'center'}
+          alignContent={'center'}
         >
-          {images.map(({ src, fallbackSrc, alt }, i) => (
-            <Box key={i} as="picture" display={'flex'} alignContent={'center'}>
-              <Image
-                width={'100px'}
-                height={'100px'}
-                padding={'5px'}
-                src={src}
-                fallbackSrc={fallbackSrc}
-                alt={alt}
-              />
+          <ShirtImage
+            marginTop={'10px'}
+            width={'95%'}
+            alignSelf={'center'}
+            maxHeight={'530px'}
+            src={images[0].src}
+            fallbackSrc={images[0].fallbackSrc}
+            alt={images[0].alt}
+          />
+          <Stack
+            isInline
+            alignSelf={'center'}
+            mt={'10px'}
+            height={'110px'}
+            width={'95%'}
+            padding={'5px'}
+            {...groovyBorder}
+          >
+            {images.map(({ src, fallbackSrc, alt }, i) => (
+              <Box
+                key={i}
+                as="picture"
+                display={'flex'}
+                alignContent={'center'}
+              >
+                <Image
+                  width={'100px'}
+                  height={'100px'}
+                  padding={'5px'}
+                  src={src}
+                  fallbackSrc={fallbackSrc}
+                  alt={alt}
+                />
 
-              {i + 1 !== images.length && (
-                <Divider orientation={'vertical'} height={'90px'} />
-              )}
-            </Box>
-          ))}
-        </Stack>
+                {i + 1 !== images.length && (
+                  <Divider orientation={'vertical'} height={'90px'} />
+                )}
+              </Box>
+            ))}
+          </Stack>
+        </Flex>
 
         <BuyForm
           gridColumn={{ xs: '1' }}
-          gridArea={{lg: '4 / 2 '}}
+          gridArea={{ lg: '4 / 2 / 6' }}
+          alignSelf={'end'}
           colors={colors}
           models={models}
           sizes={sizes}
@@ -185,11 +204,9 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         />
 
         <Text
-          gridArea={{lg: '5 / 2 / 6'}}
+          gridArea={{ lg: '6 / 1 / 6 / 3' }}
           textAlign={'left'}
-          alignSelf={'center'}
-          paddingRight={'1.5em'}
-          mb='100px'
+          p={'2em'}
         >
           {description}
         </Text>

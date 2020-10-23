@@ -146,7 +146,7 @@ export const BuyForm = ({
 
           <Button
             type="submit"
-            marginY={'20px'}
+            mt={'15px'}
             alignSelf={'center'}
             justifySelf={'center'}
             width={'100%'}
