@@ -79,7 +79,7 @@ export const Navbar = ({
       />
 
       <SearchBar
-        width={'80%'}
+        width={'100%'}
         handleSearch={(search) => {
           handleSearch(5, search)
         }}

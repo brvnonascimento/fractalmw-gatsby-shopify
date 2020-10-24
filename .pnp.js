@@ -70,7 +70,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lint-staged", "npm:10.3.0"],
             ["ts-jest", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:26.3.0"],
             ["ts-node", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:9.0.0"],
-            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5bf698"]
+            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5bf698"],
+            ["use-intersection", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:0.2.1"]
           ],
           "linkType": "SOFT",
         }]
@@ -4081,7 +4082,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["regenerator-runtime", "npm:0.13.7"],
             ["svg-react-loader", "npm:0.4.6"],
             ["ts-node", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:9.0.0"],
-            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5bf698"]
+            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5bf698"],
+            ["use-intersection", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:0.2.1"]
           ],
           "linkType": "SOFT",
         }]
@@ -15686,7 +15688,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lint-staged", "npm:10.3.0"],
             ["ts-jest", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:26.3.0"],
             ["ts-node", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:9.0.0"],
-            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5bf698"]
+            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5bf698"],
+            ["use-intersection", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:0.2.1"]
           ],
           "linkType": "SOFT",
         }]
@@ -29884,6 +29887,44 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "packagePeers": [
             "@types/react",
+            "react"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["use-intersection", [
+        ["virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:0.2.1", {
+          "packageLocation": "./.yarn/$$virtual/use-intersection-virtual-d06a4a3193/0/cache/use-intersection-npm-0.2.1-c848e0f5bb-81e7e396cb.zip/node_modules/use-intersection/",
+          "packageDependencies": [
+            ["use-intersection", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:0.2.1"],
+            ["@types/react", null],
+            ["@types/react-dom", null],
+            ["react", null],
+            ["react-dom", null],
+            ["shallowequal", "npm:1.1.0"]
+          ],
+          "packagePeers": [
+            "@types/react-dom",
+            "@types/react",
+            "react-dom",
+            "react"
+          ],
+          "linkType": "HARD",
+        }],
+        ["virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:0.2.1", {
+          "packageLocation": "./.yarn/$$virtual/use-intersection-virtual-7de7d79e5c/0/cache/use-intersection-npm-0.2.1-c848e0f5bb-81e7e396cb.zip/node_modules/use-intersection/",
+          "packageDependencies": [
+            ["use-intersection", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:0.2.1"],
+            ["@types/react", "npm:16.9.50"],
+            ["@types/react-dom", "npm:16.9.8"],
+            ["react", "npm:16.13.1"],
+            ["react-dom", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:16.13.1"],
+            ["shallowequal", "npm:1.1.0"]
+          ],
+          "packagePeers": [
+            "@types/react-dom",
+            "@types/react",
+            "react-dom",
             "react"
           ],
           "linkType": "HARD",

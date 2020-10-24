@@ -36,7 +36,8 @@
     "react-helmet": "^6.1.0",
     "regenerator-runtime": "*",
     "svg-react-loader": "^0.4.6",
-    "ts-node": "^9.0.0"
+    "ts-node": "^9.0.0",
+    "use-intersection": "^0.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.3",

@@ -1,17 +1,15 @@
 import React from 'react'
-import '../layout/ShirtPageLayout.tsx'
 import {
   Box,
   Divider,
   Flex,
+  Grid,
   Heading,
   Image,
   Stack,
   Text,
   useDisclosure
 } from '@chakra-ui/core'
-import { ShirtPageLayout } from '../layout/ShirtPageLayout'
-import { Header } from '../layout/fragments/Header'
 import { ShirtBreadcrumb } from '../features/buy/components/ShirtBreadcrumb'
 import { ShirtImageProps } from '../features/catalog/components/ShirtGrid'
 import { numberToBRL } from '../utils/price'
@@ -88,7 +86,13 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
   } = shirt
 
   return (
-    <ShirtPageLayout>
+    <Grid
+      gridTemplateRows={'auto'}
+      gridTemplateColumns={{
+        xs: '10px 0.5fr 0.5fr 10px',
+        lg: '10vw 0.5fr 0.5fr 10vw'
+      }}
+    >
       <SEO
         title={`${title} - Fractal Music Wear`}
         metaDescription={description}
@@ -98,17 +102,15 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           ','
         )}`}
       />
-      <Header gridArea={'1 / 1 / 3 / 5'} withBackground color={'white'} />
 
       <Box
         as="main"
         display={'grid'}
-        padding={'10px'}
         mt={'10px'}
         // gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
         gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
         gridTemplateColumns={{ xs: '1fr', lg: 'repeat(2, 0.5fr)' }}
-        gridTemplateRows={{ lg: '40px 100px 20px repeat(3, auto)' }}
+        gridTemplateRows={{ lg: '40px repeat(4, auto)' }}
       >
         <ShirtBreadcrumb
           category={category}
@@ -185,6 +187,8 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           colors={colors}
           models={models}
           sizes={sizes}
+          justifyContent={'space-between'}
+          height={'90%'}
           onSubmit={async ({
             color,
             model,
@@ -203,11 +207,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           }}
         />
 
-        <Text
-          gridArea={{ lg: '6 / 1 / 6 / 3' }}
-          textAlign={'left'}
-          p={'2em'}
-        >
+        <Text gridArea={{ lg: '6 / 1 / 6 / 3' }} textAlign={'left'} p={'2em'}>
           {description}
         </Text>
       </Box>
@@ -268,6 +268,6 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         isOpen={isOpen}
         onClose={onClose}
       />
-    </ShirtPageLayout>
+    </Grid>
   )
 }

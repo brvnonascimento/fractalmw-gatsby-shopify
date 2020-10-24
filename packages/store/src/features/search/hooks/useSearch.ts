@@ -4,7 +4,7 @@ import { SearchResult } from '../components/SearchBar'
 
 const SEARCH_SHIRT_QUERY = gql`
   query SearchShirtQuery($first: Int!, $query: String) {
-    products(first: $first, query: $query) {
+    products(first: $first, query: $query, sortKey: TITLE) {
       edges {
         node {
           title
@@ -50,8 +50,6 @@ export const useSearch = (): UseSearch => {
       }
     })
   }
-
-  console.log(data)
 
   const searchResults: SearchResult[] = useMemo(
     () =>

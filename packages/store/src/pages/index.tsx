@@ -41,28 +41,7 @@ export default () => {
         image={'/cover.png'}
         keywords="fractal music wear, fractal, fractalmw, piracicaba, camisetas personalizadas, camisetas criativas, estampas, estamparia"
       />
-      <Header gridArea={'1 / 1 / 3 / -1'}>
-        <CompanyHeading
-          name={'Fractal Music Wear'}
-          gridArea={{ xs: '3 / 1 / 3 / -1', md: '3 / 2' }}
-          justifySelf={{ xs: 'center', md: 'start' }}
-          alignSelf={{ xs: 'end' }}
-          textShadow={'1px 1px 5px black'}
-          lineHeight={'1.2em'}
-        />
-        <Text
-          gridArea={{ xs: '4 / 1 / 4 / -1', md: '4 / 2' }}
-          justifySelf={{ xs: 'center', md: 'start' }}
-          alignSelf={'end'}
-          fontWeight={'lighter'}
-          fontSize={'1.2em'}
-          textShadow={'1px 1px 5px black'}
-          lineHeight={'1.05em'}
-        >
-          Estampando a rua desde 2007.
-        </Text>
-      </Header>
-
+      
       <Grid
         as="main"
         gridArea={'3 / 1 / 6 / 1'}

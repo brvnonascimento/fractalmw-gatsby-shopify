@@ -44,12 +44,16 @@ export const CartDrawer = ({
           overflowY={'scroll'}
         >
           <CartItems items={items} onDeleteItem={onDeleteItem} />
-          <Flex bottom={'100px'} width={'100%'} justifyContent={'center'}>
-            <CheckoutButton width={'48%'} checkoutUrl={checkoutUrl}>
-              Finalizar Compra!
-            </CheckoutButton>
-            <Button width={'48%'} ml={'3px'} onClick={onClose}>Continuar Comprando</Button>
-          </Flex>
+          {items.length !== 0 && (
+            <Flex bottom={'100px'} width={'100%'} justifyContent={'center'}>
+              <CheckoutButton width={'48%'} checkoutUrl={checkoutUrl}>
+                Finalizar Compra!
+              </CheckoutButton>
+              <Button width={'48%'} ml={'3px'} onClick={onClose}>
+                Continuar Comprando
+              </Button>
+            </Flex>
+          )}
         </DrawerBody>
       </DrawerContent>
     </Drawer>

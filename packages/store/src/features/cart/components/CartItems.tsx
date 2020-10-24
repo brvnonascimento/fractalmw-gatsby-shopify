@@ -37,7 +37,8 @@ export const CartItems = ({
             justifyContent={'space-around'}
           >
             <ShirtImage
-              width={'30%'}
+              height={'140px'}
+              width={'180px'}
               src={image.src}
               fallbackSrc={image.fallbackSrc}
               alt={image.alt}
@@ -56,24 +57,26 @@ export const CartItems = ({
                 {quantity}
               </Text>
             </Flex>
-            {!isDeletingItem ? (
-              <IconButton
-                onClick={async () => {
-                  setIsDeletingItem(true)
-                  await onDeleteItem(id)
-                  setIsDeletingItem(false)
-                }}
-                width={'10px'}
-                padding={'-10px'}
-                background={'rgba(256, 0, 0, 0.6)'}
-                color={'white'}
-                variantColor="white"
-                aria-label="Excluir item do carrinho"
-                icon="delete"
-              />
-            ) : (
-              <Spinner size='md' mx='10px' color="red.500" />
-            )}
+            <Flex>
+              {!isDeletingItem ? (
+                <IconButton
+                  onClick={async () => {
+                    setIsDeletingItem(true)
+                    await onDeleteItem(id)
+                    setIsDeletingItem(false)
+                  }}
+                  width={'10px'}
+                  padding={'-10px'}
+                  background={'rgba(256, 0, 0, 0.6)'}
+                  color={'white'}
+                  variantColor="white"
+                  aria-label="Excluir item do carrinho"
+                  icon="delete"
+                />
+              ) : (
+                <Spinner size="md" mx="10px" color="red.500" />
+              )}
+            </Flex>
           </Flex>
         ))
       ) : (

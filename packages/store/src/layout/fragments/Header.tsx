@@ -3,6 +3,7 @@ import { Box, BoxProps } from '@chakra-ui/core'
 import { Navbar, NavbarProps } from './Navbar'
 import { useCartCount } from 'gatsby-theme-shopify-manager'
 
+
 interface HeaderProps extends BoxProps {
   withBackground?: boolean
   navbarStyles?: NavbarProps
@@ -31,7 +32,6 @@ export const Header = ({
       alignItems={'center'}
       color={'white'}
       display={'grid'}
-      gridTemplateRows={'100px 50px 110px 50px 160px'}
       gridTemplateColumns={{
         xs: '100px 1fr 100px',
         lg: '100px 0.5fr 0.25fr 0.25fr 100px'

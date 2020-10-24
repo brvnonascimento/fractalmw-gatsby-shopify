@@ -1902,6 +1902,7 @@ __metadata:
     svg-react-loader: ^0.4.6
     ts-node: ^9.0.0
     typescript: ^4.0.2
+    use-intersection: ^0.2.1
   languageName: unknown
   linkType: soft
 
@@ -11636,6 +11637,7 @@ __metadata:
     ts-jest: ^26.3.0
     ts-node: ^9.0.0
     typescript: ^4.0.2
+    use-intersection: ^0.2.1
   languageName: unknown
   linkType: soft
 
@@ -24244,6 +24246,18 @@ typescript@^4.0.2:
   peerDependencies:
     react: ^16.8.0
   checksum: ea12e45eee0025461fcb5f356f0ce46ef668364a10eeca9105a09326c72c943ca849d3a552b81468f4daeafca1a36d12c2813bef9f9d4ee6cc66de3f724d04c3
+  languageName: node
+  linkType: hard
+
+"use-intersection@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "use-intersection@npm:0.2.1"
+  dependencies:
+    shallowequal: ^1.1.0
+  peerDependencies:
+    react: ^16.8.0
+    react-dom: ^16.8.0
+  checksum: 81e7e396cbd759b78824ea3bbcda83124ed4e206c010e8fc9ff16c331ba92650d019f47264fe55d77ecdae16a6c6f4f8884dea8c1973eafe275183bb2cb2a012
   languageName: node
   linkType: hard
 
