@@ -1,10 +1,15 @@
 import { gql, useLazyQuery } from '@apollo/client'
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 
 const SHIRT_QUERY = gql`
   query shirts($first: Int!, $after: String, $query: String) {
     products(first: $first, after: $after, query: $query) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
       edges {
+        cursor
         node {
           title
           handle
@@ -42,15 +47,17 @@ export interface ShirtResult {
 }
 
 export type UseLazyShirtsCatalog = [
-  (props: HandleFetchShirtsProps) => void,
+  (props: ShirtQuery) => void,
   {
+    fetchNextPage: () => void
+    hasMoreShirts: boolean
     loading: boolean
     shirts: ShirtResult[]
     error: any
   }
 ]
 
-export interface HandleFetchShirtsProps {
+export interface ShirtQuery {
   first: number
   after?: string
   query?: string
@@ -58,10 +65,15 @@ export interface HandleFetchShirtsProps {
 }
 
 export const useLazyShirtsCatalog = (): UseLazyShirtsCatalog => {
-  const [fetchShirts, { loading, data, error }] = useLazyQuery(SHIRT_QUERY)
+  const [fetchShirts, { loading, data, error, fetchMore }] = useLazyQuery(
+    SHIRT_QUERY
+  )
+  const products = data ? data.products : undefined
+  const lastProductCursor = useRef(null)
 
-  const handleFetchShirts = (props: HandleFetchShirtsProps) => {
+  const handleFetchShirts = (props: ShirtQuery) => {
     console.log(props)
+
     fetchShirts({
       variables: {
         ...props
@@ -69,27 +81,62 @@ export const useLazyShirtsCatalog = (): UseLazyShirtsCatalog => {
     })
   }
 
+  const fetchNextPage = () => {
+    if (!fetchMore || !products || !hasMoreShirts) {
+      return
+    }
+
+    fetchMore({
+      variables: {
+        after: !lastProductCursor.current
+          ? products.edges[products.edges.length - 1].cursor
+          : lastProductCursor.current
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        console.log(previousResult)
+        const previousProducts = previousResult.products.edges
+        const newProducts = fetchMoreResult.products.edges
+        const pageInfo = fetchMoreResult.products.pageInfo
+        console.log(newProducts)
+        const lastNewProduct = newProducts[newProducts.length - 1]?.cursor
+        lastProductCursor.current = lastNewProduct
+
+        return {
+          products: {
+            __typename: previousResult.products.__typename,
+            edges: [...previousProducts, ...newProducts],
+            pageInfo
+          }
+        }
+      }
+    })
+  }
+
+  const hasMoreShirts = useMemo(() => products?.pageInfo?.hasNextPage, [
+    products
+  ])
+
   const shirts = useMemo(
     () =>
-      data
-        ? data.products.edges.map(
-            ({ node: { title, handle, images } }: any) => {
-              const parsedImages = images.edges.map(({ node }) => node)
+      products
+        ? products.edges.map(({ node: { title, handle, images } }: any) => {
+            const parsedImages = images.edges.map(({ node }) => node)
 
-              return {
-                title,
-                handle,
-                images: parsedImages
-              }
+            return {
+              title,
+              sku: handle,
+              images: parsedImages
             }
-          )
+          })
         : [],
-    [data]
+    [products]
   )
 
   return [
     handleFetchShirts,
     {
+      fetchNextPage,
+      hasMoreShirts,
       loading,
       shirts,
       error

@@ -1898,6 +1898,7 @@ __metadata:
     react-dom: ^16.13.1
     react-helmet: ^6.1.0
     react-test-renderer: ^16.13.1
+    react-use-infinite-loader: ^1.0.0-beta.1
     regenerator-runtime: "*"
     svg-react-loader: ^0.4.6
     ts-node: ^9.0.0
@@ -20421,6 +20422,15 @@ fsevents@^1.2.7:
     react: ">=15.0.0"
     react-dom: ">=15.0.0"
   checksum: eefed08c48a0d377b5fac3ac7fac54ed986d5dcdd4494f36075954c9d2d257072a9d18cc02c6d8e6698034722b1ff9419ad0c24ef068dea742edcff9f8ea4ba9
+  languageName: node
+  linkType: hard
+
+"react-use-infinite-loader@npm:^1.0.0-beta.1":
+  version: 1.0.0-beta.1
+  resolution: "react-use-infinite-loader@npm:1.0.0-beta.1"
+  peerDependencies:
+    react: ">= 16.8.x"
+  checksum: 4a3f6ec450d4d08c183b02863ea6f080b066c077d963ab5ee1147cb40fd54ecc8b969ffa59505555015a8ff71143a23c780980f7f74dec596e9440190ec40b00
   languageName: node
   linkType: hard
 

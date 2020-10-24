@@ -7,7 +7,7 @@ import '../styles/index.css'
 const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   return (
     <Grid
-      gridTemplateRows={'100px 1fr 200px'}
+      gridTemplateRows={{ xs: 'auto auto 1fr 200px', lg: '100px 1fr 200px' }}
       minHeight={'100vh'}
       maxWidth={'100vw'}
       overflowX={'hidden'}

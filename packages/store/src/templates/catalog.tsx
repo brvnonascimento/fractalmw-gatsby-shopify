@@ -1,14 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { SitePageContext } from '../../graphql-types'
 import { groovyBorder } from '../components/styles/groovyBorder'
 import { ShirtGrid } from '../features/catalog/components/ShirtGrid'
 import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
-import { ShirtCatalogLayout } from '../layout/ShirtCatalogLayout'
 import { PaginationNav } from '../components/PaginationNav'
 import { SEO } from '../components/SEO'
 import { useLazyShirtsCatalog } from '../features/catalog/hooks/useLazyShirts'
 import { ShirtMenuBar } from '../features/catalog/components/ShirtMenuBar'
-import { useInfiniteLoading } from '../hooks/useInfiniteLoading'
 import { Grid } from '@chakra-ui/core'
 
 export interface ShirtCatalogProps {
@@ -20,17 +18,10 @@ export default ({ pageContext }: ShirtCatalogProps) => {
   const categories = useStaticCategories()
   const [
     handleFetchShirts,
-    { shirts: lazyShirts, loading, fetchNextPage }
+    { shirts: lazyShirts, hasMoreShirts, loading, fetchNextPage }
   ] = useLazyShirtsCatalog()
 
-  const lastShirtOnList = useRef<Element>(null)
   const [isInfiniteLoading, setIsInfiniteLoading] = useState(false)
-  useInfiniteLoading(lastShirtOnList, () => {
-    if (isInfiniteLoading) {
-      console.log('FETCHING DATA!!!!')
-      fetchNextPage()
-    }
-  })
 
   const getNextPage = () => {
     if (currentPage === lastPage) {
@@ -41,10 +32,7 @@ export default ({ pageContext }: ShirtCatalogProps) => {
   }
 
   return (
-    <Grid
-      gridTemplateRows={'auto'}
-      gridTemplateColumns={'5% 1fr 5%'}
-    >
+    <Grid gridTemplateRows={'auto'} gridTemplateColumns={{lg: '5% 1fr 5%'}}>
       <SEO
         title={`Camisetas ${currentPage} de ${lastPage} - Fractal Music Wear`}
         metaDescription={
@@ -73,12 +61,20 @@ export default ({ pageContext }: ShirtCatalogProps) => {
       <ShirtGrid
         as="main"
         loading={loading}
+        isInfiniteLoading={isInfiniteLoading}
+        onInfiniteLoadingTriggered={() => {
+          if(!loading) {
+            console.log('INFINITE LOADING TRIGGERED!!!')
+            fetchNextPage()
+          }
+        }}
         shirtSize={'300px'}
+        hasMoreShirts={hasMoreShirts}
+        minHeight={'700px'}
         shirts={lazyShirts.length !== 0 ? lazyShirts : shirts}
         gridArea={{ xs: '4 / 1 / 6 / 4', lg: '4 / 2 / 6 / 2' }}
         py={'15px'}
         background={'white'}
-        ref={lastShirtOnList}
         {...groovyBorder}
       />
 

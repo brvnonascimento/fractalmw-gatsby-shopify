@@ -12,13 +12,13 @@ import { useQuery, gql } from '@apollo/client'
 
 const GET_PRODUCT = gql`
   query {
-      shop {
-        name
-        primaryDomain {
-          url
-          host
-        }
+    shop {
+      name
+      primaryDomain {
+        url
+        host
       }
+    }
   }
 `
 
@@ -32,7 +32,9 @@ export default () => {
   const categories = useStaticCategories()
 
   return (
-    <HomePageLayout>
+    <Grid
+      gridTemplateRows={'repeat(3, 175px) auto 200px 200px auto 200px'}
+    >
       <SEO
         title={'Camisetas com estampas criativas - Fractal Music Wear'}
         metaDescription={
@@ -41,7 +43,7 @@ export default () => {
         image={'/cover.png'}
         keywords="fractal music wear, fractal, fractalmw, piracicaba, camisetas personalizadas, camisetas criativas, estampas, estamparia"
       />
-      
+
       <Grid
         as="main"
         gridArea={'3 / 1 / 6 / 1'}
@@ -124,6 +126,6 @@ export default () => {
       </Grid>
 
       <Box as="footer"></Box>
-    </HomePageLayout>
+    </Grid>
   )
 }

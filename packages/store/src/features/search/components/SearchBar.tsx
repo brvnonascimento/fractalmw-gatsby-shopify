@@ -26,11 +26,15 @@ export interface SearchResult {
 interface SearchBarProps extends BoxProps {
   searchResults: SearchResult[]
   handleSearch: (search: string) => void
+  loading: boolean
+  error: any
 }
 
 export const SearchBar = ({
   searchResults = [],
   handleSearch,
+  loading, 
+  error,
   ...props
 }: SearchBarProps) => {
   const [search, setSearch] = useState('')

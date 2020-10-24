@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MutableRefObject, ReactNode } from 'react'
 import {
   BoxProps,
   FormLabel,
@@ -9,15 +9,21 @@ import {
 } from '@chakra-ui/core'
 import GatsbyLink from 'gatsby-link'
 import { ShirtImage } from '../../../components/ShirtImage'
+import { InfiniteLoadingSpinner } from '../../../components/InfiniteLoadingSpinner'
 
 export interface ShirtGridProps extends BoxProps {
-  loading?: boolean
   shirts: {
     title: string
     sku: string
     images: ShirtImageProps[]
   }[]
+  onInfiniteLoadingTriggered?: () => void
+  loading?: boolean
+  infiniteLoadingTrigger?: MutableRefObject<ReactNode>
+  isInfiniteLoading?: boolean
+  hasMoreShirts?: boolean
   isInline?: boolean
+  shirtSize: string
 }
 
 export interface ShirtImageProps {
@@ -37,18 +43,21 @@ const inlineStyleProps: BoxProps = {
 export const ShirtGrid = ({
   shirts,
   loading = false,
+  isInfiniteLoading = false,
+  onInfiniteLoadingTriggered = () => {},
   isInline = false,
+  hasMoreShirts,
+  shirtSize = '300px',
   ...props
 }: ShirtGridProps) => (
   <List
     display={'grid'}
     gridTemplateColumns={
       !isInline
-        ? `repeat(auto-fit, minmax(300px, 1fr))`
-        : `repeat(${shirts.length}, 300px)`
+        ? `repeat(auto-fill, minmax(${shirtSize}, 1fr))`
+        : `repeat(${shirts.length}, ${shirtSize})`
     }
-    alignSelf={'center'}
-    gridRowGap={'1em'}
+    justifyItems={'center'}
     paddingBottom={'20px'}
     height={'100%'}
     width={'100%'}
@@ -58,33 +67,40 @@ export const ShirtGrid = ({
     {loading ? (
       <Spinner
         size="xl"
+        gridColumn={'1 / -1'}
         alignSelf={'center'}
         justifySelf={'center'}
       />
     ) : (
       shirts.map(({ images, title, sku }, i) => (
-        <ListItem key={sku} gridColumn={isInline ? `${i + 1}` : undefined}>
+        <ListItem
+          key={sku}
+          gridColumn={isInline ? `${i + 1}` : undefined}
+          mx={'10px'}
+        >
           <Link
             as={GatsbyLink as any}
             {...{ to: `/produto/${sku}` }}
             display={'grid'}
-            gridTemplateColumns={'10% 1fr 10%'}
-            gridTemplateRows={'repeat(8, 0.125fr)'}
+            gridTemplateColumns={'1fr'}
+            gridTemplateRows={'repeat(10, 0.1fr)'}
+            width={shirtSize}
           >
             <ShirtImage
-              role="listitem"
               id={title}
+              justifySelf={'center'}
               gridArea={'1 / 1 / 4 / 3'}
               loading={'lazy'}
-              padding={'10px'}
+              width={shirtSize}
+              height={shirtSize}
+              p={'10px'}
               src={images[0].src}
               fallbackSrc={images[0].fallbackSrc}
               alt={images[0].alt}
-              // height={'310px'}
             />
             <FormLabel
               as="label"
-              gridArea={'7 / 2 / 9 / 2'}
+              gridArea={'8'}
               zIndex={2}
               alignSelf={'center'}
               marginBottom={'2em'}
@@ -103,6 +119,16 @@ export const ShirtGrid = ({
           </Link>
         </ListItem>
       ))
+    )}
+    {(isInfiniteLoading && !loading && hasMoreShirts) && (
+      <InfiniteLoadingSpinner
+        size="xl"
+        gridColumn={'1 / -1'}
+        alignSelf={'end'}
+        justifySelf={'center'}
+        canInfiniteLoad={(isInfiniteLoading && !loading && hasMoreShirts) ?? false}
+        onInfiniteLoadingTriggered={onInfiniteLoadingTriggered}
+      />
     )}
   </List>
 )

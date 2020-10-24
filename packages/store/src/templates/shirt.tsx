@@ -140,8 +140,9 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         >
           <ShirtImage
             marginTop={'10px'}
-            width={'95%'}
             alignSelf={'center'}
+            height={'400px'}
+            width={'400px'}
             maxHeight={'530px'}
             src={images[0].src}
             fallbackSrc={images[0].fallbackSrc}

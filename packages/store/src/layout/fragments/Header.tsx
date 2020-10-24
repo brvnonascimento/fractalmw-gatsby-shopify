@@ -54,7 +54,7 @@ export const Header = ({
         searchBarStyle={{
           width: {
             xs: '100%',
-            lg: '70%'
+            lg: '100%'
           },
           gridArea: {
             xs: '2 / 1 / 2 / 4',

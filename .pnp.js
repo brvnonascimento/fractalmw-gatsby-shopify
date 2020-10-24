@@ -4079,6 +4079,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:16.13.1"],
             ["react-helmet", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:6.1.0"],
             ["react-test-renderer", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:16.13.1"],
+            ["react-use-infinite-loader", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:1.0.0-beta.1"],
             ["regenerator-runtime", "npm:0.13.7"],
             ["svg-react-loader", "npm:0.4.6"],
             ["ts-node", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:9.0.0"],
@@ -25628,6 +25629,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/react-dom",
             "@types/react",
             "react-dom",
+            "react"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["react-use-infinite-loader", [
+        ["virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:1.0.0-beta.1", {
+          "packageLocation": "./.yarn/$$virtual/react-use-infinite-loader-virtual-bc9a4e9a9d/0/cache/react-use-infinite-loader-npm-1.0.0-beta.1-288d54a2e0-4a3f6ec450.zip/node_modules/react-use-infinite-loader/",
+          "packageDependencies": [
+            ["react-use-infinite-loader", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:1.0.0-beta.1"],
+            ["@types/react", "npm:16.9.50"],
+            ["react", "npm:16.13.1"]
+          ],
+          "packagePeers": [
+            "@types/react",
             "react"
           ],
           "linkType": "HARD",

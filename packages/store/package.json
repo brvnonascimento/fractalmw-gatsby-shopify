@@ -34,6 +34,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
+    "react-use-infinite-loader": "^1.0.0-beta.1",
     "regenerator-runtime": "*",
     "svg-react-loader": "^0.4.6",
     "ts-node": "^9.0.0",
