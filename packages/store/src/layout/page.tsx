@@ -2,6 +2,7 @@ import { Grid } from '@chakra-ui/core'
 import { GatsbyBrowser } from 'gatsby'
 import React from 'react'
 import { Header } from './fragments/Header'
+import '../styles/index.css'
 
 const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   return (
