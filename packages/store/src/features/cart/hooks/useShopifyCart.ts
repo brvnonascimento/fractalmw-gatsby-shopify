@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 import { useCartItems } from 'gatsby-theme-shopify-manager'
 import { useMemo } from 'react'
 import { CartItem } from './useCart'
@@ -25,7 +25,10 @@ export const useShopifyCartItems = () => {
             src: variant.image.src,
             fallbackSrc: variant.image.src
           },
-          size: variant.selectedOptions
+          size: variant.selectedOptions.find(({ name }) => name === 'size')
+            .value,
+          model: variant.selectedOptions.find(({ name }) => name === 'model')
+            .value
         }
       }),
     [cartItems]

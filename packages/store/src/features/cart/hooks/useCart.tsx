@@ -21,6 +21,7 @@ export interface CartItem {
   price: number
   color: string
   size: string
+  model: string
 }
 
 export interface UseCartProps {

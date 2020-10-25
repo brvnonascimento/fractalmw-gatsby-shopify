@@ -29,7 +29,7 @@ export const CartItems = ({
   return (
     <Flex direction={'column'} justifyContent={'center'} {...props}>
       {!isItemsEmpty ? (
-        items.map(({ image, title, price, quantity, id }) => (
+        items.map(({ image, title, price, quantity, id, size, model }) => (
           <Flex
             key={id}
             my="10px"
@@ -45,7 +45,7 @@ export const CartItems = ({
             />
             <Flex direction={'column'} width={'70%'} marginLeft={'10px'}>
               <Text fontWeight={'bold'} fontSize={'lg'}>
-                {title}
+                {title}  
               </Text>
               <Text fontWeight={'ligther'} fontSize={'lg'}>
                 {numberToBRL(price * quantity)}
@@ -55,6 +55,18 @@ export const CartItems = ({
                   Quantidade:
                 </Box>
                 {quantity}
+              </Text>
+              <Text>
+                <Box as="b" mr={'4px'}>
+                  Tamanho:
+                </Box>
+                {size.toUpperCase()}
+              </Text>
+              <Text>
+                <Box as="b" mr={'4px'}>
+                  Modelo:
+                </Box>
+                {model}
               </Text>
             </Flex>
             <Flex>

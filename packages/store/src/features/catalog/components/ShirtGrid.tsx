@@ -76,7 +76,6 @@ export const ShirtGrid = ({
         <ListItem
           key={sku}
           gridColumn={isInline ? `${i + 1}` : undefined}
-          mx={'10px'}
         >
           <Link
             as={GatsbyLink as any}
@@ -91,7 +90,7 @@ export const ShirtGrid = ({
               justifySelf={'center'}
               gridArea={'1 / 1 / 4 / 3'}
               loading={'lazy'}
-              width={shirtSize}
+              width={`${parseInt(shirtSize.replace('px', '')) - 20}px`}
               height={shirtSize}
               p={'10px'}
               src={images[0].src}
