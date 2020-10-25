@@ -2,8 +2,20 @@ import { gql, useLazyQuery } from '@apollo/client'
 import { useMemo, useRef } from 'react'
 
 const SHIRT_QUERY = gql`
-  query shirts($first: Int!, $after: String, $query: String) {
-    products(first: $first, after: $after, query: $query) {
+  query shirts(
+    $first: Int!
+    $after: String
+    $query: String
+    $sortBy: ProductSortKeys
+    $reverse: Boolean
+  ) {
+    products(
+      first: $first
+      after: $after
+      query: $query
+      sortKey: $sortBy
+      reverse: $reverse
+    ) {
       pageInfo {
         hasNextPage
         hasPreviousPage
@@ -62,6 +74,7 @@ export interface ShirtQuery {
   after?: string
   query?: string
   sortBy?: string
+  reverse?: boolean
 }
 
 export const useLazyShirtsCatalog = (): UseLazyShirtsCatalog => {

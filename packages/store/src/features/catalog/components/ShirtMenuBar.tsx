@@ -20,7 +20,8 @@ interface ShirtMenuQuery {
   first: number,
   after?: string,
   query?: string,
-  sortBy?: string
+  sortBy?: string,
+  reverse?: boolean
 }
 
 export const ShirtMenuBar = ({ categories, onChangeMenu, ...props }: FilterBarProps) => {
@@ -44,6 +45,16 @@ export const ShirtMenuBar = ({ categories, onChangeMenu, ...props }: FilterBarPr
     setCurrentQuery({
       ...currentQuery,
       query: nonEmptyCategories.join(OR_OPERATOR)
+    })
+
+    isFiltered.current = true
+  }
+
+  const handleShirtSorting = (e: any) => {
+    setCurrentQuery({
+      ...currentQuery,
+      sortBy: 'PRICE',
+      reverse: e === 'DOWN_PRICE'
     })
 
     isFiltered.current = true
@@ -112,9 +123,9 @@ export const ShirtMenuBar = ({ categories, onChangeMenu, ...props }: FilterBarPr
         </MenuButton>
 
         <MenuList>
-          <MenuOptionGroup title="Preço" type="radio">
-            <MenuItemOption value={'up_price'}>Menor preço</MenuItemOption>
-            <MenuItemOption value={'down_price'}>Maior preço</MenuItemOption>
+          <MenuOptionGroup onChange={handleShirtSorting} title="Preço" type="radio">
+            <MenuItemOption value={'UP_PRICE'}>Menor preço</MenuItemOption>
+            <MenuItemOption value={'DOWN_PRICE'}>Maior preço</MenuItemOption>
           </MenuOptionGroup>
         </MenuList>
       </Menu>
