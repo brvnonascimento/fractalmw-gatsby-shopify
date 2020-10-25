@@ -26,13 +26,15 @@ export const Table = ({ columns, title, data, ...props }: TableProps) => {
       width={'100%'}
       {...props}
     >
+      <Box as='thead' borderBottom={'1px'} pb={'1em'} mb={'2em'}>
+        <TableRow>
+          <Box as="th" fontWeight="bold">
+            <Heading as="h3">{title}</Heading>
+          </Box>
+        </TableRow>
+      </Box>
+
       <tbody>
-        <Box as="th" fontWeight="bold">
-          <Heading as="h3">
-            {title}
-          </Heading>
-        </Box>
-        <Divider />
         <TableRow>
           {headers.map((header, i) => (
             <TableHeader key={i}>{header}</TableHeader>
