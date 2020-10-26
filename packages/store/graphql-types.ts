@@ -3944,6 +3944,7 @@ export type SitePageContextShirt = {
   models?: Maybe<Array<Maybe<Scalars['String']>>>;
   colors?: Maybe<Array<Maybe<Scalars['String']>>>;
   images?: Maybe<Array<Maybe<SitePageContextShirtImages>>>;
+  sku?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextShirtFilterInput = {
@@ -3956,6 +3957,7 @@ export type SitePageContextShirtFilterInput = {
   models?: Maybe<StringQueryOperatorInput>;
   colors?: Maybe<StringQueryOperatorInput>;
   images?: Maybe<SitePageContextShirtImagesFilterListInput>;
+  sku?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextShirtImages = {
@@ -4171,6 +4173,7 @@ export type SitePageFieldsEnum =
   | 'context___shirt___images___src'
   | 'context___shirt___images___fallbackSrc'
   | 'context___shirt___images___alt'
+  | 'context___shirt___sku'
   | 'context___shirts'
   | 'context___shirts___title'
   | 'context___shirts___variants'

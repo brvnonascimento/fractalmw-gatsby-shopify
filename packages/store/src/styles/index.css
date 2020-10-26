@@ -1,5 +1,5 @@
 
-div {
+div[class^='css'] > div {
   -webkit-animation: fadein 300ms ease;
   /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 300ms ease;

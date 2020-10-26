@@ -1,6 +1,6 @@
-//@ts-nocheck
 import { GatsbyNode } from 'gatsby'
 import path from 'path'
+import slugify from 'slugify'
 // import { ProductPageQuery } from '../../graphql-types'
 import { ShirtTemplate } from '../templates/shirt'
 
@@ -9,7 +9,9 @@ interface ProductPageResult {
   errors?: any
 }
 
-const missingParamError = (shirtId: string, param: string) => {
+//TODO: REFACTOR THE SHIT OUT OF THIS
+
+const missingParamError = (shirtId: string, param: string | number) => {
   throw new Error(
     `Shirt with id ${shirtId} does not contain a valid ${param} parameter.`
   )
@@ -63,8 +65,71 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
     console.log(errors)
     throw new Error(errors)
   }
+
   const shirts = data.allShopifyProduct.nodes
 
+  const paginateAllShirts = (
+    pageProps: any,
+    currentPageIndex: number,
+    lastPage: number
+  ) => {
+    actions.createPage({
+      path: `/camisetas/${currentPageIndex}`,
+      component: path.resolve(__dirname, '../templates/catalog.tsx'),
+      context: {
+        shirts: pageProps,
+        currentPage: currentPageIndex,
+        lastPage
+      }
+    })
+  }
+
+  const generateEachShirt = (shirt: any) => {
+    actions.createPage({
+      path: `/produto/${shirt.sku}`,
+      component: path.resolve(__dirname, '../templates/shirt.tsx'),
+      context: {
+        shirt
+      }
+    })
+  }
+
+  generateShirts(shirts, generateEachShirt, paginateAllShirts)
+
+  const categories = shirts.map(({ productType }: any) => productType)
+
+  for (const category of categories) {
+    const shirtsByCategory = shirts.filter(
+      ({ productType }: any) => productType === category
+    )
+
+    generateShirts(
+      shirtsByCategory,
+      () => {},
+      (page, currentPageIndex, lastPage) => {
+        actions.createPage({
+          path: `/camisetas/categoria/${slugify(category)}/${currentPageIndex}`,
+          component: path.resolve(__dirname, '../templates/catalog.tsx'),
+          context: {
+            shirts: page,
+            currentPage: currentPageIndex,
+            lastPage
+          }
+        })
+      }
+    )
+  }
+}
+
+const generateShirts = (
+  shirts: any[],
+  callback: (shirtPageProps: any) => void,
+  onPaginateCallback: (
+    catalogoPage: any,
+    currentPageIndex: number,
+    lastPage: number
+  ) => void
+) => {
   let currentPageIndex = 1
   let page = []
   const lastPage = Math.round(shirts.length / 9)
@@ -89,12 +154,12 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
 
     for (const field of requiredFields) {
       if (!shirt[field]) {
-        return missingParamError(shirt.id, field)
+        return missingParamError(shirt.id, field as string)
       }
     }
 
     const getOptionsByName = (name: string) =>
-      shirt.options?.find((option) => {
+      shirt.options?.find((option: any) => {
         if (!option) {
           throw new Error(
             `Shirt with id ${shirt.id} does not contain any option.`
@@ -122,7 +187,7 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
     if (!shirt.images) {
       return missingParamError(id, 'Images')
     }
-    const images: ShirtTemplate['images'] = shirt.images.map((image) => {
+    const images: ShirtTemplate['images'] = shirt.images.map((image: any) => {
       if (!image) {
         return missingParamError(id, 'Image')
       }
@@ -176,32 +241,20 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
       images
     } as ShirtTemplate
 
-    page.push({
+    const shirtPageProps = {
       ...props,
       sku: handle
-    })
+    }
+
+    page.push(shirtPageProps)
 
     if (page.length === 9) {
-      actions.createPage({
-        path: `/camisetas/${currentPageIndex}`,
-        component: path.resolve(__dirname, '../templates/catalog.tsx'),
-        context: {
-          shirts: page,
-          currentPage: currentPageIndex,
-          lastPage
-        }
-      })
+      onPaginateCallback(page, currentPageIndex, lastPage)
       page = []
       currentPageIndex++
     }
 
-    actions.createPage({
-      path: `/produto/${handle}`,
-      component: path.resolve(__dirname, '../templates/shirt.tsx'),
-      context: {
-        shirt: props
-      }
-    })
+    callback(shirtPageProps)
   }
 }
 

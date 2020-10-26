@@ -1900,6 +1900,7 @@ __metadata:
     react-test-renderer: ^16.13.1
     react-use-infinite-loader: ^1.0.0-beta.1
     regenerator-runtime: "*"
+    slugify: ^1.4.5
     svg-react-loader: ^0.4.6
     ts-node: ^9.0.0
     typescript: ^4.0.2
@@ -21908,7 +21909,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"slugify@npm:^1.4.4":
+"slugify@npm:^1.4.4, slugify@npm:^1.4.5":
   version: 1.4.5
   resolution: "slugify@npm:1.4.5"
   checksum: d402a9163144e6e5c904a3409383e0c780422fea93d32c023622cc8eaeab34e2ed0e28c69402704038ef771f6f4bb636619b142db6913165fa9f5328229773da
