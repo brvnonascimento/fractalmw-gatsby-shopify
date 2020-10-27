@@ -53,6 +53,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.11.2"],
             ["@typescript-eslint/eslint-plugin", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:4.2.0"],
             ["@yarnpkg/pnpify", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:2.2.1"],
+            ["add", "npm:2.0.6"],
             ["concurrently", "npm:5.3.0"],
             ["dotenv", "npm:8.2.0"],
             ["env-cmd", "npm:10.1.0"],
@@ -4107,7 +4108,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:9.0.0"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5bf698"],
             ["use-intersection", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:0.2.1"],
-            ["use-onclickoutside", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:0.3.1"]
+            ["use-onclickoutside", "virtual:f1fe6a07e08f4fce41a35bd39d970fd173c7e8cb2e095e53103f95bdde1e10bcadb0b0eccab7a1e47c34f945e14c10cbdd756adab7099d81af2328b4447aa051#npm:0.3.1"],
+            ["xss", "npm:1.0.8"]
           ],
           "linkType": "SOFT",
         }]
@@ -8607,6 +8609,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/acorn-walk-npm-7.2.0-5f8b515308-7b52d5d639.zip/node_modules/acorn-walk/",
           "packageDependencies": [
             ["acorn-walk", "npm:7.2.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["add", [
+        ["npm:2.0.6", {
+          "packageLocation": "./.yarn/cache/add-npm-2.0.6-c96b78d852-8599798e63.zip/node_modules/add/",
+          "packageDependencies": [
+            ["add", "npm:2.0.6"]
           ],
           "linkType": "HARD",
         }]
@@ -15797,6 +15808,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.11.2"],
             ["@typescript-eslint/eslint-plugin", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:4.2.0"],
             ["@yarnpkg/pnpify", "virtual:694bac1ea3e1eb976fe207df7eeb2a98936bb36ae103c63a205b3d051aecccf06ff99653719f1d43ba966f58d130758086ef2edb4b228ebf8a0ef7c7aebcbeb9#npm:2.2.1"],
+            ["add", "npm:2.0.6"],
             ["concurrently", "npm:5.3.0"],
             ["dotenv", "npm:8.2.0"],
             ["env-cmd", "npm:10.1.0"],

@@ -1,8 +1,6 @@
 import React, { memo } from 'react'
 import { BoxProps, Text } from '@chakra-ui/core'
-import DOMPurify from 'dompurify'
-
-const clean = (html: string) => DOMPurify.sanitize(html)
+import xss from 'xss'
 
 interface ShirtDescriptionProps extends BoxProps {
   description: string
@@ -10,6 +8,6 @@ interface ShirtDescriptionProps extends BoxProps {
 
 export const ShirtDescription = memo(
   ({ description, ...props }: ShirtDescriptionProps) => (
-    <Text {...props} dangerouslySetInnerHTML={{ __html: clean(description) }} />
+    <Text {...props} dangerouslySetInnerHTML={{ __html:  xss(description) }} />
   )
 )

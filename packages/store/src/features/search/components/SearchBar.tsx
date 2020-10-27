@@ -8,6 +8,7 @@ import {
   Image,
   Input,
   InputLeftElement,
+  Spinner,
   Text
 } from '@chakra-ui/core'
 import { groovyBorder } from '../../../components/styles/groovyBorder'
@@ -83,6 +84,9 @@ export const SearchBar = ({
         onFocus={() => setIsSearchBoxOpen(true)}
         {...groovyBorder}
       />
+      {
+        loading && <Spinner />
+      }
       {isSearching && isSearchBoxOpen && (
         <Flex
           width={'100%'}

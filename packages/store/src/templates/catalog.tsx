@@ -60,6 +60,10 @@ export default ({ pageContext }: ShirtCatalogProps) => {
 
       <ShirtGrid
         as="main"
+        shirtProps={{
+          htmlHeight: '300px',
+          htmlWidth: '300px'
+        }}
         loading={loading}
         isInfiniteLoading={isInfiniteLoading}
         onInfiniteLoadingTriggered={() => {
