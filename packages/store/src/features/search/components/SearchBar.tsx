@@ -62,6 +62,7 @@ export const SearchBar = ({
       position={'relative'}
       display={'flex'}
       alignItems={'center'}
+      ref={ref}
       {...props}
     >
       <InputLeftElement
@@ -84,6 +85,7 @@ export const SearchBar = ({
       {isSearching && isSearchBoxOpen && (
         <Flex
           width={'100%'}
+          minHeight={'300px'}
           height={'auto'}
           flexDirection={'column'}
           position={'absolute'}
