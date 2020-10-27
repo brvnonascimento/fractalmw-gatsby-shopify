@@ -8,10 +8,6 @@ interface ShirtDescriptionProps extends BoxProps {
 
 export const ShirtDescription = memo(
   ({ description, ...props }: ShirtDescriptionProps) => (
-<<<<<<< HEAD
     <Text {...props} dangerouslySetInnerHTML={{ __html:  xss(description) }} />
-=======
-    <Text {...props} dangerouslySetInnerHTML={{ __html:  DOMPurify.sanitize(description) }} />
->>>>>>> 781ff58560046ec9f6eeeb2782360ab1376ea201
   )
 )
