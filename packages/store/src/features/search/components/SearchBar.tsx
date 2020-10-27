@@ -80,6 +80,7 @@ export const SearchBar = ({
         onChange={({ target }: React.ChangeEvent<HTMLInputElement>) =>
           setSearch(target.value)
         }
+        onFocus={() => setIsSearchBoxOpen(true)}
         {...groovyBorder}
       />
       {isSearching && isSearchBoxOpen && (
