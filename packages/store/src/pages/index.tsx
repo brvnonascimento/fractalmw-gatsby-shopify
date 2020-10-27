@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react'
-import { Header } from '../layout/fragments/Header'
-import { Box, Grid, Heading, Image, Text } from '@chakra-ui/core'
-import { CompanyHeading } from '../components/CompanyHeading'
-import { HomePageLayout } from '../layout/HomePageLayout'
+import { Box, Grid, Heading, Image } from '@chakra-ui/core'
 import { useHomePageData } from '../hooks/home/useHomePageData'
 import { InlineCategoryList } from '../features/catalog/components/InlineCategoryList'
 import { ShirtGrid } from '../features/catalog/components/ShirtGrid'
@@ -32,9 +29,7 @@ export default () => {
   const categories = useStaticCategories()
 
   return (
-    <Grid
-      gridTemplateRows={'repeat(3, 175px) auto 200px 200px auto 200px'}
-    >
+    <Grid gridTemplateRows={'repeat(3, 175px) auto 200px 200px auto 200px'}>
       <SEO
         title={'Camisetas com estampas criativas - Fractal Music Wear'}
         metaDescription={
@@ -54,7 +49,14 @@ export default () => {
         <InlineCategoryList categories={categories} />
         <Grid as="section" zIndex={2} marginTop={'30px'}>
           <Heading>Destaques</Heading>
-          <ShirtGrid shirts={shirtList} isInline />
+          <ShirtGrid
+            shirtSize={'280px'}
+            shirtProps={{
+              htmlHeight: '280',
+              htmlWidth: '280',
+            }}
+            shirts={shirtList}
+          />
         </Grid>
       </Grid>
 

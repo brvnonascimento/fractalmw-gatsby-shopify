@@ -27,7 +27,7 @@ export const NavLinks = ({ children, links, ...props }: NavLinksProps) => (
     }}
     borderRadius={'10px'}
     background={{
-      xs: 'rgba(73,79,94,1)',
+      xs: 'rgba(0, 0, 0.5)',
       lg: 'transparent'
     }}
     backgroundImage={{

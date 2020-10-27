@@ -1846,6 +1846,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/eslintrc@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@eslint/eslintrc@npm:0.2.1"
+  dependencies:
+    ajv: ^6.12.4
+    debug: ^4.1.1
+    espree: ^7.3.0
+    globals: ^12.1.0
+    ignore: ^4.0.6
+    import-fresh: ^3.2.1
+    js-yaml: ^3.13.1
+    lodash: ^4.17.19
+    minimatch: ^3.0.4
+    strip-json-comments: ^3.1.1
+  checksum: 99310cddf0f1abb2de4b5278293db6e2639445aab4e525f3c5f5b3b8ad53a59d6003a306954fb7ad15edd2f8a02b658d43418fa8b52ae2d07e074b24d991de2a
+  languageName: node
+  linkType: hard
+
 "@fractalmw/store@workspace:packages/store":
   version: 0.0.0-use.local
   resolution: "@fractalmw/store@workspace:packages/store"
@@ -1860,6 +1878,7 @@ __metadata:
     "@graphql-codegen/cli": ^1.18.0
     "@graphql-codegen/typescript-operations": ^1.17.8
     "@testing-library/react-hooks": ^3.4.2
+    "@types/dompurify": ^2.0.4
     "@types/jest": ^26.0.13
     "@types/node": ^14.11.8
     "@types/react": ^16.9.49
@@ -1868,9 +1887,12 @@ __metadata:
     "@types/testing-library__react-hooks": ^3.4.1
     babel-jest: ^26.5.2
     babel-preset-gatsby: ^0.5.14
+    dompurify: ^2.2.0
     dotenv: ^8.2.0
     emotion-theming: ^10.0.27
     env-cmd: ^10.1.0
+    eslint: ^7.12.1
+    eslint-plugin-jam3: ^0.2.3
     formik: ^2.2.0
     gatsby: ^2.24.65
     gatsby-cli: ^2.12.100
@@ -1905,6 +1927,7 @@ __metadata:
     ts-node: ^9.0.0
     typescript: ^4.0.2
     use-intersection: ^0.2.1
+    use-onclickoutside: ^0.3.1
   languageName: unknown
   linkType: soft
 
@@ -4305,6 +4328,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dompurify@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@types/dompurify@npm:2.0.4"
+  dependencies:
+    "@types/trusted-types": "*"
+  checksum: a2500864c39b9b6f0fa624e5971c6dddb32437d4c7dbea743aa310adb768bbb7b6406c05be6bf38591cf5f9c4fb1964ec6681d3a3de6b8c67b7d83e808bcdfbf
+  languageName: node
+  linkType: hard
+
 "@types/emscripten@npm:^1.38.0":
   version: 1.39.4
   resolution: "@types/emscripten@npm:1.39.4"
@@ -4732,6 +4764,13 @@ __metadata:
   version: 0.0.33
   resolution: "@types/tmp@npm:0.0.33"
   checksum: 93442cc384e3545e4ba625c74de37fa1011a82a440e6d762875db20977badaba5681ad20e88280727ca94777b37a030a421646ccd9187a39eae582d7012852d0
+  languageName: node
+  linkType: hard
+
+"@types/trusted-types@npm:*":
+  version: 1.0.6
+  resolution: "@types/trusted-types@npm:1.0.6"
+  checksum: a2eb3e307d4fa212888285de782e96bd083dbabb991c3803aed124d50c9637529699299319ec8be301b3c5668067f6ea07785c3c6099f99d92783a3dab48de29
   languageName: node
   linkType: hard
 
@@ -5777,6 +5816,13 @@ __metadata:
   dependencies:
     file-type: ^4.2.0
   checksum: c7cf4e6276d059d8f5ed0646d13af048615f7beea2cd554b652a4dd10793d881291cb869d9964c59b9d5f3fc03a8b5cd234a6c58cd83214acd6d81dd95c6f823
+  languageName: node
+  linkType: hard
+
+"are-passive-events-supported@npm:^1.1.0":
+  version: 1.1.1
+  resolution: "are-passive-events-supported@npm:1.1.1"
+  checksum: 898ce84653a45636848573caf27e3ba4dc776c711ddc8d47ff1b3d121689f97959b363dfd3d4dcfb58b868a2192d9c5c16fff340868f9543ad20a558a6b7e5de
   languageName: node
   linkType: hard
 
@@ -9647,6 +9693,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dompurify@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "dompurify@npm:2.2.0"
+  checksum: 55b2c2aceac535ba772af9affa4ae2a732c387ddd99f6ad9012f091c161e85233d2ecc2b675cf0b95c81b867aaeb7c4594b799e4a14d7208714150cd491ef5e7
+  languageName: node
+  linkType: hard
+
 "domutils@npm:1.5.1":
   version: 1.5.1
   resolution: "domutils@npm:1.5.1"
@@ -10402,6 +10455,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-jam3@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "eslint-plugin-jam3@npm:0.2.3"
+  dependencies:
+    doctrine: ^2.1.0
+    has: ^1.0.3
+    requireindex: ~1.1.0
+  checksum: c1bf8789dcc5bcd49393cbf5d58d1055cb42d1c9ecc2af17cb37529fb936744d8d0090d2adeb5dc36b1f7da57a811974b94dc746887a8884d2e148fe1f7a7165
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-jsx-a11y@npm:^6.3.1":
   version: 6.3.1
   resolution: "eslint-plugin-jsx-a11y@npm:6.3.1"
@@ -10502,6 +10566,16 @@ __metadata:
     esrecurse: ^4.1.0
     estraverse: ^4.1.1
   checksum: 4a0e97979a855d09c4bb3a3f4f945cefaf8f6638a6a8f49472cefb0cf64982ab7ed1683a1e63d20ce1bcb01f94c133dc7a5bdf03b28eb945999f50f08878a2b4
+  languageName: node
+  linkType: hard
+
+"eslint-scope@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "eslint-scope@npm:5.1.1"
+  dependencies:
+    esrecurse: ^4.3.0
+    estraverse: ^4.1.1
+  checksum: 79465cf5082f4216176f6d49c7d088de89ee890f912eb87b831f23ee9a5e17ed0f3f2ab6108fb8fefa0474ba5ebeaa9bdefbe49ba704bd879b73f2445e23ee10
   languageName: node
   linkType: hard
 
@@ -10631,6 +10705,53 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint@npm:^7.12.1":
+  version: 7.12.1
+  resolution: "eslint@npm:7.12.1"
+  dependencies:
+    "@babel/code-frame": ^7.0.0
+    "@eslint/eslintrc": ^0.2.1
+    ajv: ^6.10.0
+    chalk: ^4.0.0
+    cross-spawn: ^7.0.2
+    debug: ^4.0.1
+    doctrine: ^3.0.0
+    enquirer: ^2.3.5
+    eslint-scope: ^5.1.1
+    eslint-utils: ^2.1.0
+    eslint-visitor-keys: ^2.0.0
+    espree: ^7.3.0
+    esquery: ^1.2.0
+    esutils: ^2.0.2
+    file-entry-cache: ^5.0.1
+    functional-red-black-tree: ^1.0.1
+    glob-parent: ^5.0.0
+    globals: ^12.1.0
+    ignore: ^4.0.6
+    import-fresh: ^3.0.0
+    imurmurhash: ^0.1.4
+    is-glob: ^4.0.0
+    js-yaml: ^3.13.1
+    json-stable-stringify-without-jsonify: ^1.0.1
+    levn: ^0.4.1
+    lodash: ^4.17.19
+    minimatch: ^3.0.4
+    natural-compare: ^1.4.0
+    optionator: ^0.9.1
+    progress: ^2.0.0
+    regexpp: ^3.1.0
+    semver: ^7.2.1
+    strip-ansi: ^6.0.0
+    strip-json-comments: ^3.1.0
+    table: ^5.2.3
+    text-table: ^0.2.0
+    v8-compile-cache: ^2.0.3
+  bin:
+    eslint: bin/eslint.js
+  checksum: b3d11ea516d2932db5854ea942a546b711e6ee8735306627042bb9e2539e96844cc62cdb5826039f5d0509202936045c2cd7b84b457004c891a326f8eccae333
+  languageName: node
+  linkType: hard
+
 "espree@npm:^6.1.2":
   version: 6.2.1
   resolution: "espree@npm:6.2.1"
@@ -10672,7 +10793,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esrecurse@npm:^4.1.0":
+"esrecurse@npm:^4.1.0, esrecurse@npm:^4.3.0":
   version: 4.3.0
   resolution: "esrecurse@npm:4.3.0"
   dependencies:
@@ -21076,6 +21197,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"requireindex@npm:~1.1.0":
+  version: 1.1.0
+  resolution: "requireindex@npm:1.1.0"
+  checksum: 571a7c97bc3c881321c757c8a1bee09da41eeefab8294bd7858bc4f108eab73e4ad4ce80f8206e7c20ffa1482eda842f3b3021f28ab543ddfc1756272659c71e
+  languageName: node
+  linkType: hard
+
 "requires-port@npm:^1.0.0":
   version: 1.0.0
   resolution: "requires-port@npm:1.0.0"
@@ -24269,6 +24397,44 @@ typescript@^4.0.2:
     react: ^16.8.0
     react-dom: ^16.8.0
   checksum: 81e7e396cbd759b78824ea3bbcda83124ed4e206c010e8fc9ff16c331ba92650d019f47264fe55d77ecdae16a6c6f4f8884dea8c1973eafe275183bb2cb2a012
+  languageName: node
+  linkType: hard
+
+"use-isomorphic-layout-effect@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "use-isomorphic-layout-effect@npm:1.1.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 4ebf06ca6a28d2d3319c326e9cb239776cd89015b7d3c7b85779b47f957781e67a0ff31eb108941c90e54d25d04ebdd0af55195cc1ec9c8ec286e7ea5fdc296f
+  languageName: node
+  linkType: hard
+
+"use-latest@npm:^1.0.0":
+  version: 1.2.0
+  resolution: "use-latest@npm:1.2.0"
+  dependencies:
+    use-isomorphic-layout-effect: ^1.0.0
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 4d0e0543f16cb64cf0f01c3db22f2fdb67beca1bdd2a14d255300f4f106e9bf960d9b7605641ee7ad5faf5fc64bce721f8686fbb7d6ecf413999ed2b6a17aea5
+  languageName: node
+  linkType: hard
+
+"use-onclickoutside@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "use-onclickoutside@npm:0.3.1"
+  dependencies:
+    are-passive-events-supported: ^1.1.0
+    use-latest: ^1.0.0
+  peerDependencies:
+    react: ^16.8.0-alpha.1
+  checksum: 296f5a8890dbac36e38c43b389f540230a1767a83837ad5c7297464918191d3095c720a89266cbfdba0f2ccdecc612b41fc4550255c89e7df4714f10f49ec565
   languageName: node
   linkType: hard
 

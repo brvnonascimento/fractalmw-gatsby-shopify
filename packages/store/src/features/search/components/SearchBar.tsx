@@ -1,4 +1,4 @@
-import React, { ReactEventHandler, useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Box,
   BoxProps,
@@ -12,6 +12,8 @@ import {
 } from '@chakra-ui/core'
 import { groovyBorder } from '../../../components/styles/groovyBorder'
 import { Link } from 'gatsby'
+import styled from '@emotion/styled'
+import useOnClickOutside from 'use-onclickoutside'
 
 export interface SearchResult {
   title: string
@@ -33,16 +35,20 @@ interface SearchBarProps extends BoxProps {
 export const SearchBar = ({
   searchResults = [],
   handleSearch,
-  loading, 
+  loading,
   error,
   ...props
 }: SearchBarProps) => {
   const [search, setSearch] = useState('')
+  const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false)
+  const ref = useRef(null)
+  useOnClickOutside(ref, () => setIsSearchBoxOpen(false))
 
   const isSearching = search.trim().length !== 0
 
   useEffect(() => {
     if (isSearching) {
+      setIsSearchBoxOpen(true)
       handleSearch(search)
     }
   }, [search])
@@ -75,7 +81,7 @@ export const SearchBar = ({
         }
         {...groovyBorder}
       />
-      {isSearching && (
+      {isSearching && isSearchBoxOpen && (
         <Flex
           width={'100%'}
           height={'auto'}
@@ -87,22 +93,28 @@ export const SearchBar = ({
           {...groovyBorder}
         >
           {searchResults.map(
-            ({ title, image: { alt, src, fallbackSrc }, handle }) => (
-              <Link to={`/produto/${handle}`}>
-                <Flex>
-                  <Image
-                    width={'100px'}
-                    alt={alt}
-                    src={src}
-                    fallbackSrc={fallbackSrc}
-                    mx="10px"
-                  />
-                  <Text fontSize={'bold'} color="black" fontSize={'md'}>
-                    {title}
-                  </Text>
-                  <Divider />
-                </Flex>
-              </Link>
+            ({ title, image: { alt, src, fallbackSrc }, handle }, i) => (
+              <>
+                <StyledLink to={`/produto/${handle}`}>
+                  <Flex>
+                    <Image
+                      width={'100px'}
+                      htmlWidth={'100px'}
+                      alt={alt}
+                      src={src}
+                      fallbackSrc={fallbackSrc}
+                      mx="10px"
+                      {...groovyBorder}
+                    />
+                    <Text fontWeight={'bold'} color="black" fontSize={'sm'}>
+                      {title}
+                    </Text>
+                  </Flex>
+                </StyledLink>
+                {i + 1 !== searchResults.length && (
+                  <Divider borderColor={'black'} />
+                )}
+              </>
             )
           )}
         </Flex>
@@ -110,3 +122,8 @@ export const SearchBar = ({
     </Box>
   )
 }
+
+const StyledLink = styled(Link)`
+  display: flex;
+  margin-bottom: 10px;
+`

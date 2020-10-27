@@ -149,6 +149,7 @@ export const BuyForm = ({
             mt={'15px'}
             alignSelf={'center'}
             justifySelf={'center'}
+            minHeight={'50px'}
             width={'100%'}
             background={'rgba(0, 256, 0, 0.7)'}
             color={'black'}

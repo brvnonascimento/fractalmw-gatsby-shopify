@@ -2,7 +2,7 @@ import React from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 import { BoxProps, Link, List, ListItem } from '@chakra-ui/core'
 import { groovyBorder } from '../../../components/styles/groovyBorder'
-import slugify from 'slugify'
+import { toSlug } from '../../../utils/toSlug'
 
 
 interface InlineCategoryListProps extends BoxProps {
@@ -20,7 +20,7 @@ export const InlineCategoryList = ({ categories, ...props }: InlineCategoryListP
       <ListItem display={'flex'} key={category}>
         <Link
           as={GatsbyLink as any}
-          {...{to: `/camisetas/categoria/${slugify(category)}/1`}}
+          {...{to: `/camisetas/categoria/${toSlug(category)}/1`}}
           background={'rgba(256, 256, 256, 0.8)'}
           fontWeight={'bold'}
           width={'100%'}

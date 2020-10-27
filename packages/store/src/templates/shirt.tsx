@@ -7,7 +7,6 @@ import {
   Heading,
   Image,
   Stack,
-  Text,
   useDisclosure
 } from '@chakra-ui/core'
 import { ShirtBreadcrumb } from '../features/buy/components/ShirtBreadcrumb'
@@ -24,6 +23,7 @@ import {
   useRemoveItemFromCart
 } from 'gatsby-theme-shopify-manager'
 import { useShopifyCartItems } from '../features/cart/hooks/useShopifyCart'
+import { ShirtDescription } from '../features/buy/components/ShirtDescription'
 import { SEO } from '../components/SEO'
 
 export interface ShirtTemplate {
@@ -126,8 +126,9 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
 
         <Heading
           gridColumn={{ lg: '2' }}
-          gridRow={{ xs: '4', lg: '3' }}
+          gridRow={'3'}
           fontSize={'lg'}
+          alignSelf={'center'}
         >
           {numberToBRL(price)}
         </Heading>
@@ -208,9 +209,12 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           }}
         />
 
-        <Text gridArea={{ lg: '6 / 1 / 6 / 3' }} textAlign={'left'} p={'2em'}>
-          {description}
-        </Text>
+        <ShirtDescription
+          description={description}
+          gridArea={{ lg: '6 / 1 / 6 / 3' }}
+          textAlign={'left'}
+          p={'2em'}
+        />
       </Box>
 
       <Table

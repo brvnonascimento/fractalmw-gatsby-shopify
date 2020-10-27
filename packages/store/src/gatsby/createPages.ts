@@ -1,8 +1,8 @@
 import { GatsbyNode } from 'gatsby'
 import path from 'path'
-import slugify from 'slugify'
 // import { ProductPageQuery } from '../../graphql-types'
 import { ShirtTemplate } from '../templates/shirt'
+import { toSlug } from '../utils/toSlug'
 
 interface ProductPageResult {
   data?: any
@@ -108,7 +108,7 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
       () => {},
       (page, currentPageIndex, lastPage) => {
         actions.createPage({
-          path: `/camisetas/categoria/${slugify(category)}/${currentPageIndex}`,
+          path: `/camisetas/categoria/${toSlug(category)}/${currentPageIndex}`,
           component: path.resolve(__dirname, '../templates/catalog.tsx'),
           context: {
             shirts: page,

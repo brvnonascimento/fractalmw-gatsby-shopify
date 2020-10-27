@@ -7,11 +7,13 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Flex
+  Flex,
+  Heading
 } from '@chakra-ui/core'
 import { CartItem } from '../hooks/useCart'
 import { CartItems } from './CartItems'
 import { CheckoutButton } from '../../buy/components/ CheckoutButton'
+import { groovyBorder } from '../../../components/styles/groovyBorder'
 
 interface CartDrawerProps {
   items: CartItem[]
@@ -35,7 +37,9 @@ export const CartDrawer = ({
       <DrawerOverlay />
       <DrawerContent py={'20px'}>
         <DrawerCloseButton />
-        <DrawerHeader as="h3">{header}</DrawerHeader>
+        <DrawerHeader>
+          <Heading>{header}</Heading>
+        </DrawerHeader>
 
         <DrawerBody
           display={'flex'}

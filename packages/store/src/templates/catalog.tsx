@@ -64,13 +64,12 @@ export default ({ pageContext }: ShirtCatalogProps) => {
         isInfiniteLoading={isInfiniteLoading}
         onInfiniteLoadingTriggered={() => {
           if(!loading) {
-            console.log('INFINITE LOADING TRIGGERED!!!')
             fetchNextPage()
           }
         }}
-        shirtSize={'300px'}
         hasMoreShirts={hasMoreShirts}
         minHeight={'700px'}
+        justifyItems={'center'}
         shirts={lazyShirts.length !== 0 ? lazyShirts : shirts}
         gridArea={{ xs: '4 / 1 / 6 / 4', lg: '4 / 2 / 6 / 2' }}
         py={'15px'}

@@ -81,6 +81,7 @@ export const Navbar = ({
       <SearchBar
         width={'100%'}
         loading={loading}
+        my={'10px'}
         error={error}
         handleSearch={(search) => {
           handleSearch(5, search)
