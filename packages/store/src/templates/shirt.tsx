@@ -25,10 +25,12 @@ import {
 import { useShopifyCartItems } from '../features/cart/hooks/useShopifyCart'
 import { ShirtDescription } from '../features/buy/components/ShirtDescription'
 import { SEO } from '../components/SEO'
+import { ProductSEO } from '../features/buy/components/ProductSEO'
 
 export interface ShirtTemplate {
   id: string
   variants: any[]
+  sku: string
   title: string
   category: string
   price: number
@@ -82,6 +84,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
     sizes,
     models,
     colors,
+    sku,
     description
   } = shirt
 
@@ -93,7 +96,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         lg: '10vw 0.5fr 0.5fr 10vw'
       }}
     >
-      <SEO
+      <ProductSEO
         title={`${title} - Fractal Music Wear`}
         metaDescription={description}
         image={images[0].src}
@@ -101,9 +104,16 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           ' ',
           ','
         )}`}
-      >
-        
-      </SEO>
+        product={{
+          brand: 'Fractal Music Wear',
+          description,
+          images: images.map(({fallbackSrc}) => fallbackSrc),
+          sku,
+          price: price.toFixed(2),
+          name: title,
+          url: `https://fractalmw.com.br/produto/${sku}`
+        }}
+      />
 
       <Grid
         as="main"

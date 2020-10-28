@@ -4,6 +4,7 @@ import {
   Box,
   BoxProps,
   Button,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -64,88 +65,90 @@ export const BuyForm = ({
           flexDirection={'column'}
           {...props}
         >
-          <Field
-            name="model"
-            validate={(value: string) => validateFields(value)}
-          >
-            {({ field, form }: any) => (
-              <FormControl isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel htmlFor="model" fontWeight={'bold'}>
-                  Modelo
-                </FormLabel>
-                <Select
-                  display={'flex'}
-                  width={'50%'}
-                  id="model"
-                  {...groovyBorder}
-                >
-                  {models.map((model) => (
-                    <option {...field} key={model}>
-                      {model}
-                    </option>
-                  ))}
-                </Select>
-                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-              </FormControl>
-            )}
-          </Field>
+          <Flex direction="column">
+            <Field
+              name="model"
+              validate={(value: string) => validateFields(value)}
+            >
+              {({ field, form }: any) => (
+                <FormControl isInvalid={form.errors.name && form.touched.name}>
+                  <FormLabel htmlFor="model" fontWeight={'bold'}>
+                    Modelo
+                  </FormLabel>
+                  <Select
+                    display={'flex'}
+                    width={'50%'}
+                    id="model"
+                    {...groovyBorder}
+                  >
+                    {models.map((model) => (
+                      <option {...field} key={model}>
+                        {model}
+                      </option>
+                    ))}
+                  </Select>
+                  <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
 
-          <Field
-            name="size"
-            validate={(value: string) => validateFields(value)}
-          >
-            {({ field, form }: any) => (
-              <FormControl
-                isInvalid={form.errors.size && form.touched.size}
-                display={'flex'}
-                flexDirection={'column'}
-                alignContent={'center'}
-              >
-                <FormLabel htmlFor="size" fontWeight={'bold'}>
-                  Tamanho
-                </FormLabel>
-                <RadioGroup
-                  isInline
-                  spacing={4}
-                  minHeight={'50px'}
-                  p={'10px'}
+            <Field
+              name="size"
+              validate={(value: string) => validateFields(value)}
+            >
+              {({ field, form }: any) => (
+                <FormControl
+                  isInvalid={form.errors.size && form.touched.size}
                   display={'flex'}
-                  alignItems={'center'}
-                  name="size"
-                  onChange={form.handleChange}
-                  {...groovyBorder}
+                  flexDirection={'column'}
+                  alignContent={'center'}
                 >
-                  {sizes.map((size) => (
-                    <Radio {...field} value={size} size="lg" key={size}>
-                      {size?.toLocaleUpperCase()}
-                    </Radio>
-                  ))}
-                </RadioGroup>
-                <FormErrorMessage>{form.errors.size}</FormErrorMessage>
-              </FormControl>
-            )}
-          </Field>
+                  <FormLabel htmlFor="size" fontWeight={'bold'}>
+                    Tamanho
+                  </FormLabel>
+                  <RadioGroup
+                    isInline
+                    spacing={4}
+                    minHeight={'50px'}
+                    p={'10px'}
+                    display={'flex'}
+                    alignItems={'center'}
+                    name="size"
+                    onChange={form.handleChange}
+                    {...groovyBorder}
+                  >
+                    {sizes.map((size) => (
+                      <Radio {...field} value={size} size="lg" key={size}>
+                        {size?.toLocaleUpperCase()}
+                      </Radio>
+                    ))}
+                  </RadioGroup>
+                  <FormErrorMessage>{form.errors.size}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
 
-          <Field
-            name="quantity"
-            validate={(value: string) => parseInt(value) <= 0}
-          >
-            {({ field, form }: any) => (
-              <FormControl
-                isInvalid={form.errors.quantity && form.touched.quantity}
-              >
-                <FormLabel htmlFor="quantity" fontWeight={'bold'}>
-                  Quantidade
-                </FormLabel>
-                <QuantityInput
-                  onChange={(val) => form.setFieldValue(field.name, val)}
-                  height={'60px'}
-                  id={'quantity'}
-                />
-                <FormErrorMessage>{form.errors.quantity}</FormErrorMessage>
-              </FormControl>
-            )}
-          </Field>
+            <Field
+              name="quantity"
+              validate={(value: string) => parseInt(value) <= 0}
+            >
+              {({ field, form }: any) => (
+                <FormControl
+                  isInvalid={form.errors.quantity && form.touched.quantity}
+                >
+                  <FormLabel htmlFor="quantity" fontWeight={'bold'}>
+                    Quantidade
+                  </FormLabel>
+                  <QuantityInput
+                    onChange={(val) => form.setFieldValue(field.name, val)}
+                    height={'60px'}
+                    id={'quantity'}
+                  />
+                  <FormErrorMessage>{form.errors.quantity}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+          </Flex>
 
           <Button
             type="submit"

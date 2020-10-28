@@ -29,9 +29,10 @@ export const ProductSEO = ({
 }: SEOProps) => {
   const richProductSnippet = {
     '@context': 'https://schema.org/',
-    '@type':  'Product',
-    image: images,
+    '@type': 'Product',
+    name,
     description,
+    image: images,
     sku,
     brand: {
       '@type': 'Brand',
@@ -41,9 +42,14 @@ export const ProductSEO = ({
       '@type': 'Offer',
       url,
       price,
-      priceValidUntil: '',
+      priceValidUntil: '2024-11-20',
+      priceCurrency: 'BRL',
       itemCondition: 'https://schema.org/NewCondition',
-      "availability": "https://schema.org/InStock" 
+      availability: 'https://schema.org/InStock'
+    },
+    seller: {
+      '@type': 'Organization',
+      'name': brand
     }
     // review: {
     //   '@type': 'Review',
@@ -99,6 +105,7 @@ export const ProductSEO = ({
         // },
       ]}
     >
+      <script className='structured-data-list' type="application/ld+json">{JSON.stringify(richProductSnippet)}</script>
       {children}
     </Helmet>
   )
