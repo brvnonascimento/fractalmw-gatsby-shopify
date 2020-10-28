@@ -38,7 +38,9 @@ export const CartItems = ({
           >
             <ShirtImage
               height={'140px'}
-              width={'180px'}
+              width={'140px'}
+              htmlHeight={'140'}
+              htmlWidth={'140'}
               src={image.src}
               fallbackSrc={image.fallbackSrc}
               alt={image.alt}

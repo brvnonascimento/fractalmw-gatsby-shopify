@@ -1,30 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Box, Grid, Heading, Image } from '@chakra-ui/core'
 import { useHomePageData } from '../hooks/home/useHomePageData'
 import { InlineCategoryList } from '../features/catalog/components/InlineCategoryList'
 import { ShirtGrid } from '../features/catalog/components/ShirtGrid'
 import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
 import { SEO } from '../components/SEO'
-import { useQuery, gql } from '@apollo/client'
-
-const GET_PRODUCT = gql`
-  query {
-    shop {
-      name
-      primaryDomain {
-        url
-        host
-      }
-    }
-  }
-`
 
 export default () => {
-  const { data, error } = useQuery(GET_PRODUCT)
-  useEffect(() => {
-    console.log('gqlreq', data)
-  }, [data])
-  console.log(error)
   const { shirtList } = useHomePageData()
   const categories = useStaticCategories()
 

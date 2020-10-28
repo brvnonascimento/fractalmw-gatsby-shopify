@@ -31,10 +31,10 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
             localFile {
               childImageSharp {
                 fluid(
-                  maxHeight: 400
-                  maxWidth: 400
-                  jpegQuality: 50
-                  webpQuality: 50
+                  maxHeight: 500
+                  maxWidth: 500
+                  jpegQuality: 80
+                  webpQuality: 80
                 ) {
                   srcWebp
                   src

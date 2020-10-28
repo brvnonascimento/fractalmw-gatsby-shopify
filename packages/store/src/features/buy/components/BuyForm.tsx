@@ -12,6 +12,7 @@ import {
   Select
 } from '@chakra-ui/core'
 import { QuantityInput } from './QuantityInput'
+import { groovyBorder } from '../../../components/styles/groovyBorder'
 
 interface BuyFormProps extends BoxProps {
   onSubmit: (props: any) => void
@@ -72,7 +73,12 @@ export const BuyForm = ({
                 <FormLabel htmlFor="model" fontWeight={'bold'}>
                   Modelo
                 </FormLabel>
-                <Select display={'flex'} width={'50%'} id="model">
+                <Select
+                  display={'flex'}
+                  width={'50%'}
+                  id="model"
+                  {...groovyBorder}
+                >
                   {models.map((model) => (
                     <option {...field} key={model}>
                       {model}
@@ -101,24 +107,21 @@ export const BuyForm = ({
                 <RadioGroup
                   isInline
                   spacing={4}
+                  h={'50px'}
+                  p={'10px'}
                   display={'flex'}
                   alignItems={'center'}
                   name="size"
                   onChange={form.handleChange}
+                  {...groovyBorder}
                 >
                   {sizes.map((size) => (
                     <Radio {...field} value={size} size="lg" key={size}>
                       {size?.toLocaleUpperCase()}
                     </Radio>
                   ))}
-                  <FormErrorMessage
-                    alignSelf={'center'}
-                    marginTop={0}
-                    height={'100%'}
-                  >
-                    {form.errors.size}
-                  </FormErrorMessage>
                 </RadioGroup>
+                <FormErrorMessage>{form.errors.size}</FormErrorMessage>
               </FormControl>
             )}
           </Field>

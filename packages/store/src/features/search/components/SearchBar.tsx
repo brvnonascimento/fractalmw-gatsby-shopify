@@ -84,9 +84,7 @@ export const SearchBar = ({
         onFocus={() => setIsSearchBoxOpen(true)}
         {...groovyBorder}
       />
-      {
-        loading && <Spinner />
-      }
+      {loading && <Spinner />}
       {isSearching && isSearchBoxOpen && (
         <Flex
           width={'100%'}
@@ -102,14 +100,20 @@ export const SearchBar = ({
           {searchResults.map(
             ({ title, image: { alt, src, fallbackSrc }, handle }, i) => (
               <>
-                <StyledLink to={`/produto/${handle}`}>
+                <StyledLink
+                  to={`/produto/${handle}`}
+                  onClick={() => setIsSearchBoxOpen(false)}
+                >
                   <Flex>
                     <Image
                       width={'100px'}
-                      htmlWidth={'100px'}
+                      height={'100px'}
+                      htmlWidth={'100'}
+                      htmlHeight={'100'}
                       alt={alt}
                       src={src}
                       fallbackSrc={fallbackSrc}
+                      alignSelf={'center'}
                       mx="10px"
                       {...groovyBorder}
                     />
@@ -132,5 +136,6 @@ export const SearchBar = ({
 
 const StyledLink = styled(Link)`
   display: flex;
+  margin-top: 10px;
   margin-bottom: 10px;
 `
