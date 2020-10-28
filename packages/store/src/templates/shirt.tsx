@@ -101,9 +101,11 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           ' ',
           ','
         )}`}
-      />
+      >
+        
+      </SEO>
 
-      <Box
+      <Grid
         as="main"
         display={'grid'}
         mt={'10px'}
@@ -111,6 +113,9 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
         gridTemplateColumns={{ xs: '1fr', lg: 'repeat(2, 0.5fr)' }}
         gridTemplateRows={{ lg: '40px repeat(4, auto)' }}
+        columnGap={'15px'}
+        maxWidth={'1030px'}
+        justifySelf={'center'}
       >
         <ShirtBreadcrumb
           category={category}
@@ -142,8 +147,10 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           <ShirtImage
             marginTop={'10px'}
             alignSelf={'center'}
-            height={'400px'}
-            width={'400px'}
+            height={'500px'}
+            width={'500px'}
+            htmlWidth='500'
+            htmlHeight='500'
             maxHeight={'530px'}
             src={images[0].src}
             fallbackSrc={images[0].fallbackSrc}
@@ -154,7 +161,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
             alignSelf={'center'}
             mt={'10px'}
             height={'110px'}
-            width={'95%'}
+            width={'100%'}
             padding={'5px'}
             {...groovyBorder}
           >
@@ -185,12 +192,10 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         <BuyForm
           gridColumn={{ xs: '1' }}
           gridArea={{ lg: '4 / 2 / 6' }}
-          alignSelf={'end'}
           colors={colors}
           models={models}
           sizes={sizes}
           justifyContent={'space-between'}
-          height={'90%'}
           onSubmit={async ({
             color,
             model,
@@ -215,7 +220,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           textAlign={'left'}
           p={'2em'}
         />
-      </Box>
+      </Grid>
 
       <Table
         gridArea={'4 / 2 / 4 / 4'}

@@ -107,7 +107,7 @@ export const BuyForm = ({
                 <RadioGroup
                   isInline
                   spacing={4}
-                  h={'50px'}
+                  minHeight={'50px'}
                   p={'10px'}
                   display={'flex'}
                   alignItems={'center'}

@@ -84,7 +84,6 @@ export const SearchBar = ({
         onFocus={() => setIsSearchBoxOpen(true)}
         {...groovyBorder}
       />
-      {loading && <Spinner />}
       {isSearching && isSearchBoxOpen && (
         <Flex
           width={'100%'}
@@ -95,8 +94,13 @@ export const SearchBar = ({
           zIndex={4}
           background={'white'}
           top={'50px'}
+          {...(loading && {
+            justifyContent: 'center',
+            alignItems: 'center'
+          })}
           {...groovyBorder}
         >
+          {loading && <Spinner size={'lg'} />}
           {searchResults.map(
             ({ title, image: { alt, src, fallbackSrc }, handle }, i) => (
               <>
