@@ -1,17 +1,22 @@
 import React from 'react'
-import { Box, Grid, Heading, Image } from '@chakra-ui/core'
+import { Box, Flex, Grid, Heading, Image } from '@chakra-ui/core'
 import { useHomePageData } from '../hooks/home/useHomePageData'
-import { InlineCategoryList } from '../features/catalog/components/InlineCategoryList'
+import { CategoryList } from '../features/catalog/components/InlineCategoryList'
 import { ShirtGrid } from '../features/catalog/components/ShirtGrid'
 import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
 import { SEO } from '../components/SEO'
+import { FigureOverlayed } from '../components/FigureOverlayed'
 
 export default () => {
   const { shirtList } = useHomePageData()
   const categories = useStaticCategories()
 
   return (
-    <Grid gridTemplateRows={'repeat(3, 175px) auto 200px 200px auto 200px'}>
+    <Grid
+      gridTemplateRows={'500px'}
+      gridTemplateColumns={{ lg: '1fr 400px' }}
+      rowGap={'1em'}
+    >
       <SEO
         title={'Camisetas com estampas criativas - Fractal Music Wear'}
         metaDescription={
@@ -21,97 +26,146 @@ export default () => {
         keywords="fractal music wear, fractal, fractalmw, piracicaba, camisetas personalizadas, camisetas criativas, estampas, estamparia"
       />
 
-      <Grid gridRow={'2 / 3'}>
-
-      </Grid>
-
-      <Grid
-        as="main"
-        gridArea={'3 / 1 / 6 / 1'}
-        gridTemplateRows={'50px auto auto'}
-        paddingX={'20px'}
-      >
-        <Heading>Categorias</Heading>
-        <InlineCategoryList categories={categories} />
-        <Grid as="section" zIndex={2} marginTop={'30px'}>
-          <Heading>Destaques</Heading>
-          <ShirtGrid
-            shirtSize={'280px'}
-            shirtProps={{
-              htmlHeight: '280',
-              htmlWidth: '280',
-            }}
-            shirts={shirtList}
-          />
-        </Grid>
-      </Grid>
-
-      <Heading
-        gridRow={6}
-        size={'2xl'}
-        justifySelf={'center'}
-        alignSelf={'center'}
-        paddingX={'2em'}
-        textAlign={'center'}
-      >
-        Very very large
-        <br /> catchy phrase text.
-      </Heading>
-
       <Grid
         as="section"
-        gridTemplateRows={{ xs: '840px 840px', md: '400px 40px 400px' }}
-        gridTemplateColumns={{ xs: '100vw', md: '50vw 50vw' }}
-        gridRow={7}
+        gridArea={{ lg: '1 / 1 / 3 / 3' }}
+        gridTemplateColumns={{
+          xs: '10px 1fr 1fr 10px',
+          lg: 'auto auto 100px 300px 20px 250px 5%'
+        }}
+        gridTemplateRows={{
+          xs: 'auto',
+          lg: '30px repeat(2, 25px) 1fr 1fr repeat(2, 25px) 30px'
+        }}
+        rowGap={{xs: '1em', lg: 0}}
+        width={'100%'}
+        height={'500px'}
+        background={'rgba(146, 74, 205, 0.95)'}
+        justifySelf={'center'}
+        backgroundImage={`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='white' stroke-width='1' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E")`}
       >
-        <Heading
-          as="h3"
-          gridArea={{ xs: '1 / 1', md: '2 / 1' }}
-          size={'2xl'}
+        <Flex
+          gridArea={{
+            xs: '1 / 2 / -3 / 4',
+            lg: '4 / 1 / 4 / 3',
+            xl: '4 / 1 / 6'
+          }}
+          direction="column"
+          color="white"
           zIndex={2}
-          color={'white'}
+          justifyContent={'center'}
+          textAlign={'center'}
           justifySelf={'center'}
-          alignSelf={'center'}
-          textShadow={'1px 1px 27px black'}
         >
-          Text with overlay.
-        </Heading>
+          <Image
+            src="/branding.svg"
+            alt={'Fractal Music Wear'}
+            alignSelf={'center'}
+            justifySelf={'center'}
+            width={'300px'}
+            py={'1em'}
+          />
+
+          <Heading as="h1">Desde 2007</Heading>
+        </Flex>
+
+        <Box
+          rounded={'100%'}
+          zIndex={3}
+          gridArea={{
+            xs: '2 / 2 / 6 / 4',
+            lg: '5 / 1 / 5 / 3',
+            xl: '4 / 2 / 6'
+          }}
+          alignSelf={'center'}
+          width={'200px'}
+          height={'200px'}
+          justifySelf={'center'}
+          padding={'30px'}
+          display={'flex'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          fontWeight={'500'}
+          color="white"
+          background={'#2e1d3e'}
+          boxShadow={'-6px -6px 0px #a672bc'}
+        >
+          CONHEÇA
+          <br />
+          NOSSA LINHA
+          <br />
+          DE CAMISETAS
+          <br />
+          PSICODÉLICAS
+        </Box>
+
         <Image
-          loading="lazy"
-          gridArea={{ xs: '1 / 1', md: '1 / 1 / -1 / 1' }}
-          src="/test.jpg"
-          width={'100%'}
+          gridArea={{ xs: '1 / 1 / 7 / 3', lg: '2 / 4 / 8' }}
+          src="/banner-image-1.png"
+          zIndex={2}
           height={'100%'}
-          padding={'2em'}
-          alt="Como fazemos nossas estampas."
-          rounded={'3em'}
+          width={'100%'}
+          maxWidth={{xs: '200px',lg: '400px'}}
+          justifySelf={{xs: 'center', lg: 'start'}}
         />
 
-        <Heading
-          as="h3"
-          gridArea={{ xs: '2 / 1', md: '2 / 2' }}
-          size={'2xl'}
-          zIndex={2}
-          color={'white'}
-          justifySelf={'center'}
-          alignSelf={'center'}
-          textShadow={'1px 1px 27px black'}
-        >
-          Text with overlay.
-        </Heading>
         <Image
-          loading={'lazy'}
-          gridArea={{ xs: '2 / 1', md: '1 / 2 / -1 / 2' }}
-          gridColumn={''}
-          src="/lele.jpg"
-          width={'100%'}
+          zIndex={2}
+          src="/banner-image-2.png"
           height={'100%'}
-          padding={'2em'}
-          // height={'220px'}
-          alt="Como fazemos nossas estampas."
-          rounded={'3em'}
+          width={'100%'}
+          maxWidth={{xs: '200px',lg: '250px'}}
+          justifySelf={'start'}
+          gridArea={{ xs: '1 / 3 / 7 / 5', lg: '4 / 6 / 8' }}
+          justifySelf={{xs: 'center', lg: 'start'}}
+        />
+        <Box
+          gridArea={{ xs: '3 / 3 / -1 / -1', lg: '3 / 3 / 7 / 8' }}
+          ml={'22px'}
+          background={'#a26eb6'}
         />
       </Grid>
+
+      <ShirtGrid
+        as="main"
+        title={'Destaques'}
+        shirtSize={'280px'}
+        shirtProps={{
+          htmlHeight: '280',
+          htmlWidth: '280'
+        }}
+        shirts={shirtList}
+        px="1em"
+      />
+
+      <Flex
+        as="aside"
+        direction={'column'}
+        gridColumn={{ lg: '2' }}
+        width={'100%'}
+      >
+        <CategoryList categories={categories} />
+
+        <FigureOverlayed
+          image={{
+            src: '/test.jpg',
+            alt: 'Como fazemos nossas estampas.'
+          }}
+          caption={{
+            children: 'Text with overlay'
+          }}
+        />
+
+        <FigureOverlayed
+          image={{
+            src: '/lele.jpg',
+            alt: 'Como fazemos nossas estampas.'
+          }}
+          caption={{
+            children: 'Text with overlay'
+          }}
+        />
+      </Flex>
 
       <Box as="footer"></Box>
     </Grid>

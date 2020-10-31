@@ -1,5 +1,5 @@
-import { theme } from '@chakra-ui/core'
+import { theme, DefaultTheme } from '@chakra-ui/core'
 
 export default {
   ...theme
-}
+} as DefaultTheme

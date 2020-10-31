@@ -28,8 +28,8 @@ export const CartButton = ({
       justifyContent={'center'}
       alignContent={'center'}
       lineHeight={'16px'}
-      top={'18px'}
-      right={'19px'}
+      top={'12px'}
+      right={'22px'}
       padding={'5px'}
       rounded={'lg'}
     >

@@ -46,7 +46,11 @@ export const Navbar = ({
 
   return (
     <>
-      <Link as={GatsbyLink as any} {...{ to: '/' }} aria-label='Fractal Music Wear' >
+      <Link
+        as={GatsbyLink as any}
+        {...{ to: '/' }}
+        aria-label="Fractal Music Wear"
+      >
         <Image
           role="logo"
           alt="Fractal Music Wear Logo"
