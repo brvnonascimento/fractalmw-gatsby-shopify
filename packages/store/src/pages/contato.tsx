@@ -1,5 +1,6 @@
 import { Box, Divider, Grid, Heading, Text } from '@chakra-ui/core'
 import React from 'react'
+import { HeadingDivider } from '../components/HeadingDivider'
 
 export default () => (
   <Grid
@@ -18,15 +19,8 @@ export default () => (
     >
       CONTATO
     </Heading>
-    <Divider
-      gridArea={'1 / 2 / 1 / -1'}
-      my={0}
-      alignSelf={'center'}
-      opacity={1}
-      borderColor={'black'}
-      background={'black'}
-      borderWidth={'5px'}
-    />
+
+    <HeadingDivider gridArea={'1 / 2 / 1 / -1'} />
 
     <Box
       gridArea={'2 / 1'}
@@ -128,14 +122,6 @@ export default () => (
       CEP 13420-842
     </Text>
 
-    <Divider
-      gridArea={'7 / 1 / 7 / -1'}
-      my={0}
-      alignSelf={'center'}
-      opacity={1}
-      borderColor={'black'}
-      background={'black'}
-      borderWidth={'5px'}
-    />
+    <HeadingDivider gridArea={'7 / 1 / 7 / -1'} />
   </Grid>
 )

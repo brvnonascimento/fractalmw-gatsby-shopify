@@ -62,7 +62,12 @@ export const ShirtGrid = ({
       />
     ) : (
       shirts.map(({ images, title, sku }, i) => (
-        <ListItem key={sku} gridColumn={isInline ? `${i + 1}` : undefined}>
+        <ListItem
+          key={sku}
+          gridColumn={isInline ? `${i + 1}` : undefined}
+          _hover={{ transform: 'scale(1.1)' }}
+          transition={'all .2s ease-in-out'}
+        >
           <Link
             as={GatsbyLink as any}
             {...{ to: `/produto/${sku}` }}

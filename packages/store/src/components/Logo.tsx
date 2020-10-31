@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, BoxProps } from '@chakra-ui/core'
 
-export const Texture = ({...props }: BoxProps) => (
+export const Logo = ({...props }: BoxProps) => (
   <Box
     {...props}
     as="section"

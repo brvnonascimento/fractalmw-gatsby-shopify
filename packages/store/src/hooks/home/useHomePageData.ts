@@ -61,9 +61,9 @@ export const useHomePageData = () => {
           }
 
           if (!image.altText) {
-            throw new Error(
-              `Shirt of id ${shirt.id} contains an image without an alt-text.`
-            )
+            // throw new Error(
+            //   `Shirt of id ${shirt.id} contains an image without an alt-text.`
+            // )
           }
 
           const optimizedImage = image.localFile?.childImageSharp?.fluid

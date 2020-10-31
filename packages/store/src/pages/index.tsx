@@ -21,6 +21,10 @@ export default () => {
         keywords="fractal music wear, fractal, fractalmw, piracicaba, camisetas personalizadas, camisetas criativas, estampas, estamparia"
       />
 
+      <Grid gridRow={'2 / 3'}>
+
+      </Grid>
+
       <Grid
         as="main"
         gridArea={'3 / 1 / 6 / 1'}

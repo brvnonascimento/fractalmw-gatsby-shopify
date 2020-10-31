@@ -46,8 +46,17 @@ export const Navbar = ({
 
   return (
     <>
-      <Link as={GatsbyLink as any} {...{ to: '/' }}>
-        <Image role="logo" alt='Fractal Music Wear Logo' src={'/logo.png'} width="72px" height='72px' {...logoStyle} />
+      <Link as={GatsbyLink as any} {...{ to: '/' }} aria-label='Fractal Music Wear' >
+        <Image
+          role="logo"
+          alt="Fractal Music Wear Logo"
+          src={'/logo.svg'}
+          width="72px"
+          height="72px"
+          htmlHeight="72"
+          htmlWidth="72"
+          {...logoStyle}
+        />
       </Link>
 
       <NavLinks

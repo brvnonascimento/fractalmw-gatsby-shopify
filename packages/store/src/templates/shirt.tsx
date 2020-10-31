@@ -24,7 +24,6 @@ import {
 } from 'gatsby-theme-shopify-manager'
 import { useShopifyCartItems } from '../features/cart/hooks/useShopifyCart'
 import { ShirtDescription } from '../features/buy/components/ShirtDescription'
-import { SEO } from '../components/SEO'
 import { ProductSEO } from '../features/buy/components/ProductSEO'
 
 export interface ShirtTemplate {
@@ -107,7 +106,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         product={{
           brand: 'Fractal Music Wear',
           description,
-          images: images.map(({fallbackSrc}) => fallbackSrc),
+          images: images.map(({ fallbackSrc }) => fallbackSrc),
           sku,
           price: price.toFixed(2),
           name: title,
@@ -118,11 +117,10 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
       <Grid
         as="main"
         display={'grid'}
-        mt={'10px'}
         // gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
         gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
         gridTemplateColumns={{ xs: '1fr', lg: 'repeat(2, 0.5fr)' }}
-        gridTemplateRows={{ lg: '40px repeat(4, auto)' }}
+        gridTemplateRows={{ lg: '70px repeat(4, auto)' }}
         columnGap={'15px'}
         maxWidth={'1030px'}
         justifySelf={'center'}
@@ -133,35 +131,45 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           gridColumn={{ lg: '1 / 3' }}
           background={'white'}
           padding={'5px'}
+          mb={'10px'}
           {...groovyBorder}
         />
-        <Heading as="h1" gridColumn={{ lg: '2' }} marginTop={'4px'}>
-          {title}
-        </Heading>
 
-        <Heading
-          gridColumn={{ lg: '2' }}
-          gridRow={'3'}
-          fontSize={'lg'}
-          alignSelf={'center'}
-        >
-          {numberToBRL(price)}
-        </Heading>
+        <Flex direction="column" >
+          <Heading as="h1" gridColumn={{ lg: '2' }}>
+            {title}
+          </Heading>
+
+          <Heading
+            gridColumn={{ lg: '2' }}
+            gridRow={'3'}
+            fontSize={'lg'}
+            mt={'10px'}
+            background={'red'}
+            color="white"
+            width={'100px'}
+            textAlign={'center'}
+            {...groovyBorder}
+          >
+            {numberToBRL(price)}
+          </Heading>
+        </Flex>
 
         <Flex
           direction={'column'}
           gridArea={{ lg: '2 / 1 / 6' }}
           justifySelf={'center'}
           alignContent={'center'}
+          width={'100%'}
+          maxWidth={'800px'}
         >
           <ShirtImage
             marginTop={'10px'}
             alignSelf={'center'}
-            height={'500px'}
-            width={'500px'}
-            htmlWidth='500'
-            htmlHeight='500'
-            maxHeight={'530px'}
+            height={'auto'}
+            width={'100%'}
+            htmlWidth="500"
+            htmlHeight="600"
             src={images[0].src}
             fallbackSrc={images[0].fallbackSrc}
             alt={images[0].alt}
@@ -206,6 +214,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           models={models}
           sizes={sizes}
           justifyContent={'space-between'}
+          mt={'15px'}
           onSubmit={async ({
             color,
             model,

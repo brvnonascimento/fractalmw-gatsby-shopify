@@ -32,7 +32,12 @@ export default ({ pageContext }: ShirtCatalogProps) => {
   }
 
   return (
-    <Grid gridTemplateRows={'auto'} gridTemplateColumns={{lg: '5% 1fr 5%'}}>
+    <Grid
+      as="main"
+      gridTemplateRows={'auto'}
+      gridTemplateColumns={{ lg: '5% 1fr 5%' }}
+      px={'10px'}
+    >
       <SEO
         title={`Camisetas ${currentPage} de ${lastPage} - Fractal Music Wear`}
         metaDescription={
@@ -49,7 +54,7 @@ export default ({ pageContext }: ShirtCatalogProps) => {
 
       <ShirtMenuBar
         categories={categories as string[]}
-        gridArea={{ xs: '2 / 2 / 4' }}
+        gridArea={{ xs: '2 / 1 / 4 / 4', lg: '2 / 2 / 4' }}
         height={'60px'}
         alignSelf={{ xs: 'end', lg: 'center' }}
         onChangeMenu={(query) => {
@@ -67,7 +72,7 @@ export default ({ pageContext }: ShirtCatalogProps) => {
         loading={loading}
         isInfiniteLoading={isInfiniteLoading}
         onInfiniteLoadingTriggered={() => {
-          if(!loading) {
+          if (!loading) {
             fetchNextPage()
           }
         }}
@@ -85,7 +90,7 @@ export default ({ pageContext }: ShirtCatalogProps) => {
         <PaginationNav
           marginTop={'20px'}
           lastPage={lastPage as number}
-          gridArea={'6 / 2'}
+          gridArea={{xs: '6 / 1 / 6 / 4', lg: '6 / 2'}}
         />
       )}
     </Grid>
