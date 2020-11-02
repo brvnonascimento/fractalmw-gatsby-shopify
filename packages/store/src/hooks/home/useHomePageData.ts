@@ -1,13 +1,28 @@
+// @ts-nocheck
 import { useStaticQuery } from 'gatsby'
 import { useMemo } from 'react'
 import {
   ShirtImageProps,
   ShirtGridProps
 } from '../../features/catalog/components/ShirtGrid'
-import { HomePageQuery } from '../../../graphql-types'
+import { toSlug } from '../../utils/toSlug'
 
 export const useHomePageData = () => {
-  const { shopifyCollection }: HomePageQuery = useStaticQuery(graphql`
+  const {
+    shopifyCollection,
+    file: {
+      childImageSharp: { bannerImage1 }
+    },
+    secondFile: {
+      childImageSharp: { bannerImage2 }
+    },
+    asideImage1: {
+      childImageSharp: { asideImage1 }
+    },
+    asideImage2: {
+      childImageSharp: { asideImage2 }
+    }
+  } = useStaticQuery(graphql`
     query HomePage {
       shopifyCollection(title: { eq: "Home" }) {
         title
@@ -18,18 +33,40 @@ export const useHomePageData = () => {
           images {
             localFile {
               childImageSharp {
-                fluid(
-                  maxHeight: 310
-                  maxWidth: 282
-                  jpegQuality: 50
-                  webpQuality: 50
-                ) {
-                  srcWebp
-                  src
+                fluid(maxHeight: 310, maxWidth: 282) {
+                  ...GatsbyImageSharpFluid
                 }
               }
             }
             altText
+          }
+        }
+      }
+      file(name: { eq: "banner-image-1" }) {
+        childImageSharp {
+          bannerImage1: fluid(webpQuality: 50) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      secondFile: file(name: { eq: "banner-image-2" }) {
+        childImageSharp {
+          bannerImage2: fluid(webpQuality: 50) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      asideImage1: file(name: { eq: "image-aside-1" }) {
+        childImageSharp {
+          asideImage1: fluid(webpQuality: 50) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      asideImage2: file(name: { eq: "image-aside-2" }) {
+        childImageSharp {
+          asideImage2: fluid(webpQuality: 50) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -48,16 +85,20 @@ export const useHomePageData = () => {
         }
 
         if (!shirt?.title || !shirt?.handle) {
-          throw new Error(`Shirt of id ${shirt.id} is not valid.`)
+          throw new Error(`Shirt of id ${shirt.id as string} is not valid.`)
         }
 
         if (!shirt?.images) {
-          throw new Error(`Shirt of id ${shirt.id} does not have any image.`)
+          throw new Error(
+            `Shirt of id ${shirt.id as string} does not have any image.`
+          )
         }
 
         const images: ShirtImageProps[] = shirt.images.map((image) => {
           if (!image) {
-            throw new Error(`Shirt of id ${shirt.id} have an undefined image.`)
+            throw new Error(
+              `Shirt of id ${shirt.id as string} have an undefined image.`
+            )
           }
 
           if (!image.altText) {
@@ -68,26 +109,15 @@ export const useHomePageData = () => {
 
           const optimizedImage = image.localFile?.childImageSharp?.fluid
 
-          if (
-            !optimizedImage ||
-            !optimizedImage.src ||
-            !optimizedImage?.srcWebp
-          ) {
-            throw new Error(
-              `Shirt of id ${shirt.id} does not have an optimized image.`
-            )
-          }
-
           return {
-            src: optimizedImage.src,
-            fallbackSrc: optimizedImage.srcWebp,
+            ...optimizedImage,
             alt: image.altText
           }
         })
 
         return {
           title: shirt.title,
-          sku: shirt.handle,
+          sku: toSlug(shirt.title),
           images
         }
       }
@@ -97,6 +127,8 @@ export const useHomePageData = () => {
   }, [])
 
   return {
-    shirtList
+    shirtList,
+    bannerImages: [bannerImage1, bannerImage2],
+    asideImages: [asideImage1, asideImage2]
   }
 }

@@ -5,7 +5,6 @@ import {
   Flex,
   Grid,
   Heading,
-  Image,
   Stack,
   useDisclosure
 } from '@chakra-ui/core'
@@ -14,7 +13,6 @@ import { ShirtImageProps } from '../features/catalog/components/ShirtGrid'
 import { numberToBRL } from '../utils/price'
 import { groovyBorder } from '../components/styles/groovyBorder'
 import { BuyForm, BuyFormFieldsProps } from '../features/buy/components/BuyForm'
-import { ShirtImage } from '../components/ShirtImage'
 import { CartDrawer } from '../features/cart/components/CartDrawer'
 import { Table } from '../components/Table'
 import {
@@ -25,6 +23,7 @@ import {
 import { useShopifyCartItems } from '../features/cart/hooks/useShopifyCart'
 import { ShirtDescription } from '../features/buy/components/ShirtDescription'
 import { ProductSEO } from '../features/buy/components/ProductSEO'
+import GatsbyImage from 'gatsby-image'
 
 export interface ShirtTemplate {
   id: string
@@ -70,8 +69,6 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
       ({ title }) =>
         title.includes(color) && title.includes(model) && title.includes(size)
     )
-
-    console.log(variant.id)
 
     return variant.id.split(`Shopify__ProductVariant__`)[1]
   }
@@ -162,19 +159,15 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           justifySelf={'center'}
           alignContent={'center'}
           width={'100%'}
+          minWidth={'300px'}
           maxWidth={'800px'}
         >
-          <ShirtImage
-            marginTop={'10px'}
-            alignSelf={'center'}
-            height={'auto'}
-            width={'100%'}
-            htmlWidth="500"
-            htmlHeight="600"
-            src={currentImage.src}
-            fallbackSrc={currentImage.fallbackSrc}
+          <GatsbyImage
+            fluid={currentImage}
             alt={currentImage.alt}
+            imgStyle={{ ...groovyBorder }}
           />
+
           <Stack
             isInline
             alignSelf={'center'}
@@ -184,29 +177,19 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
             padding={'5px'}
             {...groovyBorder}
           >
-            {images.map(({ src, fallbackSrc, alt }, i) => (
-              <Box
-                key={i}
-                as="picture"
-                display={'flex'}
-                cursor={'pointer'}
-                onClick={() => setCurrentImage({ src, fallbackSrc, alt })}
-                alignContent={'center'}
-              >
-                <Image
+            {shirt.images.map((image) => {
+              console.log(image)
+              return (
+                <Box
                   width={'100px'}
-                  height={'100px'}
-                  padding={'5px'}
-                  src={src}
-                  fallbackSrc={fallbackSrc}
-                  alt={alt}
-                />
-
-                {i + 1 !== images.length && (
-                  <Divider orientation={'vertical'} height={'90px'} />
-                )}
-              </Box>
-            ))}
+                  cursor="pointer"
+                  mr={'10px'}
+                  onClick={() => setCurrentImage(image)}
+                >
+                  <GatsbyImage fluid={image} alt={image.alt} />
+                </Box>
+              )
+            })}
           </Stack>
         </Flex>
 
@@ -230,9 +213,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
                 quantity
               )
               onOpen()
-            } catch (err) {
-              console.log(err)
-            }
+            } catch (err) {}
           }}
         />
 

@@ -13,8 +13,6 @@ export const useShopifyCartItems = () => {
   const items: CartItem[] = useMemo(
     (): CartItem[] =>
       cartItems.map(({ id, title, image, quantity, price, variant }) => {
-        console.log(cartItems[0])
-        console.log('variant', variant)
         return {
           id: variant.id,
           title,

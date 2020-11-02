@@ -28,7 +28,7 @@ export default () => {
 
   return (
     <Grid as="main" p={'1em'} maxWidth={'1200px'} justifySelf={'center'}>
-      <Heading as="h1">Política de Privacidade</Heading>
+      <Heading as="h1">Política de Troca</Heading>
       <article dangerouslySetInnerHTML={{ __html: refundPolicy }} />
     </Grid>
   )

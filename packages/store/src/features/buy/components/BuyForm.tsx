@@ -37,7 +37,6 @@ export const BuyForm = ({
   ...props
 }: BuyFormProps) => {
   const validateFields = (value: string): string | undefined => {
-    console.log(value)
     if (!value) {
       return 'Campo obrigatório.'
     }

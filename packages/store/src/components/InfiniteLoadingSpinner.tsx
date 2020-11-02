@@ -16,7 +16,6 @@ export const InfiniteLoadingSpinner = ({
 }: InfiniteLoadingSpinner) => {
   const spinner = useRef(null)
   useIntersection(spinner, options, () => {
-    console.log('at least is working')
     if (canInfiniteLoad) {
       onInfiniteLoadingTriggered()
     }

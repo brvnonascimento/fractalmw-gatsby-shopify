@@ -12,8 +12,6 @@ export const useInfiniteLoading = (
   }, resetTargetDependencies)
   const isIntersecting = useIntersection(target, intersectionOptions, fetchMore)
 
-  console.log(target)
-
   useEffect(() => {
     if (fetchMore) {
       fetchMore()

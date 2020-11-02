@@ -9,11 +9,11 @@ const links = [
     name: 'Política de Privacidade'
   },
   {
-    to: '/politica-de-privacidade',
-    name: 'Política de Frete'
+    to: '/politica-de-troca',
+    name: 'Política de Troca'
   },
   {
-    to: '/politica-de-privacidade',
+    to: '/contato',
     name: 'Contato'
   },
   {

@@ -26,7 +26,8 @@ import { GatsbyConfig } from 'gatsby'
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: 'Gatsby Typescript Starter'
+    title: 'Fractal Music Wear',
+    siteUrl: process.env.BASE_DOMAIN
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -34,6 +35,7 @@ const config: GatsbyConfig = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-graphql-codegen',
+    'gatsby-plugin-sitemap',
     // 'gatsby-plugin-transition-link',
     {
       resolve: 'gatsby-plugin-chakra-ui',

@@ -1,5 +1,6 @@
 import { gql, useLazyQuery } from '@apollo/client'
 import { useMemo } from 'react'
+import { toSlug } from '../../../utils/toSlug'
 import { SearchResult } from '../components/SearchBar'
 
 const SEARCH_SHIRT_QUERY = gql`
@@ -34,7 +35,7 @@ const SEARCH_SHIRT_QUERY = gql`
 
 type UseSearch = [
   (first: number, query: string) => void,
-  { searchResults: SearchResult[]; error: any; loading: boolean }
+  { searchResults: SearchResult[], error: any, loading: boolean }
 ]
 
 export const useSearch = (): UseSearch => {
@@ -57,10 +58,10 @@ export const useSearch = (): UseSearch => {
         ? data.products.edges.map(
             ({ node: { title, handle, images } }: any) => {
               const { src, fallbackSrc, altText } = images.edges[0].node
-              console.log(images.edges[0].node)
+
               return {
                 title,
-                handle,
+                handle: toSlug(title),
                 image: { src, fallbackSrc, altText }
               }
             }

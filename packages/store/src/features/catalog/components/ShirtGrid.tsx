@@ -1,7 +1,5 @@
 import React, { MutableRefObject, ReactNode } from 'react'
 import {
-  FormLabel,
-  Grid,
   GridProps,
   ImageProps,
   Link,
@@ -11,7 +9,6 @@ import {
   Spinner
 } from '@chakra-ui/core'
 import GatsbyLink from 'gatsby-link'
-import { ShirtImage } from '../../../components/ShirtImage'
 import { InfiniteLoadingSpinner } from '../../../components/InfiniteLoadingSpinner'
 import { FigureOverlayed } from '../../../components/FigureOverlayed'
 import { groovyBorder } from '../../../components/styles/groovyBorder'
@@ -23,6 +20,7 @@ export interface ShirtGridProps extends GridProps {
     images: ShirtImageProps[]
   }[]
   title?: string
+  gatsbyImage?: boolean
   onInfiniteLoadingTriggered?: () => void
   loading?: boolean
   infiniteLoadingTrigger?: MutableRefObject<ReactNode>
@@ -35,13 +33,14 @@ export interface ShirtGridProps extends GridProps {
 export interface ShirtImageProps {
   src: string
   fallbackSrc: string
-  alt: string
+  altText: string
 }
 
 export const ShirtGrid = ({
   shirts,
   title = 'Camisetas',
   loading = false,
+  gatsbyImage = true,
   isInfiniteLoading = false,
   onInfiniteLoadingTriggered = () => {},
   hasMoreShirts,
@@ -59,7 +58,7 @@ export const ShirtGrid = ({
       listStyleType={'none'}
       display={'grid'}
       spacing={2}
-      minChildWidth={{xs: '200px', lg: '250px'}}
+      minChildWidth={{ xs: '200px', lg: '250px' }}
       // gridTemplateColumns={`repeat(auto-fill, minmax(${shirtSize}, 1fr))`}
     >
       {loading ? (
@@ -70,27 +69,22 @@ export const ShirtGrid = ({
           justifySelf={'center'}
         />
       ) : (
-        shirts.map(({ images, title, sku }) => (
+        shirts.map(({ images: [image], title, sku }) => (
           <ListItem
             key={sku}
             _hover={{ transform: 'scale(1.1)' }}
             transition={'all .2s ease-in-out'}
             background={'white'}
-          >
+            >
             <Link
               as={GatsbyLink as any}
               {...{ to: `/produto/${sku}` }}
               display={'grid'}
               gridTemplateColumns={'1fr'}
-            >
+              >
               <FigureOverlayed
-                image={{
-                  id: title,
-                  src: images[0].src,
-                  fallbackSrc: images[0].fallbackSrc,
-                  alt: images[0].alt,
-                  pb: '20px'
-                }}
+                image={image}
+                gatsbyImage={gatsbyImage}
                 caption={{
                   children: title,
                   fontSize: '1rem',

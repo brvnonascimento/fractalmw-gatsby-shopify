@@ -1,14 +1,18 @@
 import React from 'react'
-import { Box, BoxProps, Image, ImageProps, Text } from '@chakra-ui/core'
+import { Box, BoxProps, Image, Text } from '@chakra-ui/core'
 import { groovyBorder } from './styles/groovyBorder'
+import GatsbyImage, { GatsbyImageFluidProps } from 'gatsby-image'
+import styled from '@emotion/styled'
 
 export interface FigureOverlayed {
-  image: ImageProps
+  image: GatsbyImageFluidProps['fluid']
+  gatsbyImage?: boolean
   caption: BoxProps
 }
 
 export const FigureOverlayed = ({
   image,
+  gatsbyImage = true,
   caption,
   ...props
 }: FigureOverlayed) => (
@@ -17,15 +21,20 @@ export const FigureOverlayed = ({
     my={'10px'}
     display={'grid'}
     gridTemplateColumns={'auto'}
+    pr="10px"
     {...props}
   >
-    <Image
-      gridArea={'1 / 1'}
-      justifySelf={'center'}
-      loading="lazy"
-      {...groovyBorder}
-      {...image}
-    />
+    {gatsbyImage ? (
+      <StyledImage loading="lazy" fluid={image} alt={image.alt} />
+    ) : (
+      <Image
+        loading="lazy"
+        gridArea={'1 / 1'}
+        {...groovyBorder}
+        alt={image.alt}
+        src={image.src}
+      />
+    )}
 
     <Text
       as="figcaption"
@@ -33,9 +42,11 @@ export const FigureOverlayed = ({
       fontWeight={'bold'}
       zIndex={2}
       fontSize={'4xl'}
+      px={'10px'}
       color={'white'}
       justifySelf={'center'}
       alignSelf={'center'}
+      textAlign={'center'}
       textShadow={'1px 1px 27px black'}
       {...caption}
     >
@@ -43,3 +54,8 @@ export const FigureOverlayed = ({
     </Text>
   </Box>
 )
+
+const StyledImage = styled(GatsbyImage)({
+  gridArea: '1 / 1',
+  ...groovyBorder
+})

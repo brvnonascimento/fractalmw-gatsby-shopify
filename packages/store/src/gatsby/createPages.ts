@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { GatsbyNode } from 'gatsby'
 import path from 'path'
 // import { ProductPageQuery } from '../../graphql-types'
@@ -9,7 +10,7 @@ interface ProductPageResult {
   errors?: any
 }
 
-//TODO: REFACTOR THE SHIT OUT OF THIS
+// TODO: REFACTOR THE SHIT OUT OF THIS
 
 const missingParamError = (shirtId: string, param: string | number) => {
   throw new Error(
@@ -30,14 +31,12 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
             altText
             localFile {
               childImageSharp {
-                fluid(
-                  maxHeight: 500
-                  maxWidth: 500
-                  jpegQuality: 80
-                  webpQuality: 80
-                ) {
-                  srcWebp
+                fluid(maxHeight: 500, maxWidth: 500) {
+                  base64
+                  aspectRatio
                   src
+                  srcSet
+                  sizes
                 }
               }
             }
@@ -62,7 +61,6 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
   `)
 
   if (!data?.allShopifyProduct?.nodes) {
-    console.log(errors)
     throw new Error(errors)
   }
 
@@ -86,7 +84,7 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
 
   const generateEachShirt = (shirt: any) => {
     actions.createPage({
-      path: `/produto/${shirt.sku}`,
+      path: `/produto/${shirt.sku as string}`,
       component: path.resolve(__dirname, '../templates/shirt.tsx'),
       context: {
         shirt
@@ -140,7 +138,15 @@ const generateShirts = (
         'One or more shirts given were undefined on Shirt Page Creation.'
       )
     }
-    const { id, handle, title, productType, descriptionHtml, variants } = shirt
+    const {
+      id,
+      // handle,
+      title,
+      productType,
+      descriptionHtml,
+      variants
+    } = shirt
+
     const requiredFields: Array<keyof typeof shirt> = [
       'descriptionHtml',
       'handle',
@@ -162,7 +168,7 @@ const generateShirts = (
       shirt.options?.find((option: any) => {
         if (!option) {
           throw new Error(
-            `Shirt with id ${shirt.id} does not contain any option.`
+            `Shirt with id ${shirt.id as string} does not contain any option.`
           )
         }
 
@@ -183,37 +189,6 @@ const generateShirts = (
     if (!models?.values) {
       return missingParamError(id, 'Model')
     }
-
-    if (!shirt.images) {
-      return missingParamError(id, 'Images')
-    }
-    const images: ShirtTemplate['images'] = shirt.images.map((image: any) => {
-      if (!image) {
-        return missingParamError(id, 'Image')
-      }
-
-      const src = image?.localFile?.childImageSharp?.fluid?.srcWebp
-      const fallbackSrc = image?.localFile?.childImageSharp?.fluid?.src
-      const alt = image.altText
-
-      if (!alt) {
-        return missingParamError(id, 'Alt Text')
-      }
-
-      if (!fallbackSrc) {
-        return missingParamError(id, 'Fallback Src')
-      }
-
-      if (!src) {
-        return missingParamError(id, 'Local File')
-      }
-
-      return {
-        src,
-        fallbackSrc,
-        alt
-      }
-    })
 
     const getPrice = (): number => {
       if (!variants) {
@@ -238,17 +213,27 @@ const generateShirts = (
       sizes: sizes.values,
       models: models.values,
       colors: colors.values,
-      images
-    } as ShirtTemplate
+      images: shirt.images.map(
+        ({
+          altText,
+          localFile: {
+            childImageSharp: { fluid }
+          }
+        }) => ({
+          ...fluid,
+          alt: altText
+        })
+      )
+    }
 
     const shirtPageProps = {
       ...props,
-      sku: handle
+      sku: toSlug(title)
     }
 
     page.push(shirtPageProps)
 
-    if (page.length === 9) {
+    if (page.length === 9 || page.length === shirts.length) {
       onPaginateCallback(page, currentPageIndex, lastPage)
       page = []
       currentPageIndex++

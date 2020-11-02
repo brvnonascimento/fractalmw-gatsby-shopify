@@ -45,12 +45,12 @@
     "store:dev": "yarn workspace @fractalmw/store exec yarn dev",
     "store:build": "yarn workspace @fractalmw/store exec yarn build",
     "gql:generate": "graphql-codegen --config codegen.yml",
-    "test": "env-cmd jest --watchAll --silent --noStackTrace --runInBand",
+    "test": "env-cmd jest --watchAll --silent --noStackTrace --runInBand --passWithNoTests",
     "test:verbose": "jest --watchAll --runInBand",
-    "test:unit": "yarn test -- -c jestUnitConfig.js",
-    "test:integration": "yarn test -- -c jestIntegrationConfig.js",
+    "test:unit": "yarn test -c jestUnitConfig.js",
+    "test:integration": "yarn test -c jestIntegrationConfig.js",
     "test:staged": "jest --passWithNoTests --findRelatedTests",
-    "test:ci": "jest --silent --noStackTrace --runInBand --coverage"
+    "test:ci": "jest --silent --noStackTrace --runInBand --coverage --passWithNoTests"
   },
   "main": "index.js",
   "repository": "git@github.com:brvnonascimento/fractalmw",

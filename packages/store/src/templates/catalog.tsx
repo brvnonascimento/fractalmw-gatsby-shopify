@@ -83,6 +83,7 @@ export default ({ pageContext }: ShirtCatalogProps) => {
         minHeight={'700px'}
         justifyItems={'center'}
         shirts={lazyShirts.length !== 0 ? lazyShirts : shirts}
+        gatsbyImage={lazyShirts.length === 0}
         gridArea={{ xs: '4 / 1 / 6 / 4', lg: '4 / 2 / 6 / 2' }}
         p={'1em'}
         background={'white'}
