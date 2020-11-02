@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Divider,
@@ -53,16 +53,17 @@ export interface ShirtTemplateProps {
 }
 
 export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
+  if (!shirt) {
+    return null
+  }
+
   const { onOpen, isOpen, onClose } = useDisclosure()
 
   const items = useShopifyCartItems()
   const addItemToCart = useAddItemToCart()
   const removeItemFromCart = useRemoveItemFromCart()
   const checkoutUrl = useCheckoutUrl()
-
-  if (!shirt) {
-    return null
-  }
+  const [currentImage, setCurrentImage] = useState(shirt.images[0])
 
   const getVariantId = ({ color, model, size }: ShirtOptions) => {
     const variant = shirt.variants.find(
@@ -135,7 +136,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           {...groovyBorder}
         />
 
-        <Flex direction="column" >
+        <Flex direction="column">
           <Heading as="h1" gridColumn={{ lg: '2' }}>
             {title}
           </Heading>
@@ -170,9 +171,9 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
             width={'100%'}
             htmlWidth="500"
             htmlHeight="600"
-            src={images[0].src}
-            fallbackSrc={images[0].fallbackSrc}
-            alt={images[0].alt}
+            src={currentImage.src}
+            fallbackSrc={currentImage.fallbackSrc}
+            alt={currentImage.alt}
           />
           <Stack
             isInline
@@ -188,6 +189,8 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
                 key={i}
                 as="picture"
                 display={'flex'}
+                cursor={'pointer'}
+                onClick={() => setCurrentImage({ src, fallbackSrc, alt })}
                 alignContent={'center'}
               >
                 <Image

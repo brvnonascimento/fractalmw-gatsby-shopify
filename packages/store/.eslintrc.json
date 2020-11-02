@@ -1,13 +1,30 @@
 {
-  "extends": "../../eslintrc.json",
+  "extends": [
+    "../../.eslintrc.json",
+    "plugin:react/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
   "plugins": [
     "jam3"
   ],
+  "settings": {
+    "react": {
+      "version": "16.13.1"
+    }
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "rules": {
     "jam3/no-sanitizer-with-danger": [
       2,
       {
-        "wrapperName": ["your-own-sanitizer-function-name"]
+        "wrapperName": [
+          "xss"
+        ]
       }
     ]
   }

@@ -40,10 +40,17 @@ const config: GatsbyConfig = {
       options: { isUsingColorMode: false }
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: `pages`,
-        path: path.resolve(__dirname, `../pages/`)
+        name: 'pages',
+        path: path.resolve(__dirname, '../pages/')
+      }
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'pages',
+        path: path.resolve(__dirname, '../images/')
       }
     },
     // {
@@ -84,7 +91,7 @@ const config: GatsbyConfig = {
     //   }
     // },
     {
-      resolve: `gatsby-theme-shopify-manager`,
+      resolve: 'gatsby-theme-shopify-manager',
       options: {
         shopName: process.env.SHOPIFY_SHOPNAME,
         accessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN

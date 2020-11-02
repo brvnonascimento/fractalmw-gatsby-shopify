@@ -6,6 +6,7 @@ import { ShirtGrid } from '../features/catalog/components/ShirtGrid'
 import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
 import { SEO } from '../components/SEO'
 import { FigureOverlayed } from '../components/FigureOverlayed'
+import GatsbyImage from 'gatsby-image'
 
 export default () => {
   const { shirtList } = useHomePageData()
@@ -37,7 +38,8 @@ export default () => {
           xs: 'auto',
           lg: '30px repeat(2, 25px) 1fr 1fr repeat(2, 25px) 30px'
         }}
-        rowGap={{xs: '1em', lg: 0}}
+        mt={'-1em'}
+        rowGap={{ xs: '1em', lg: 0 }}
         width={'100%'}
         height={'500px'}
         background={'rgba(146, 74, 205, 0.95)'}
@@ -105,19 +107,19 @@ export default () => {
           zIndex={2}
           height={'100%'}
           width={'100%'}
-          maxWidth={{xs: '200px',lg: '400px'}}
-          justifySelf={{xs: 'center', lg: 'start'}}
+          maxWidth={{ xs: '200px', lg: '400px' }}
+          justifySelf={{ xs: 'center', lg: 'start' }}
         />
 
         <Image
+          as={GatsbyImage}
           zIndex={2}
           src="/banner-image-2.png"
           height={'100%'}
           width={'100%'}
-          maxWidth={{xs: '200px',lg: '250px'}}
-          justifySelf={'start'}
+          maxWidth={{ xs: '200px', lg: '250px' }}
           gridArea={{ xs: '1 / 3 / 7 / 5', lg: '4 / 6 / 8' }}
-          justifySelf={{xs: 'center', lg: 'start'}}
+          justifySelf={{ xs: 'center', lg: 'start' }}
         />
         <Box
           gridArea={{ xs: '3 / 3 / -1 / -1', lg: '3 / 3 / 7 / 8' }}
@@ -166,8 +168,6 @@ export default () => {
           }}
         />
       </Flex>
-
-      <Box as="footer"></Box>
     </Grid>
   )
 }

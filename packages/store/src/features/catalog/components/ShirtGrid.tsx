@@ -75,6 +75,7 @@ export const ShirtGrid = ({
             key={sku}
             _hover={{ transform: 'scale(1.1)' }}
             transition={'all .2s ease-in-out'}
+            background={'white'}
           >
             <Link
               as={GatsbyLink as any}

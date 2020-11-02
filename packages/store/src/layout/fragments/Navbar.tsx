@@ -22,6 +22,7 @@ import {
 import { useShopifyCartItems } from '../../features/cart/hooks/useShopifyCart'
 import { CartDrawer } from '../../features/cart/components/CartDrawer'
 import { useSearch } from '../../features/search/hooks/useSearch'
+import { LogoLink } from '../../components/LogoLink'
 
 export interface NavbarProps {
   logoStyle?: ImageProps
@@ -46,22 +47,7 @@ export const Navbar = ({
 
   return (
     <>
-      <Link
-        as={GatsbyLink as any}
-        {...{ to: '/' }}
-        aria-label="Fractal Music Wear"
-      >
-        <Image
-          role="logo"
-          alt="Fractal Music Wear Logo"
-          src={'/logo.svg'}
-          width="72px"
-          height="72px"
-          htmlHeight="72"
-          htmlWidth="72"
-          {...logoStyle}
-        />
-      </Link>
+      <LogoLink {...logoStyle} />
 
       <NavLinks
         {...navStyle}

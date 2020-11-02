@@ -36,6 +36,7 @@ export default ({ pageContext }: ShirtCatalogProps) => {
       as="main"
       gridTemplateRows={'auto'}
       gridTemplateColumns={{ lg: '5% 1fr 5%' }}
+      rowGap={'1em'}
       px={'10px'}
     >
       <SEO
@@ -61,6 +62,8 @@ export default ({ pageContext }: ShirtCatalogProps) => {
           handleFetchShirts(query)
           setIsInfiniteLoading(true)
         }}
+        mt={'-20px'}
+        mb={'0'}
       />
 
       <ShirtGrid
@@ -81,14 +84,13 @@ export default ({ pageContext }: ShirtCatalogProps) => {
         justifyItems={'center'}
         shirts={lazyShirts.length !== 0 ? lazyShirts : shirts}
         gridArea={{ xs: '4 / 1 / 6 / 4', lg: '4 / 2 / 6 / 2' }}
-        py={'15px'}
+        p={'1em'}
         background={'white'}
         {...groovyBorder}
       />
 
       {!isInfiniteLoading && (
         <PaginationNav
-          marginTop={'20px'}
           lastPage={lastPage as number}
           gridArea={{xs: '6 / 1 / 6 / 4', lg: '6 / 2'}}
         />

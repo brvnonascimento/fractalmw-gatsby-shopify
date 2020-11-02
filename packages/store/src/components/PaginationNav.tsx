@@ -16,6 +16,7 @@ export const PaginationNav = memo(({ lastPage, ...props }: PaginationNav) => {
       justifyContent={'center'}
       alignItems={'center'}
       fontWeight={'bold'}
+      py={'10px'}
       height={'100%'}
       {...groovyBorder}
       {...props}

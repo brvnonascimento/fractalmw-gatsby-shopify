@@ -3,18 +3,21 @@ import { GatsbyBrowser } from 'gatsby'
 import React from 'react'
 import { Header } from './fragments/Header'
 import '../styles/index.css'
+import { Footer } from './fragments/Footer'
 
 const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   return (
     <Grid
-      gridTemplateRows={{ xs: 'auto auto 1fr 200px', lg: 'auto 1fr 200px' }}
       minHeight={'100vh'}
       maxWidth={'100vw'}
       overflowX={'hidden'}
+      rowGap={'1em'}
     >
       <Header />
 
       {element}
+
+      <Footer />
     </Grid>
   )
 }

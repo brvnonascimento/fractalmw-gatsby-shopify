@@ -1,14 +1,9 @@
 {
-    "extends": ["standard-with-typescript", "plugin:react/recommended"],
+    "root": true,
+    "extends": ["standard-with-typescript"],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
+        "project": "./tsconfig.json"
     },
     "rules": {
         "@typescript-eslint/strict-boolean-expressions": "off",

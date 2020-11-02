@@ -10,6 +10,10 @@ div[class^='css'], section, main, body {
   animation: fadein 300ms ease;
 }
 
+ul {
+  list-style-type: none;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
