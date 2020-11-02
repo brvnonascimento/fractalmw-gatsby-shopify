@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Flex, Grid, Heading, Image } from '@chakra-ui/core'
+import { Box, Flex, Grid, Heading, Image, Link } from '@chakra-ui/core'
 import { useHomePageData } from '../hooks/home/useHomePageData'
 import { CategoryList } from '../features/catalog/components/InlineCategoryList'
 import { ShirtGrid } from '../features/catalog/components/ShirtGrid'
@@ -7,10 +7,12 @@ import { useStaticCategories } from '../features/catalog/hooks/useStaticCategori
 import { SEO } from '../components/SEO'
 import { FigureOverlayed } from '../components/FigureOverlayed'
 import GatsbyImage from 'gatsby-image'
+import GatsbyLink from 'gatsby-link'
 
 export default () => {
-  const { shirtList } = useHomePageData()
+  const { shirtList, bannerImages } = useHomePageData()
   const categories = useStaticCategories()
+  console.log('banner images', bannerImages)
 
   return (
     <Grid
@@ -68,10 +70,12 @@ export default () => {
             py={'1em'}
           />
 
-          <Heading as="h1">Desde 2007</Heading>
+          <Heading as="h1" py={'10px'}>Desde 2007</Heading>
         </Flex>
 
-        <Box
+        <Link
+          as={GatsbyLink as any}
+          {...{ to: '/camisetas/categoria/camisetas-psicodelicas/1' }}
           rounded={'100%'}
           zIndex={3}
           gridArea={{
@@ -99,9 +103,9 @@ export default () => {
           DE CAMISETAS
           <br />
           PSICODÉLICAS
-        </Box>
+        </Link>
 
-        <Image
+        <Box
           gridArea={{ xs: '1 / 1 / 7 / 3', lg: '2 / 4 / 8' }}
           src="/banner-image-1.png"
           zIndex={2}
@@ -109,18 +113,20 @@ export default () => {
           width={'100%'}
           maxWidth={{ xs: '200px', lg: '400px' }}
           justifySelf={{ xs: 'center', lg: 'start' }}
-        />
+        >
+          <GatsbyImage fluid={bannerImages[0]} />
+        </Box>
 
-        <Image
-          as={GatsbyImage}
+        <Box
           zIndex={2}
-          src="/banner-image-2.png"
           height={'100%'}
           width={'100%'}
           maxWidth={{ xs: '200px', lg: '250px' }}
           gridArea={{ xs: '1 / 3 / 7 / 5', lg: '4 / 6 / 8' }}
           justifySelf={{ xs: 'center', lg: 'start' }}
-        />
+        >
+          <GatsbyImage fluid={bannerImages[1]} />
+        </Box>
         <Box
           gridArea={{ xs: '3 / 3 / -1 / -1', lg: '3 / 3 / 7 / 8' }}
           ml={'22px'}

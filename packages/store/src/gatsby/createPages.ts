@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { GatsbyNode } from 'gatsby'
 import path from 'path'
 // import { ProductPageQuery } from '../../graphql-types'
@@ -9,7 +10,7 @@ interface ProductPageResult {
   errors?: any
 }
 
-//TODO: REFACTOR THE SHIT OUT OF THIS
+// TODO: REFACTOR THE SHIT OUT OF THIS
 
 const missingParamError = (shirtId: string, param: string | number) => {
   throw new Error(
@@ -62,7 +63,6 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
   `)
 
   if (!data?.allShopifyProduct?.nodes) {
-    console.log(errors)
     throw new Error(errors)
   }
 
@@ -86,7 +86,7 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
 
   const generateEachShirt = (shirt: any) => {
     actions.createPage({
-      path: `/produto/${shirt.sku}`,
+      path: `/produto/${shirt.sku as string}`,
       component: path.resolve(__dirname, '../templates/shirt.tsx'),
       context: {
         shirt
@@ -162,7 +162,7 @@ const generateShirts = (
       shirt.options?.find((option: any) => {
         if (!option) {
           throw new Error(
-            `Shirt with id ${shirt.id} does not contain any option.`
+            `Shirt with id ${shirt.id as string} does not contain any option.`
           )
         }
 
@@ -239,7 +239,7 @@ const generateShirts = (
       models: models.values,
       colors: colors.values,
       images
-    } as ShirtTemplate
+    }
 
     const shirtPageProps = {
       ...props,

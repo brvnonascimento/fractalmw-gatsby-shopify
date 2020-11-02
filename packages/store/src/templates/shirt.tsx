@@ -70,9 +70,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
       ({ title }) =>
         title.includes(color) && title.includes(model) && title.includes(size)
     )
-
-    console.log(variant.id)
-
+    
     return variant.id.split(`Shopify__ProductVariant__`)[1]
   }
 
@@ -169,6 +167,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
             alignSelf={'center'}
             height={'auto'}
             width={'100%'}
+            minWidth={'400px'}
             htmlWidth="500"
             htmlHeight="600"
             src={currentImage.src}
@@ -230,9 +229,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
                 quantity
               )
               onOpen()
-            } catch (err) {
-              console.log(err)
-            }
+            } catch (err) {}
           }}
         />
 

@@ -85,8 +85,6 @@ export const useLazyShirtsCatalog = (): UseLazyShirtsCatalog => {
   const lastProductCursor = useRef(null)
 
   const handleFetchShirts = (props: ShirtQuery) => {
-    console.log(props)
-
     fetchShirts({
       variables: {
         ...props
@@ -94,23 +92,22 @@ export const useLazyShirtsCatalog = (): UseLazyShirtsCatalog => {
     })
   }
 
-  const fetchNextPage = () => {
+  const fetchNextPage = async () => {
     if (!fetchMore || !products || !hasMoreShirts) {
       return
     }
 
-    fetchMore({
+    await fetchMore({
       variables: {
         after: !lastProductCursor.current
           ? products.edges[products.edges.length - 1].cursor
           : lastProductCursor.current
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
-        console.log(previousResult)
         const previousProducts = previousResult.products.edges
         const newProducts = fetchMoreResult.products.edges
         const pageInfo = fetchMoreResult.products.pageInfo
-        console.log(newProducts)
+
         const lastNewProduct = newProducts[newProducts.length - 1]?.cursor
         lastProductCursor.current = lastNewProduct
 

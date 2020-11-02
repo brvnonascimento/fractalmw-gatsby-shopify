@@ -1,13 +1,21 @@
+// @ts-nocheck
 import { useStaticQuery } from 'gatsby'
 import { useMemo } from 'react'
 import {
   ShirtImageProps,
   ShirtGridProps
 } from '../../features/catalog/components/ShirtGrid'
-import { HomePageQuery } from '../../../graphql-types'
 
 export const useHomePageData = () => {
-  const { shopifyCollection }: HomePageQuery = useStaticQuery(graphql`
+  const {
+    shopifyCollection,
+    file: {
+      childImageSharp: { bannerImage1 }
+    },
+    secondFile: {
+      childImageSharp: { bannerImage2 }
+    }
+  } = useStaticQuery(graphql`
     query HomePage {
       shopifyCollection(title: { eq: "Home" }) {
         title
@@ -33,6 +41,20 @@ export const useHomePageData = () => {
           }
         }
       }
+      file(name: { eq: "banner-image-1" }) {
+        childImageSharp {
+          bannerImage1: fluid(webpQuality: 50, toFormat: JPG) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      secondFile: file(name: { eq: "banner-image-2" }) {
+        childImageSharp {
+          bannerImage2: fluid(webpQuality: 50, toFormat: JPG) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
     }
   `)
 
@@ -48,16 +70,20 @@ export const useHomePageData = () => {
         }
 
         if (!shirt?.title || !shirt?.handle) {
-          throw new Error(`Shirt of id ${shirt.id} is not valid.`)
+          throw new Error(`Shirt of id ${shirt.id as string} is not valid.`)
         }
 
         if (!shirt?.images) {
-          throw new Error(`Shirt of id ${shirt.id} does not have any image.`)
+          throw new Error(
+            `Shirt of id ${shirt.id as string} does not have any image.`
+          )
         }
 
         const images: ShirtImageProps[] = shirt.images.map((image) => {
           if (!image) {
-            throw new Error(`Shirt of id ${shirt.id} have an undefined image.`)
+            throw new Error(
+              `Shirt of id ${shirt.id as string} have an undefined image.`
+            )
           }
 
           if (!image.altText) {
@@ -74,7 +100,9 @@ export const useHomePageData = () => {
             !optimizedImage?.srcWebp
           ) {
             throw new Error(
-              `Shirt of id ${shirt.id} does not have an optimized image.`
+              `Shirt of id ${
+                shirt.id as string
+              } does not have an optimized image.`
             )
           }
 
@@ -97,6 +125,7 @@ export const useHomePageData = () => {
   }, [])
 
   return {
-    shirtList
+    shirtList,
+    bannerImages: [bannerImage1, bannerImage2]
   }
 }
