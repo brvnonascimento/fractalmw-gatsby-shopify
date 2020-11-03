@@ -69,7 +69,6 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
       ({ title }) =>
         title.includes(color) && title.includes(model) && title.includes(size)
     )
-
     return variant.id.split(`Shopify__ProductVariant__`)[1]
   }
 
