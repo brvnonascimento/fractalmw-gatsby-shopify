@@ -20,12 +20,7 @@ export const NavLinks = ({ children, links, ...props }: NavLinksProps) => (
       lg: 'relative'
     }}
     display={'flex'}
-    padding={'10px'}
-    bottom={{
-      xs: '10px',
-      lg: 0
-    }}
-    borderRadius={'10px'}
+    bottom={0}
     background={{
       xs: 'rgba(0, 0, 0.5)',
       lg: 'transparent'
@@ -40,10 +35,7 @@ export const NavLinks = ({ children, links, ...props }: NavLinksProps) => (
       lg: 'auto'
     }}
     alignItems={'center'}
-    width={{
-      xs: '95%',
-      lg: '100%'
-    }}
+    width={'100%'}
     {...props}
   >
     <List

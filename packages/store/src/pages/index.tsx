@@ -153,6 +153,8 @@ export default () => {
         direction={'column'}
         gridColumn={{ lg: '2' }}
         width={'100%'}
+        maxWidth={'400px'}
+        justifySelf={'center'}
       >
         <CategoryList categories={categories} />
 

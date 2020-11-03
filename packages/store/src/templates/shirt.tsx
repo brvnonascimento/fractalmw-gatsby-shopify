@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
   Box,
-  Divider,
   Flex,
   Grid,
   Heading,
@@ -141,7 +140,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
             gridColumn={{ lg: '2' }}
             gridRow={'3'}
             fontSize={'lg'}
-            mt={'10px'}
+            my={'10px'}
             background={'red'}
             color="white"
             width={'100px'}

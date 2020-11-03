@@ -12,7 +12,7 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
     <Grid
       minHeight={'100vh'}
       maxWidth={'100vw'}
-      overflowX={'hidden'}
+      overflow={'hidden'}
       rowGap={'1em'}
     >
       <Header />
@@ -28,12 +28,12 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
         }}
         position={'fixed'}
         width={'75px'}
-        bottom={'33px'}
-        left={'31px'}
+        bottom={{ xs: '90px', lg: '33px' }}
+        left={{ xs: '8px', lg: '31px' }}
         zIndex={10}
         transition={'all .2s ease-in-out'}
         background={'white'}
-        p='5px'
+        p="5px"
         rounded={'100%'}
         _hover={{
           transform: 'scale(1.3)'
@@ -43,7 +43,13 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
         <WhatsappIcon />
       </PseudoBox>
 
-      <Footer />
+      <Footer
+        mb={{ xs: '4em', lg: 0 }}
+        minHeight={{
+          xs: '265px',
+          lg: 'auto'
+        }}
+      />
     </Grid>
   )
 }

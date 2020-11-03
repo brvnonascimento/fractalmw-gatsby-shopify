@@ -1,4 +1,4 @@
-import { Box, Link, ListItem, SimpleGrid } from '@chakra-ui/core'
+import { Box, BoxProps, Link, ListItem, SimpleGrid } from '@chakra-ui/core'
 import GatsbyLink from 'gatsby-link'
 import React, { memo } from 'react'
 import { LogoLink } from '../../components/LogoLink'
@@ -22,8 +22,15 @@ const links = [
   }
 ]
 
-export const Footer = memo(() => (
-  <Box as="footer" backgroundColor={'#000000'} color="white" py={'1em'} height={'100%'}>
+export const Footer = memo(({ ...props }: BoxProps) => (
+  <Box
+    as="footer"
+    backgroundColor={'#000000'}
+    color="white"
+    py={'1em'}
+    height={'100%'}
+    {...props}
+  >
     <SimpleGrid
       as="ul"
       minChildWidth={'150px'}
@@ -37,9 +44,20 @@ export const Footer = memo(() => (
         height={'120px'}
         htmlHeight={'120'}
         htmlWidth={'120'}
+        link={{
+          gridColumn: {
+            xs: 'span 4',
+            lg: 'auto'
+          }
+        }}
       />
       {links.map(({ to, name }) => (
-        <ListItem>
+        <ListItem
+          gridColumn={{
+            xs: 'span 4',
+            lg: 'auto'
+          }}
+        >
           <Link as={GatsbyLink as any} {...{ to }} height={'100%'}>
             {name}
           </Link>

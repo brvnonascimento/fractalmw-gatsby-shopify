@@ -5,7 +5,7 @@ import { HeadingDivider } from '../components/HeadingDivider'
 export default () => (
   <Grid
     as="main"
-    gridTemplateColumns={'160px auto'}
+    gridTemplateColumns={{xs: 'auto', lg: '160px auto'}}
     gridTemplateRows={'64px auto'}
     rowGap={'1em'}
     columnGap={'10px'}
