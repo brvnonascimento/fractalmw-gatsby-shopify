@@ -12,7 +12,6 @@ import GatsbyLink from 'gatsby-link'
 export default () => {
   const { shirtList, bannerImages, asideImages } = useHomePageData()
   const categories = useStaticCategories()
-  console.log('banner images', asideImages)
 
   return (
     <Grid

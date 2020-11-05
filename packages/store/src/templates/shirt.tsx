@@ -59,7 +59,6 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
   const [currentImage, setCurrentImage] = useState(shirt.images[0])
 
   const getVariantId = ({ color, model, size }: ShirtOptions) => {
-    console.log('MODEL' ,model)
     const variant = shirt.variants.find(
       ({ title }) =>
         title.includes(color) && title.includes(model) && title.includes(size)
@@ -173,7 +172,6 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
             {...groovyBorder}
           >
             {shirt.images.map((image) => {
-              console.log(image)
               return (
                 <Box
                   width={'100px'}
