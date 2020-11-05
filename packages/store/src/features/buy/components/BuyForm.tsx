@@ -70,7 +70,7 @@ export const BuyForm = ({
               validate={(value: string) => validateFields(value)}
             >
               {({ field, form }: any) => (
-                <FormControl isInvalid={form.errors.name && form.touched.name}>
+                <FormControl isInvalid={form.errors.name && form.touched.name} mb={'1em'}>
                   <FormLabel htmlFor="model" fontWeight={'bold'}>
                     Modelo
                   </FormLabel>
@@ -78,10 +78,11 @@ export const BuyForm = ({
                     display={'flex'}
                     width={'50%'}
                     id="model"
+                    {...field} 
                     {...groovyBorder}
                   >
                     {models.map((model) => (
-                      <option {...field} key={model}>
+                      <option key={model}>
                         {model}
                       </option>
                     ))}
@@ -101,6 +102,7 @@ export const BuyForm = ({
                   display={'flex'}
                   flexDirection={'column'}
                   alignContent={'center'}
+                  mb={'1em'}
                 >
                   <FormLabel htmlFor="size" fontWeight={'bold'}>
                     Tamanho

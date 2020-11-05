@@ -5,10 +5,11 @@ import GatsbyLink from 'gatsby-link'
 
 interface PaginationNav extends BoxProps {
   lastPage: number
+  path: string
 }
 
-export const PaginationNav = memo(({ lastPage, ...props }: PaginationNav) => {
-  const pages = [...Array(lastPage).keys()].slice(1)
+export const PaginationNav = memo(({ lastPage, path, ...props }: PaginationNav) => {
+  const pages = [...Array(lastPage).keys()]
   return (
     <Breadcrumb
       separator=""
@@ -24,7 +25,7 @@ export const PaginationNav = memo(({ lastPage, ...props }: PaginationNav) => {
       {pages.map((page) => (
         <Link
           as={GatsbyLink as any}
-          {...{ to: `/camisetas/${page}` }}
+          {...{ to: `${path}/${page !== 0 ? page + 1 : ''}` }}
           key={page}
           title={`Ir para página ${page}`}
         >
@@ -37,7 +38,7 @@ export const PaginationNav = memo(({ lastPage, ...props }: PaginationNav) => {
             pl={'7px'}
             color={'black'}
           >
-            <Text as='span'>{page}</Text>
+            <Text as='span'>{page + 1}</Text>
           </BreadcrumbItem>
         </Link>
       ))}

@@ -73,7 +73,6 @@ export const SearchBar = ({
         children={<Icon name="search" color="gray.300" />}
       />
       <Input
-        borderRadius={0}
         paddingLeft={'40px'}
         background="#FFFF"
         type="search"

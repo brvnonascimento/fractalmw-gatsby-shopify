@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { SitePageContext } from '../../graphql-types'
 import { groovyBorder } from '../components/styles/groovyBorder'
 import { ShirtGrid } from '../features/catalog/components/ShirtGrid'
 import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
@@ -7,13 +6,9 @@ import { PaginationNav } from '../components/PaginationNav'
 import { SEO } from '../components/SEO'
 import { useLazyShirtsCatalog } from '../features/catalog/hooks/useLazyShirts'
 import { ShirtMenuBar } from '../features/catalog/components/ShirtMenuBar'
-import { Grid } from '@chakra-ui/core'
+import { Grid, Heading } from '@chakra-ui/core'
 
-export interface ShirtCatalogProps {
-  pageContext: SitePageContext
-}
-
-export default ({ pageContext }: ShirtCatalogProps) => {
+export default ({ pageContext }: any) => {
   const { shirts, lastPage, currentPage } = pageContext
   const categories = useStaticCategories()
   const [
@@ -35,12 +30,14 @@ export default ({ pageContext }: ShirtCatalogProps) => {
     <Grid
       as="main"
       gridTemplateRows={'auto'}
-      gridTemplateColumns={{ lg: '5% 1fr 5%' }}
       rowGap={'1em'}
+      maxWidth={'1077px'}
+      justifySelf={'center'}
       px={'10px'}
+      width={'100%'}
     >
       <SEO
-        title={`Camisetas ${currentPage} de ${lastPage} - Fractal Music Wear`}
+        title={`${pageContext?.category ?? 'Camisetas'} ${currentPage} de ${lastPage} - Fractal Music Wear`}
         metaDescription={
           'A Fractal Music Wear oferece várias opções de estampas de camisetas de estampas criativas, engraçadas e inteligentes, seja de personagens especiais, bandas, filmes e cartoons conhecidos. Escolha uma ou envie seu seu desenho para personalizar a camiseta'
         }
@@ -53,9 +50,10 @@ export default ({ pageContext }: ShirtCatalogProps) => {
         />
       </SEO>
 
+      <Heading as='h1' alignSelf={'center'} mb={'0.5em'}>{pageContext?.category ?? 'Camisetas'}</Heading>
+
       <ShirtMenuBar
         categories={categories as string[]}
-        gridArea={{ xs: '2 / 1 / 4 / 4', lg: '2 / 2 / 4' }}
         height={'60px'}
         alignSelf={{ xs: 'end', lg: 'center' }}
         onChangeMenu={(query) => {
@@ -72,6 +70,12 @@ export default ({ pageContext }: ShirtCatalogProps) => {
           htmlHeight: '300',
           htmlWidth: '300'
         }}
+        gridProps={{
+          columns: {
+            xs: 2,
+            lg: 3
+          }
+        }}
         loading={loading}
         isInfiniteLoading={isInfiniteLoading}
         onInfiniteLoadingTriggered={() => {
@@ -84,16 +88,19 @@ export default ({ pageContext }: ShirtCatalogProps) => {
         justifyItems={'center'}
         shirts={lazyShirts.length !== 0 ? lazyShirts : shirts}
         gatsbyImage={lazyShirts.length === 0}
-        gridArea={{ xs: '4 / 1 / 6 / 4', lg: '4 / 2 / 6 / 2' }}
         p={'1em'}
         background={'white'}
         {...groovyBorder}
       />
 
-      {!isInfiniteLoading && (
+      {!isInfiniteLoading && lastPage !== 1 && (
         <PaginationNav
+          path={
+            pageContext?.categorySlug
+              ? `/camisetas/categoria/${pageContext.categorySlug}`
+              : '/camisetas'
+          }
           lastPage={lastPage as number}
-          gridArea={{xs: '6 / 1 / 6 / 4', lg: '6 / 2'}}
         />
       )}
     </Grid>

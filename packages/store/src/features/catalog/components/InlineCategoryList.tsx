@@ -31,7 +31,7 @@ export const CategoryList = ({
         <ListItem display={'flex'} key={category}>
           <Link
             as={GatsbyLink as any}
-            {...{ to: `/camisetas/categoria/${toSlug(category)}/1` }}
+            {...{ to: `/camisetas/categoria/${toSlug(category)}/` }}
             display={'flex'}
             background={'rgba(256, 256, 256, 0.8)'}
             _hover={{ transform: 'scale(1.1)' }}

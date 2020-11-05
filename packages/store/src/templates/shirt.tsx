@@ -1,12 +1,5 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Flex,
-  Grid,
-  Heading,
-  Stack,
-  useDisclosure
-} from '@chakra-ui/core'
+import { Box, Flex, Grid, Heading, Stack, useDisclosure } from '@chakra-ui/core'
 import { ShirtBreadcrumb } from '../features/buy/components/ShirtBreadcrumb'
 import { ShirtImageProps } from '../features/catalog/components/ShirtGrid'
 import { numberToBRL } from '../utils/price'
@@ -23,6 +16,8 @@ import { useShopifyCartItems } from '../features/cart/hooks/useShopifyCart'
 import { ShirtDescription } from '../features/buy/components/ShirtDescription'
 import { ProductSEO } from '../features/buy/components/ProductSEO'
 import GatsbyImage from 'gatsby-image'
+import Magnifier from 'react-magnifier'
+import { css } from '@emotion/core'
 
 export interface ShirtTemplate {
   id: string
@@ -64,6 +59,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
   const [currentImage, setCurrentImage] = useState(shirt.images[0])
 
   const getVariantId = ({ color, model, size }: ShirtOptions) => {
+    console.log('MODEL' ,model)
     const variant = shirt.variants.find(
       ({ title }) =>
         title.includes(color) && title.includes(model) && title.includes(size)
@@ -160,10 +156,11 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           minWidth={'300px'}
           maxWidth={'800px'}
         >
-          <GatsbyImage
-            fluid={currentImage}
-            alt={currentImage.alt}
-            imgStyle={{ ...groovyBorder }}
+          <Box
+            as={Magnifier}
+            src={currentImage.src}
+            p={'10px'}
+            {...groovyBorder}
           />
 
           <Stack
@@ -193,7 +190,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
 
         <BuyForm
           gridColumn={{ xs: '1' }}
-          gridArea={{ lg: '4 / 2 / 6' }}
+          gridArea={{ lg: '3 / 2 / 6' }}
           colors={colors}
           models={models}
           sizes={sizes}

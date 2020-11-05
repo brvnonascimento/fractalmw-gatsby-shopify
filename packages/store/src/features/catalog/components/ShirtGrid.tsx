@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
   SimpleGrid,
+  SimpleGridProps,
   Spinner
 } from '@chakra-ui/core'
 import GatsbyLink from 'gatsby-link'
@@ -26,8 +27,8 @@ export interface ShirtGridProps extends GridProps {
   infiniteLoadingTrigger?: MutableRefObject<ReactNode>
   isInfiniteLoading?: boolean
   hasMoreShirts?: boolean
-  shirtSize?: string
   shirtProps?: ImageProps
+  gridProps?: SimpleGridProps
 }
 
 export interface ShirtImageProps {
@@ -38,27 +39,29 @@ export interface ShirtImageProps {
 
 export const ShirtGrid = ({
   shirts,
-  title = 'Camisetas',
+  title,
   loading = false,
   gatsbyImage = true,
   isInfiniteLoading = false,
   onInfiniteLoadingTriggered = () => {},
   hasMoreShirts,
-  shirtSize = '300px',
   shirtProps,
+  gridProps,
   ...props
 }: ShirtGridProps) => (
   <List {...props}>
-    <ListItem fontWeight={'bold'} fontSize={'3xl'}>
-      {title}
-    </ListItem>
+    {title && (
+      <ListItem fontWeight={'bold'} fontSize={'3xl'}>
+        {title}
+      </ListItem>
+    )}
 
     <SimpleGrid
       as="ul"
       listStyleType={'none'}
       display={'grid'}
       spacing={2}
-      minChildWidth={{ xs: '200px', lg: '250px' }}
+      {...gridProps}
       // gridTemplateColumns={`repeat(auto-fill, minmax(${shirtSize}, 1fr))`}
     >
       {loading ? (
@@ -75,13 +78,13 @@ export const ShirtGrid = ({
             _hover={{ transform: 'scale(1.1)' }}
             transition={'all .2s ease-in-out'}
             background={'white'}
-            >
+          >
             <Link
               as={GatsbyLink as any}
               {...{ to: `/produto/${sku}` }}
               display={'grid'}
               gridTemplateColumns={'1fr'}
-              >
+            >
               <FigureOverlayed
                 image={image}
                 gatsbyImage={gatsbyImage}

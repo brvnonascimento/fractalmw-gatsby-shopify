@@ -36,6 +36,18 @@ const config: GatsbyConfig = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-graphql-codegen',
     'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: 'Fractal Music Wear',
+        short_name: 'fractalmw',
+        start_url: '/',
+        background_color: '#ffff',
+        theme_color: '#000000',
+        display: 'standalone',
+        icon: 'src/images/favicon.svg'
+      }
+    },
     // 'gatsby-plugin-transition-link',
     {
       resolve: 'gatsby-plugin-chakra-ui',

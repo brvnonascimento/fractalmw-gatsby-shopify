@@ -1,4 +1,4 @@
-import { Box, Grid, PseudoBox } from '@chakra-ui/core'
+import { Grid, PseudoBox } from '@chakra-ui/core'
 import { GatsbyBrowser } from 'gatsby'
 import React from 'react'
 import { Header } from './fragments/Header'

@@ -14,13 +14,14 @@ export const ShirtBreadcrumb = memo(({ category, title, ...props }: ShirtBreadcr
       separator={<Icon color="gray.300" name="chevron-right" />}
       alignSelf={'center'}
       fontWeight={'bold'}
+      pl={'10px'}
       {...props}
     >
       <BreadcrumbItem>
         <Link to="/">Fractal Music Wear</Link>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <Link to={`/camisetas/categoria/${toSlug(category)}/1`}>{category}</Link>
+        <Link to={`/camisetas/categoria/${toSlug(category)}/`}>{category}</Link>
       </BreadcrumbItem>
       <BreadcrumbItem>
         <BreadcrumbLink>{title}</BreadcrumbLink>

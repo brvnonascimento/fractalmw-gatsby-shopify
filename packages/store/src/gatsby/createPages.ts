@@ -31,7 +31,7 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
             altText
             localFile {
               childImageSharp {
-                fluid(maxHeight: 500, maxWidth: 500) {
+                fluid {
                   base64
                   aspectRatio
                   src
@@ -72,7 +72,7 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
     lastPage: number
   ) => {
     actions.createPage({
-      path: `/camisetas/${currentPageIndex}`,
+      path: `/camisetas/${currentPageIndex !== 1 ? `${currentPageIndex}` : ''}`,
       component: path.resolve(__dirname, '../templates/catalog.tsx'),
       context: {
         shirts: pageProps,
@@ -105,13 +105,20 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
       shirtsByCategory,
       () => {},
       (page, currentPageIndex, lastPage) => {
+        const categorySlug = toSlug(category)
+
         actions.createPage({
-          path: `/camisetas/categoria/${toSlug(category)}/${currentPageIndex}`,
+          path: `/camisetas/categoria/${categorySlug}/${
+            currentPageIndex !== 1 ? `${currentPageIndex}` : ''
+          }`,
+
           component: path.resolve(__dirname, '../templates/catalog.tsx'),
           context: {
             shirts: page,
             currentPage: currentPageIndex,
-            lastPage
+            lastPage,
+            category,
+            categorySlug
           }
         })
       }
@@ -130,9 +137,9 @@ const generateShirts = (
 ) => {
   let currentPageIndex = 1
   let page = []
-  const lastPage = Math.round(shirts.length / 9)
+  const lastPage = Math.ceil(shirts.length / 9)
 
-  for (const shirt of shirts) {
+  shirts.forEach((shirt, i) => {
     if (!shirt) {
       throw new Error(
         'One or more shirts given were undefined on Shirt Page Creation.'
@@ -233,14 +240,14 @@ const generateShirts = (
 
     page.push(shirtPageProps)
 
-    if (page.length === 9 || page.length === shirts.length) {
+    if (page.length === 9 || i + 1 === shirts.length) {
       onPaginateCallback(page, currentPageIndex, lastPage)
       page = []
       currentPageIndex++
     }
 
     callback(shirtPageProps)
-  }
+  })
 }
 
 export default createPages

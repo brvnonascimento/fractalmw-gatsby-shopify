@@ -1,9 +1,7 @@
 import {
   BoxProps,
   Icon,
-  Image,
   ImageProps,
-  Link,
   useDisclosure
 } from '@chakra-ui/core'
 import React from 'react'
@@ -13,7 +11,6 @@ import {
 } from '../../features/cart/components/CartButton'
 import { NavLinks } from './NavLinks'
 import { SearchBar } from '../../features/search/components/SearchBar'
-import GatsbyLink from 'gatsby-link'
 import {
   useCartCount,
   useCheckoutUrl,
@@ -23,6 +20,7 @@ import { useShopifyCartItems } from '../../features/cart/hooks/useShopifyCart'
 import { CartDrawer } from '../../features/cart/components/CartDrawer'
 import { useSearch } from '../../features/search/hooks/useSearch'
 import { LogoLink } from '../../components/LogoLink'
+import ShirtIcon from '../../assets/shirt.svg'
 
 export interface NavbarProps {
   logoStyle?: ImageProps
@@ -55,8 +53,8 @@ export const Navbar = ({
         links={[
           {
             title: 'Camisetas',
-            to: '/camisetas/1',
-            icon: <Icon name="star" />
+            to: '/camisetas/',
+            icon: <ShirtIcon width='20px' height='20px' />
           },
           {
             title: 'Contato',

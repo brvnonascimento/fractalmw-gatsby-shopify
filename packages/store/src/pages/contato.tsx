@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Heading, Text } from '@chakra-ui/core'
+import { Box, Grid, Heading, Text } from '@chakra-ui/core'
 import React from 'react'
 import { HeadingDivider } from '../components/HeadingDivider'
 

@@ -25,7 +25,7 @@ export default () => {
         metaDescription={
           'A Fractal Music Wear oferece várias opções de estampas de camisetas de estampas criativas, engraçadas e inteligentes, seja de personagens especiais, bandas, filmes e cartoons conhecidos. Escolha uma ou envie seu seu desenho para personalizar a camiseta'
         }
-        image={'/cover.png'}
+        image={'/cover.jpg'}
         keywords="fractal music wear, fractal, fractalmw, piracicaba, camisetas personalizadas, camisetas criativas, estampas, estamparia"
       />
 
@@ -40,6 +40,7 @@ export default () => {
           xs: 'auto',
           lg: '30px repeat(2, 25px) 1fr 1fr repeat(2, 25px) 30px'
         }}
+        overflow={'hidden'}
         mt={'-1em'}
         rowGap={{ xs: '1em', lg: 0 }}
         width={'100%'}
@@ -109,14 +110,22 @@ export default () => {
 
         <Box
           gridArea={{ xs: '1 / 1 / 7 / 3', lg: '2 / 4 / 8' }}
-          src="/banner-image-1.png"
           zIndex={2}
-          height={'100%'}
           width={'100%'}
           maxWidth={{ xs: '200px', lg: '400px' }}
+          maxHeight={{
+            xs: '300px',
+            lg: '430px'
+          }}
           justifySelf={{ xs: 'center', lg: 'start' }}
         >
-          <GatsbyImage fluid={bannerImages[0]} loading="lazy" />
+          <GatsbyImage
+            fluid={bannerImages[0]}
+            imgStyle={{
+              height: '92%'
+            }}
+            loading="lazy"
+          />
         </Box>
 
         <Box
@@ -139,7 +148,9 @@ export default () => {
       <ShirtGrid
         as="main"
         title={'Destaques'}
-        shirtSize={'280px'}
+        gridProps={{
+          minChildWidth: { xs: '200px', lg: '250px' }
+        }}
         shirtProps={{
           htmlHeight: '280',
           htmlWidth: '280'
@@ -172,7 +183,7 @@ export default () => {
             }}
             caption={{
               children: (
-                <>Personalizamos sua idéia em camisetas, entre em contato!</>
+                <>Personalizamos sua ideia em camisetas, entre em contato!</>
               )
             }}
           />
