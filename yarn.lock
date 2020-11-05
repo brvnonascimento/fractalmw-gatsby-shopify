@@ -1908,6 +1908,7 @@ __metadata:
     gatsby-plugin-chakra-ui: ^0.1.4
     gatsby-plugin-graphql-codegen: ^2.7.1
     gatsby-plugin-layout: ^1.3.13
+    gatsby-plugin-manifest: ^2.5.2
     gatsby-plugin-react-helmet: ^3.3.12
     gatsby-plugin-react-svg: ^3.0.0
     gatsby-plugin-robots-txt: ^1.5.3
@@ -1928,6 +1929,7 @@ __metadata:
     react: ^16.13.1
     react-dom: ^16.13.1
     react-helmet: ^6.1.0
+    react-magnifier: ^3.0.4
     react-test-renderer: ^16.13.1
     react-use-infinite-loader: ^1.0.0-beta.1
     regenerator-runtime: "*"
@@ -2868,6 +2870,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/hoek@npm:^9.0.0":
+  version: 9.1.0
+  resolution: "@hapi/hoek@npm:9.1.0"
+  checksum: c77ac8f0c1ae6e21b3d77fa63f462dc1b0c84481388f5e54c651e86cf565d58cb701c396a1fa86a746d5dc278013ad5b3513a58c4cb19a493802d17b68c90740
+  languageName: node
+  linkType: hard
+
 "@hapi/joi@npm:^15.1.1":
   version: 15.1.1
   resolution: "@hapi/joi@npm:15.1.1"
@@ -2886,6 +2895,15 @@ __metadata:
   dependencies:
     "@hapi/hoek": ^8.3.0
   checksum: 4550d3d7498a203ce5c0e53753eb9f510aa2b74c08bfaf7d7c4676a0943b27d72f22297ff006e8396eb74e6b73154ebf98feab19c199b0768a084a777d024a50
+  languageName: node
+  linkType: hard
+
+"@hapi/topo@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@hapi/topo@npm:5.0.0"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+  checksum: f92797d5ef54bb801a3591a118ea483ed5a6b41cdd1aaa6f7bf427b64b5f76056bc7063447adf43be8f94b04408228cce12963ea498b8da8f9e01d01c78710ac
   languageName: node
   linkType: hard
 
@@ -4008,6 +4026,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sideway/address@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "@sideway/address@npm:4.1.0"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+  checksum: 13f0a6b4178b03d7c0062894312313892d9a728987a5d07d43cb42c04bcdf55cd02092eb6f09ffb8d78a1dfae8cf5ce6c9b4ad66934771ea6a18e2b3fcd752d9
+  languageName: node
+  linkType: hard
+
+"@sideway/formula@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@sideway/formula@npm:3.0.0"
+  checksum: b83ecd35fea33e7b826ddcdc9f0735a79bd374927efea36885203200c418ad0f9975c329eaf9e990a7c61cf96f560ed2020227a35e699324ddd3c94dd3f4045f
+  languageName: node
+  linkType: hard
+
+"@sideway/pinpoint@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@sideway/pinpoint@npm:2.0.0"
+  checksum: e5528639aef1d266c23050897a6571c1e2aeccb59b6a22006a153fbd73aee78ae995bf19c022d70de5a00589a7f51372e78ef9aacd34a3dd9b13720c866aca7e
+  languageName: node
+  linkType: hard
+
 "@sindresorhus/is@npm:^0.14.0":
   version: 0.14.0
   resolution: "@sindresorhus/is@npm:0.14.0"
@@ -4544,12 +4585,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.debounce@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "@types/lodash.debounce@npm:4.0.6"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 64952797f594f4068d2edd1e178a553647ca4ed5716c9b7673f9187d012fe5b5a0141c15ffc82c8f4d29bf13040c53001634a5b43b51a9efdfb6d4fa77ae24aa
+  languageName: node
+  linkType: hard
+
 "@types/lodash.sample@npm:^4.2.6":
   version: 4.2.6
   resolution: "@types/lodash.sample@npm:4.2.6"
   dependencies:
     "@types/lodash": "*"
   checksum: 4d67aa278a5af44fd94125abf7abe185f8f00da3c8358557f8e11ca457d217c9cd8137869d362e7db0c587a3421080abcfcf8935d849c105418c49aeba5d8de3
+  languageName: node
+  linkType: hard
+
+"@types/lodash.throttle@npm:^4.1.6":
+  version: 4.1.6
+  resolution: "@types/lodash.throttle@npm:4.1.6"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 6ee4ca706681cb561b96f0b7a14da2f637783d0fe9af0b68efa8f29bff3b2caa1ad4e13d59ed139a4e4ef10098c825447045145b1b8f63410cdb5dc256b33082
   languageName: node
   linkType: hard
 
@@ -4716,7 +4775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^16.8.10, @types/react@npm:^16.9.20, @types/react@npm:^16.9.49":
+"@types/react@npm:*, @types/react@npm:^16.8.10, @types/react@npm:^16.9.1, @types/react@npm:^16.9.20, @types/react@npm:^16.9.49":
   version: 16.9.50
   resolution: "@types/react@npm:16.9.50"
   dependencies:
@@ -12188,6 +12247,21 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"gatsby-core-utils@npm:^1.3.24":
+  version: 1.3.24
+  resolution: "gatsby-core-utils@npm:1.3.24"
+  dependencies:
+    ci-info: 2.0.0
+    configstore: ^5.0.1
+    fs-extra: ^8.1.0
+    node-object-hash: ^2.0.0
+    proper-lockfile: ^4.1.1
+    tmp: ^0.2.1
+    xdg-basedir: ^4.0.0
+  checksum: e6079e1613daae5d79f6c3dc4728f70eb1e6eb193e7b6895f6f36eeb124f407be961963d1f4ebcd55d68877c7a6fcc9c3711c9d201eeb8e562a8ec08aa2be998
+  languageName: node
+  linkType: hard
+
 "gatsby-design-tokens@npm:^2.0.2":
   version: 2.0.13
   resolution: "gatsby-design-tokens@npm:2.0.13"
@@ -12344,6 +12418,21 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"gatsby-plugin-manifest@npm:^2.5.2":
+  version: 2.5.2
+  resolution: "gatsby-plugin-manifest@npm:2.5.2"
+  dependencies:
+    "@babel/runtime": ^7.11.2
+    gatsby-core-utils: ^1.3.24
+    gatsby-plugin-utils: ^0.2.40
+    semver: ^7.3.2
+    sharp: ^0.25.4
+  peerDependencies:
+    gatsby: ^2.4.0
+  checksum: cadd91e4d4cf4288b51b85a09349ca65d92f4a763d48382d22232b426a3377e3d96924c4421dc38b2f01562ee9c4481afeb58ca7133a5fd0fc4df1b1c48520a1
+  languageName: node
+  linkType: hard
+
 "gatsby-plugin-page-creator@npm:^2.3.30":
   version: 2.3.30
   resolution: "gatsby-plugin-page-creator@npm:2.3.30"
@@ -12477,6 +12566,17 @@ fsevents@^1.2.7:
     "@babel/runtime": ^7.11.2
     babel-plugin-remove-graphql-queries: ^2.9.20
   checksum: c001916d0e2c11149f4deb577425c1c41a4c715d98ba2a98ca0e47d546ca6ca974a852b7351505f232607e14125b1da4a50788a33f788796a09023fa9b0ab4b4
+  languageName: node
+  linkType: hard
+
+"gatsby-plugin-utils@npm:^0.2.40":
+  version: 0.2.40
+  resolution: "gatsby-plugin-utils@npm:0.2.40"
+  dependencies:
+    joi: ^17.2.1
+  peerDependencies:
+    gatsby: ^2.24.79
+  checksum: 16cad1942990d3425463c33497abb61dd7c8643737b8475d65e30c8ca950091c94bbb365f57daf6c9c0ec42a80d34e4181d4a7670966f05b71a49ee89e21d4d8
   languageName: node
   linkType: hard
 
@@ -16033,6 +16133,19 @@ fsevents@^1.2.7:
     "@jimp/types": ^0.14.0
     regenerator-runtime: ^0.13.3
   checksum: c6aeee1f6cf549563f4afd1d5d17eddb4a47defb3444166f9ea280a84a8b79059bd102651893b482febf060abe765d8c6b060168c6a308c05949261dded8f176
+  languageName: node
+  linkType: hard
+
+"joi@npm:^17.2.1":
+  version: 17.3.0
+  resolution: "joi@npm:17.3.0"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+    "@hapi/topo": ^5.0.0
+    "@sideway/address": ^4.1.0
+    "@sideway/formula": ^3.0.0
+    "@sideway/pinpoint": ^2.0.0
+  checksum: 3a2a6a8df5df408b33661d61abf6389f21d71478748daebe4edf4be2176548a70396601fcf2fd4fc0bc44fc12ab67fa72de310509db47579ad21bca0f2e0611b
   languageName: node
   linkType: hard
 
@@ -20710,6 +20823,21 @@ fsevents@^1.2.7:
   version: 3.0.4
   resolution: "react-lifecycles-compat@npm:3.0.4"
   checksum: 82176a55ef7526414d770d5e07dc1d28b4c7f20281f22c6f53f3a98df9dbbb5d70c94bebee57b4ea8ccc2eee430b907ca7b564a42fbdd0ed21e7c43bfee35404
+  languageName: node
+  linkType: hard
+
+"react-magnifier@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "react-magnifier@npm:3.0.4"
+  dependencies:
+    "@types/lodash.debounce": ^4.0.6
+    "@types/lodash.throttle": ^4.1.6
+    "@types/react": ^16.9.1
+    lodash.debounce: ^4.0.8
+    lodash.throttle: ^4.1.1
+  peerDependencies:
+    react: ^16.0.0
+  checksum: bf79ba0aead5bfe4d6112378fbb036dfbe128bb0bdc4940be91f41f8258782a7e7f3f118dc3668a044332be32d57409733ebd356312ec3564b1a22dd2a34f84b
   languageName: node
   linkType: hard
 

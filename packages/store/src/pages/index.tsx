@@ -78,7 +78,7 @@ export default () => {
 
         <Link
           as={GatsbyLink as any}
-          {...{ to: '/camisetas/categoria/camisetas-psicodelicas/1' }}
+          {...{ to: '/camisetas/categoria/camisetas-psicodelicas/' }}
           rounded={'100%'}
           zIndex={3}
           gridArea={{

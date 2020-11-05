@@ -43,6 +43,7 @@
   },
   "scripts": {
     "store:dev": "yarn workspace @fractalmw/store exec yarn dev",
+    "store:clean": "yarn workspace @fractalmw/store exec yarn clean",
     "store:build": "yarn workspace @fractalmw/store exec yarn build",
     "gql:generate": "graphql-codegen --config codegen.yml",
     "test": "env-cmd jest --watchAll --silent --noStackTrace --runInBand --passWithNoTests",

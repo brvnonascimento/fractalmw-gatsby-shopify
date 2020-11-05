@@ -79,7 +79,7 @@
     "typescript": "^4.0.2"
   },
   "scripts": {
-    "build": "gatsby build",
+    "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build",
     "clean": "gatsby clean",
     "dev": "env-cmd gatsby develop",
     "generate": "graphql-codegen --config codegen.yml"
