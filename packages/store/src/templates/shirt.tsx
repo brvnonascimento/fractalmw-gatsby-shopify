@@ -17,7 +17,6 @@ import { ShirtDescription } from '../features/buy/components/ShirtDescription'
 import { ProductSEO } from '../features/buy/components/ProductSEO'
 import GatsbyImage from 'gatsby-image'
 import Magnifier from 'react-magnifier'
-import { css } from '@emotion/core'
 
 export interface ShirtTemplate {
   id: string

@@ -72,7 +72,8 @@ export default ({ pageContext }: any) => {
         }}
         gridProps={{
           columns: {
-            xs: 2,
+            xs: 1,
+            md: 2,
             lg: 3
           }
         }}

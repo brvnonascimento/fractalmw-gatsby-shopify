@@ -62,7 +62,6 @@ export const ShirtGrid = ({
       display={'grid'}
       spacing={2}
       {...gridProps}
-      // gridTemplateColumns={`repeat(auto-fill, minmax(${shirtSize}, 1fr))`}
     >
       {loading ? (
         <Spinner

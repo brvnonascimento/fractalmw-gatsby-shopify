@@ -6,8 +6,10 @@ import '../styles/index.css'
 import { Footer } from './fragments/Footer'
 import WhatsappIcon from '../assets/whatsapp.svg'
 import { groovyBorder } from '../components/styles/groovyBorder'
+import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
 
 const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
+
   return (
     <Grid
       minHeight={'100vh'}
@@ -30,7 +32,7 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
         width={'75px'}
         bottom={{ xs: '90px', lg: '33px' }}
         left={{ xs: '8px', lg: '31px' }}
-        zIndex={10}
+        zIndex={3}
         transition={'all .2s ease-in-out'}
         background={'white'}
         p="5px"

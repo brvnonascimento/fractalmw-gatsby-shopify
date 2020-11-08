@@ -148,7 +148,7 @@ export default () => {
         as="main"
         title={'Destaques'}
         gridProps={{
-          minChildWidth: { xs: '200px', lg: '250px' }
+          minChildWidth: '300px'
         }}
         shirtProps={{
           htmlHeight: '280',

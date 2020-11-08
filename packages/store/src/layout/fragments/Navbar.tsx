@@ -2,6 +2,12 @@ import {
   BoxProps,
   Icon,
   ImageProps,
+  Link,
+  Menu,
+  MenuButton,
+  MenuItemOption,
+  MenuList,
+  MenuOptionGroup,
   useDisclosure
 } from '@chakra-ui/core'
 import React from 'react'
@@ -21,6 +27,10 @@ import { CartDrawer } from '../../features/cart/components/CartDrawer'
 import { useSearch } from '../../features/search/hooks/useSearch'
 import { LogoLink } from '../../components/LogoLink'
 import ShirtIcon from '../../assets/shirt.svg'
+import { groovyBorder } from '../../components/styles/groovyBorder'
+import GatsbyLink from 'gatsby-link'
+import { toSlug } from '../../utils/toSlug'
+import { useStaticCategories } from '../../features/catalog/hooks/useStaticCategories'
 
 export interface NavbarProps {
   logoStyle?: ImageProps
@@ -42,6 +52,7 @@ export const Navbar = ({
   const checkoutUrl = useCheckoutUrl()
   const removeItemFromcart = useRemoveItemFromCart()
   const [handleSearch, { searchResults, loading, error }] = useSearch()
+  const categories = useStaticCategories()
 
   return (
     <>
@@ -50,11 +61,53 @@ export const Navbar = ({
       <NavLinks
         {...navStyle}
         zIndex={10}
+        fontSize={'lg'}
+        maxWidth={{ lg: '420px' }}
         links={[
           {
-            title: 'Camisetas',
+            title: '',
             to: '/camisetas/',
-            icon: <ShirtIcon width='20px' height='20px' />
+            icon: (
+              <Menu>
+                <MenuButton
+                  display={'flex'}
+                  alignItems={'center'}
+                  justifyContent={'space-around'}
+                  transition="all 0.2s"
+                >
+                  <Link
+                    as={GatsbyLink as any}
+                    {...{ to: `/camisetas/` }}
+                    display={'flex'}
+                    alignItems={'center'}
+                    justifyContent={'space-around'}
+                    width={'113px'}
+                  >
+                    <ShirtIcon width={'20px'} height={'20px'} />
+                    Camisetas
+                  </Link>
+
+                  <Icon name="chevron-down" size={'30px'} />
+                </MenuButton>
+
+                <MenuList color={'black'} zIndex={10} {...groovyBorder}>
+                  <MenuOptionGroup title="Categorias" type="checkbox">
+                    {categories.map((category) => (
+                      <MenuItemOption key={category}>
+                        <Link
+                          as={GatsbyLink as any}
+                          {...{
+                            to: `/camisetas/categoria/${toSlug(category)}`
+                          }}
+                        >
+                          {category}
+                        </Link>
+                      </MenuItemOption>
+                    ))}
+                  </MenuOptionGroup>
+                </MenuList>
+              </Menu>
+            )
           },
           {
             title: 'Contato',
