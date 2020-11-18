@@ -1,6 +1,6 @@
 import React, { ReactNode, useMemo } from 'react'
 import styled from '@emotion/styled'
-import { Box, BoxProps, Divider, Heading } from '@chakra-ui/core'
+import { Box, BoxProps, Heading } from '@chakra-ui/core'
 
 export interface TableColumn {
   header: ReactNode
@@ -8,12 +8,18 @@ export interface TableColumn {
 }
 
 export interface TableProps extends BoxProps {
-  title: string
+  title?: string
   columns: TableColumn[]
   data: any[]
 }
 
-export const Table = ({ columns, title, data, ...props }: TableProps) => {
+export const Table = ({
+  columns,
+  title,
+  data,
+  children,
+  ...props
+}: TableProps) => {
   const headers = useMemo(() => columns.map(({ header }) => header), [data])
 
   const acessors = useMemo(() => columns.map(({ acessor }) => acessor), [data])
@@ -23,10 +29,9 @@ export const Table = ({ columns, title, data, ...props }: TableProps) => {
       as="table"
       display={'flex'}
       flexDirection={'column'}
-      width={'100%'}
       {...props}
     >
-      <Box as='thead' borderBottom={'1px'} pb={'1em'} mb={'2em'}>
+      <Box as="thead" borderBottom={'1px'} pb={'1em'} mb={'2em'}>
         <TableRow>
           <Box as="th" fontWeight="bold">
             <Heading as="h3">{title}</Heading>
@@ -34,7 +39,7 @@ export const Table = ({ columns, title, data, ...props }: TableProps) => {
         </TableRow>
       </Box>
 
-      <tbody>
+      <TableBody>
         <TableRow>
           {headers.map((header, i) => (
             <TableHeader key={i}>{header}</TableHeader>
@@ -47,7 +52,9 @@ export const Table = ({ columns, title, data, ...props }: TableProps) => {
             ))}
           </TableRow>
         ))}
-      </tbody>
+      </TableBody>
+
+      <TableFooter>{children}</TableFooter>
     </Box>
   )
 }
@@ -64,5 +71,19 @@ const TableHeader = styled.th({
 const TableCell = styled.td({
   display: 'flex',
   width: '100%',
+  justifyContent: 'center'
+})
+
+const TableBody = styled.tbody({
+  display: 'flex',
+  flexDirection: 'column'
+})
+
+const TableFooter = styled.tfoot({
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: '0.5em',
+  paddingRight: '1em',
+  paddingLeft: '1em',
   justifyContent: 'center'
 })

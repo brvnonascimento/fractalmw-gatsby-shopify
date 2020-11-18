@@ -34,10 +34,14 @@ export default ({ pageContext }: any) => {
       maxWidth={'1077px'}
       justifySelf={'center'}
       px={'10px'}
-      width={'100%'}
+      pl={{ xs: '0', md: 'unset' }}
+      pr={{ xs: '33px', md: 'unset' }}
+      width={'100vw'}
     >
       <SEO
-        title={`${pageContext?.category ?? 'Camisetas'} ${currentPage} de ${lastPage} - Fractal Music Wear`}
+        title={`${
+          pageContext?.category ?? 'Camisetas'
+        } ${currentPage} de ${lastPage} - Fractal Music Wear`}
         metaDescription={
           'A Fractal Music Wear oferece várias opções de estampas de camisetas de estampas criativas, engraçadas e inteligentes, seja de personagens especiais, bandas, filmes e cartoons conhecidos. Escolha uma ou envie seu seu desenho para personalizar a camiseta'
         }
@@ -50,7 +54,9 @@ export default ({ pageContext }: any) => {
         />
       </SEO>
 
-      <Heading as='h1' alignSelf={'center'} mb={'0.5em'}>{pageContext?.category ?? 'Camisetas'}</Heading>
+      <Heading as="h1" alignSelf={'center'} mb={'0.5em'}>
+        {pageContext?.category ?? 'Camisetas'}
+      </Heading>
 
       <ShirtMenuBar
         categories={categories as string[]}
@@ -98,7 +104,7 @@ export default ({ pageContext }: any) => {
         <PaginationNav
           path={
             pageContext?.categorySlug
-              ? `/camisetas/categoria/${pageContext.categorySlug}`
+              ? `/categoria/camisetas/${pageContext.categorySlug}`
               : '/camisetas'
           }
           lastPage={lastPage as number}

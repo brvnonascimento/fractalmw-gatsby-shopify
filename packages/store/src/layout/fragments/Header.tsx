@@ -28,6 +28,7 @@ export const Header = ({
       fontWeight={'bold'}
       fontSize={'xl'}
       justifyItems={'center'}
+      width={'100vw'}
       alignItems={'center'}
       color={'white'}
       display={'grid'}

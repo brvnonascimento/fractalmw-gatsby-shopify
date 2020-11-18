@@ -33,7 +33,7 @@ export const useHomePageData = () => {
           images {
             localFile {
               childImageSharp {
-                fluid(maxHeight: 310, maxWidth: 282) {
+                fluid {
                   ...GatsbyImageSharpFluid
                 }
               }
@@ -44,28 +44,28 @@ export const useHomePageData = () => {
       }
       file(name: { eq: "banner-image-1" }) {
         childImageSharp {
-          bannerImage1: fluid(webpQuality: 50) {
+          bannerImage1: fluid {
             ...GatsbyImageSharpFluid
           }
         }
       }
       secondFile: file(name: { eq: "banner-image-2" }) {
         childImageSharp {
-          bannerImage2: fluid(webpQuality: 50) {
+          bannerImage2: fluid {
             ...GatsbyImageSharpFluid
           }
         }
       }
       asideImage1: file(name: { eq: "image-aside-1" }) {
         childImageSharp {
-          asideImage1: fluid(webpQuality: 50) {
+          asideImage1: fluid {
             ...GatsbyImageSharpFluid
           }
         }
       }
       asideImage2: file(name: { eq: "image-aside-2" }) {
         childImageSharp {
-          asideImage2: fluid(webpQuality: 50) {
+          asideImage2: fluid {
             ...GatsbyImageSharpFluid
           }
         }

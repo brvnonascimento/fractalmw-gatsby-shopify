@@ -21,6 +21,7 @@ export const NavLinks = ({ children, links, ...props }: NavLinksProps) => (
     }}
     display={'flex'}
     bottom={0}
+    left={0}
     background={{
       xs: 'rgba(0, 0, 0.5)',
       lg: 'transparent'
@@ -34,6 +35,7 @@ export const NavLinks = ({ children, links, ...props }: NavLinksProps) => (
       xs: '70px',
       lg: 'auto'
     }}
+    justifyContent={'center'}
     alignItems={'center'}
     width={'100%'}
     {...props}

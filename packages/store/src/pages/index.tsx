@@ -77,7 +77,7 @@ export default () => {
 
         <Link
           as={GatsbyLink as any}
-          {...{ to: '/camisetas/categoria/camisetas-psicodelicas/' }}
+          {...{ to: '/categoria/camisetas/camisetas-psicodelicas/' }}
           rounded={'100%'}
           zIndex={3}
           gridArea={{
@@ -155,7 +155,15 @@ export default () => {
           htmlWidth: '280'
         }}
         shirts={shirtList}
-        px="1em"
+        px={{
+          lg: '1em'
+        }}
+        pl={{
+          xs: '1em'
+        }}
+        pr={{
+          xs: '3em'
+        }}
       />
 
       <Flex

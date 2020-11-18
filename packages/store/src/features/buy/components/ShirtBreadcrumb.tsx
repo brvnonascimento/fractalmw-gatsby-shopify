@@ -21,7 +21,7 @@ export const ShirtBreadcrumb = memo(({ category, title, ...props }: ShirtBreadcr
         <Link to="/">Fractal Music Wear</Link>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <Link to={`/camisetas/categoria/${toSlug(category)}/`}>{category}</Link>
+        <Link to={`/categoria/camisetas/${toSlug(category)}/`}>{category}</Link>
       </BreadcrumbItem>
       <BreadcrumbItem>
         <BreadcrumbLink>{title}</BreadcrumbLink>

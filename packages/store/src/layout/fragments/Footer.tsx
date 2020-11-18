@@ -1,4 +1,12 @@
-import { Box, BoxProps, Link, ListItem, SimpleGrid } from '@chakra-ui/core'
+import {
+  Grid,
+  GridProps,
+  Heading,
+  Image,
+  Link,
+  ListItem,
+  SimpleGrid
+} from '@chakra-ui/core'
 import GatsbyLink from 'gatsby-link'
 import React, { memo } from 'react'
 import { LogoLink } from '../../components/LogoLink'
@@ -22,35 +30,91 @@ const links = [
   }
 ]
 
-export const Footer = memo(({ ...props }: BoxProps) => (
-  <Box
+export const Footer = memo(({ ...props }: GridProps) => (
+  <Grid
     as="footer"
+    display={'grid'}
+    gridTemplateColumns={{
+      lg: '120px 250px 1fr'
+    }}
+    alignItems={'center'}
+    columnGap={'2em'}
     backgroundColor={'#000000'}
     color="white"
-    py={'1em'}
+    px={'1em'}
+    py={'2em'}
     height={'100%'}
     {...props}
   >
+    <LogoLink
+      width={'120px'}
+      height={'120px'}
+      htmlHeight={'120'}
+      htmlWidth={'120'}
+      link={{
+        gridColumn: {
+          xs: '1 / -1',
+          lg: 'auto'
+        },
+        display: 'flex',
+        justifyContent: 'center'
+      }}
+    />
+    <Grid
+      as="ul"
+      gridTemplateColumns={{
+        xs: 'repeat(3, 32vw)',
+        lg: 'repeat(4, auto)'
+      }}
+      columnGap={'10px'}
+      rowGap={'1em'}
+      alignItems={'center'}
+      justifyItems={'center'}
+    >
+      <Heading fontSize={'xs'} gridColumn={{ xs: '1 / -1', lg: 'unset' }}>
+        #FRACTALNASREDES
+      </Heading>
+
+      <ListItem>
+        <Link
+          isExternal
+          href="https://www.instagram.com/fractalmusicwear/"
+          title={'Nos siga no Instagram'}
+        >
+          <Image src={'/instagram.svg'} htmlWidth={'48'} htmlHeight={'48'} />
+        </Link>
+      </ListItem>
+
+      <ListItem>
+        <Link
+          isExternal
+          href="https://www.facebook.com/fractalmusicwear/"
+          title={'Nos siga no Facebook!'}
+        >
+          <Image src={'/facebook.svg'} htmlWidth={'48'} htmlHeight={'48'} />
+        </Link>
+      </ListItem>
+
+      <ListItem>
+        <Link
+          isExternal
+          href="https://www.youtube.com/channel/UCzZe0jWKtNNO17V2aR9kMxQ"
+          title={'Nos assista no Youtube!'}
+        >
+          <Image src={'/youtube.svg'} htmlWidth={'48'} htmlHeight={'48'} />
+        </Link>
+      </ListItem>
+    </Grid>
+
     <SimpleGrid
       as="ul"
-      minChildWidth={'150px'}
+      fontSize={'xs'}
+      minChildWidth={'100px'}
       alignItems={'center'}
       justifyItems={'center'}
       height={'100%'}
       fontWeight={'bold'}
     >
-      <LogoLink
-        width={'120px'}
-        height={'120px'}
-        htmlHeight={'120'}
-        htmlWidth={'120'}
-        link={{
-          gridColumn: {
-            xs: 'span 4',
-            lg: 'auto'
-          }
-        }}
-      />
       {links.map(({ to, name }) => (
         <ListItem
           gridColumn={{
@@ -64,5 +128,5 @@ export const Footer = memo(({ ...props }: BoxProps) => (
         </ListItem>
       ))}
     </SimpleGrid>
-  </Box>
+  </Grid>
 ))

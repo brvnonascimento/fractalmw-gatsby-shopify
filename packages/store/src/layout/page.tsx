@@ -6,14 +6,12 @@ import '../styles/index.css'
 import { Footer } from './fragments/Footer'
 import WhatsappIcon from '../assets/whatsapp.svg'
 import { groovyBorder } from '../components/styles/groovyBorder'
-import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
 
 const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
-
   return (
     <Grid
       minHeight={'100vh'}
-      maxWidth={'100vw'}
+      width={'100vw'}
       overflow={'hidden'}
       rowGap={'1em'}
     >
@@ -46,7 +44,8 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
       </PseudoBox>
 
       <Footer
-        mb={{ xs: '4em', lg: 0 }}
+        pb={{ xs: '5em', lg: 0 }}
+        mb={{ xs: '5em', lg: 0 }}
         minHeight={{
           xs: '265px',
           lg: 'auto'
@@ -57,26 +56,3 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
 }
 
 export default page
-{
-  /* <Header gridArea={'1 / 1 / 3 / -1'}>
-        <CompanyHeading
-          name={'Fractal Music Wear'}
-          gridArea={{ xs: '3 / 1 / 3 / -1', md: '3 / 2' }}
-          justifySelf={{ xs: 'center', md: 'start' }}
-          alignSelf={{ xs: 'end' }}
-          textShadow={'1px 1px 5px black'}
-          lineHeight={'1.2em'}
-        />
-        <Text
-          gridArea={{ xs: '4 / 1 / 4 / -1', md: '4 / 2' }}
-          justifySelf={{ xs: 'center', md: 'start' }}
-          alignSelf={'end'}
-          fontWeight={'lighter'}
-          fontSize={'1.2em'}
-          textShadow={'1px 1px 5px black'}
-          lineHeight={'1.05em'}
-        >
-          Estampando a rua desde 2007.
-        </Text>
-      </Header> */
-}

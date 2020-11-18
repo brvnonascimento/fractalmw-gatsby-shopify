@@ -1,5 +1,14 @@
 import React, { useState } from 'react'
-import { Box, Flex, Grid, Heading, Stack, useDisclosure } from '@chakra-ui/core'
+import {
+  Box,
+  Flex,
+  Grid,
+  Heading,
+  Image,
+  Stack,
+  Text,
+  useDisclosure
+} from '@chakra-ui/core'
 import { ShirtBreadcrumb } from '../features/buy/components/ShirtBreadcrumb'
 import { ShirtImageProps } from '../features/catalog/components/ShirtGrid'
 import { numberToBRL } from '../utils/price'
@@ -81,9 +90,10 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
     <Grid
       gridTemplateRows={'auto'}
       gridTemplateColumns={{
-        xs: '10px 0.5fr 0.5fr 10px',
         lg: '10vw 0.5fr 0.5fr 10vw'
       }}
+      px={{ xs: '1em', lg: 0 }}
+      pr={{ xs: '3em', lg: 0 }}
     >
       <ProductSEO
         title={`${title} - Fractal Music Wear`}
@@ -217,54 +227,124 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         />
       </Grid>
 
-      <Table
+      <Grid
+        as="section"
         gridArea={'4 / 2 / 4 / 4'}
-        padding={'1em'}
-        title={'Guia de Medidas'}
-        {...groovyBorder}
-        mt="0.5em"
-        columns={[
-          {
-            header: 'Tamanho',
-            acessor: 'size'
-          },
-          {
-            header: 'Altura',
-            acessor: 'height'
-          },
-          {
-            header: 'Largura',
-            acessor: 'width'
-          }
-        ]}
-        data={[
-          {
-            size: 'P',
-            height: '70cm',
-            width: '49cm'
-          },
-          {
-            size: 'M',
-            height: '72cm',
-            width: '53cm'
-          },
-          {
-            size: 'G',
-            height: '74cm',
-            width: '54cm'
-          },
-          {
-            size: 'GG',
-            height: '76cm',
-            width: '56cm'
-          },
-          {
-            size: 'XG',
-            height: '80cm',
-            width: '65cm'
-          }
-        ]}
-      />
+        background={'#F3F3F3'}
+        alignItems={'center'}
+        justifyItems={'center'}
+        p={{ xs: '0', lg: '2em' }}
+      >
+        <Flex
+          as="article"
+          direction={{ lg: 'column' }}
+          justifyContent={'space-around'}
+          alignItems={{ xs: 'center', lg: 'start' }}
+          width={'100%'}
+          gridArea={{ xs: '1', md: '1 / span 2', lg: 'unset' }}
+          fontSize={{ xs: 'sm', lg: 'md' }}
+        >
+          <Text>
+            <Box as="q">
+              As camisetas
+              <br />
+              são estampadas
+              <br />
+              <b>uma a uma</b> na nossa loja em
+              <br />
+              Piracicaba...
+            </Box>
+            <br />
+            <b>...pelo Sidão Fractal</b>
+          </Text>
+
+          <Flex direction="column" mt={'1em'}>
+            <Heading>Camiseta</Heading>
+
+            <Text>
+              <b>
+                100% Algodão
+                <br />
+                Fio Penteado 30.1
+                <br />
+                Pré Lavada e Amaciada
+                <br />
+              </b>
+              com reforço na gola
+              <br />
+              Estampa em <b>Silk Screen</b>
+              <br />
+              <b>artesanal</b> e <b>digital</b>.
+            </Text>
+          </Flex>
+        </Flex>
+
+        <Image
+          src="/measures.svg"
+          gridArea={{
+            xs: '3',
+            md: '3 / 1',
+            lg: 'unset'
+          }}
+          p={'1em'}
+          htmlWidth={'300'}
+          htmlHeight={300}
+        />
+
+        <Table
+          gridArea={{ xs: '2', md: '3', lg: '1 / 3 / 3 / 3' }}
+          padding={'1em'}
+          justifySelf={'center'}
+          maxWidth={'1030px'}
+          title={'GUIA DE MEDIDAS'}
+          mt="0.5em"
+          columns={[
+            {
+              header: 'Tamanho',
+              acessor: 'size'
+            },
+            {
+              header: 'Altura',
+              acessor: 'height'
+            },
+            {
+              header: 'Largura',
+              acessor: 'width'
+            }
+          ]}
+          data={[
+            {
+              size: 'P',
+              height: '70cm',
+              width: '49cm'
+            },
+            {
+              size: 'M',
+              height: '72cm',
+              width: '53cm'
+            },
+            {
+              size: 'G',
+              height: '74cm',
+              width: '56cm'
+            },
+            {
+              size: 'GG',
+              height: '76cm',
+              width: '59cm'
+            },
+            {
+              size: 'XG',
+              height: '80cm',
+              width: '65cm'
+            }
+          ]}
+        >
+          <Text fontWeight={'lighter'} fontSize={'sm'} mb={'1em'}>
+            *as medidas podem variar em até 3cm tanto na largura como na altura
+          </Text>
+        </Table>
+      </Grid>
 
       <CartDrawer
         checkoutUrl={checkoutUrl ?? ''}
