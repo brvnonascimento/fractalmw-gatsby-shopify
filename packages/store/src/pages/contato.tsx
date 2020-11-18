@@ -9,6 +9,7 @@ export default () => (
     gridTemplateRows={'64px auto'}
     rowGap={'1em'}
     columnGap={'10px'}
+    minHeight={'900px'}
   >
     <Heading
       as="h1"

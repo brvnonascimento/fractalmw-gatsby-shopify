@@ -6,7 +6,6 @@ import '../styles/index.css'
 import { Footer } from './fragments/Footer'
 import WhatsappIcon from '../assets/whatsapp.svg'
 import { groovyBorder } from '../components/styles/groovyBorder'
-import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
 
 const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
 
@@ -46,7 +45,8 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
       </PseudoBox>
 
       <Footer
-        mb={{ xs: '4em', lg: 0 }}
+        pb={{ xs: '5em', lg: 0 }}
+        mb={{ xs: '5em', lg: 0 }}
         minHeight={{
           xs: '265px',
           lg: 'auto'

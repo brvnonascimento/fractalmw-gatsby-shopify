@@ -1,5 +1,14 @@
 import React, { useState } from 'react'
-import { Box, Flex, Grid, Heading, Stack, useDisclosure } from '@chakra-ui/core'
+import {
+  Box,
+  Flex,
+  Grid,
+  Heading,
+  Image,
+  Stack,
+  Text,
+  useDisclosure
+} from '@chakra-ui/core'
 import { ShirtBreadcrumb } from '../features/buy/components/ShirtBreadcrumb'
 import { ShirtImageProps } from '../features/catalog/components/ShirtGrid'
 import { numberToBRL } from '../utils/price'
@@ -220,6 +229,8 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
       <Table
         gridArea={'4 / 2 / 4 / 4'}
         padding={'1em'}
+        justifySelf={'center'}
+        maxWidth={'1030px'}
         title={'Guia de Medidas'}
         {...groovyBorder}
         mt="0.5em"
@@ -251,12 +262,12 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           {
             size: 'G',
             height: '74cm',
-            width: '54cm'
+            width: '56cm'
           },
           {
             size: 'GG',
             height: '76cm',
-            width: '56cm'
+            width: '59cm'
           },
           {
             size: 'XG',
@@ -264,7 +275,59 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
             width: '65cm'
           }
         ]}
-      />
+      >
+        <Text fontWeight={'lighter'} fontSize={'sm'} mb={'1em'}>
+          *as medidas podem variar em até 3cm tanto na largura como na altura
+        </Text>
+
+        <Flex
+          direction={{ xs: 'column', lg: 'row' }}
+          width={'100%'}
+          justifyContent={'center'}
+          alignItems={'center'}
+        >
+          <Image src="/measures.svg" p={'1em'} mr={'2em'} maxWidth={'400px'} />
+
+          <Flex direction="column" justifyContent={'space-around'}>
+            <Text>
+              <Box as="q">
+                As camisetas
+                <br />
+                são estampadas
+                <br />
+                <b>uma a uma</b> na nossa loja em
+                <br />
+                Piracicaba...
+              </Box>
+              <br />
+              <b>...pelo Sidão Fractal</b>
+            </Text>
+
+            <Flex direction="column" mt={'1em'}>
+              <Heading>Camiseta</Heading>
+
+              <Text>
+                <b>
+                  100% Algodão
+                  <br />
+                  Fio Penteado 30.1
+                  <br />
+                  Pré Lavada e Amaciada
+                  <br />
+                </b>
+                com reforço na gola
+                <br />
+                Estampa em{' '}
+                <b>
+                  Silk Screen
+                </b>
+                  <br />
+                <b>artesanal</b> e <b>digital</b>.
+              </Text>
+            </Flex>
+          </Flex>
+        </Flex>
+      </Table>
 
       <CartDrawer
         checkoutUrl={checkoutUrl ?? ''}
