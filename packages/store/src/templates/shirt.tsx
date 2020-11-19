@@ -230,6 +230,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
       <Grid
         as="section"
         gridArea={'4 / 2 / 4 / 4'}
+<<<<<<< HEAD
         background={'#F3F3F3'}
         alignItems={'center'}
         justifyItems={'center'}
@@ -345,6 +346,108 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           </Text>
         </Table>
       </Grid>
+=======
+        padding={'1em'}
+        justifySelf={'center'}
+        maxWidth={'1030px'}
+        title={'Guia de Medidas'}
+        {...groovyBorder}
+        mt="0.5em"
+        columns={[
+          {
+            header: 'Tamanho',
+            acessor: 'size'
+          },
+          {
+            header: 'Altura',
+            acessor: 'height'
+          },
+          {
+            header: 'Largura',
+            acessor: 'width'
+          }
+        ]}
+        data={[
+          {
+            size: 'P',
+            height: '70cm',
+            width: '49cm'
+          },
+          {
+            size: 'M',
+            height: '72cm',
+            width: '53cm'
+          },
+          {
+            size: 'G',
+            height: '74cm',
+            width: '56cm'
+          },
+          {
+            size: 'GG',
+            height: '76cm',
+            width: '59cm'
+          },
+          {
+            size: 'XG',
+            height: '80cm',
+            width: '65cm'
+          }
+        ]}
+      >
+        <Text fontWeight={'lighter'} fontSize={'sm'} mb={'1em'}>
+          *as medidas podem variar em até 3cm tanto na largura como na altura
+        </Text>
+
+        <Flex
+          direction={{ xs: 'column', lg: 'row' }}
+          width={'100%'}
+          justifyContent={'center'}
+          alignItems={'center'}
+        >
+          <Image src="/measures.svg" p={'1em'} mr={'2em'} maxWidth={'400px'} />
+
+          <Flex direction="column" justifyContent={'space-around'}>
+            <Text>
+              <Box as="q">
+                As camisetas
+                <br />
+                são estampadas
+                <br />
+                <b>uma a uma</b> na nossa loja em
+                <br />
+                Piracicaba...
+              </Box>
+              <br />
+              <b>...pelo Sidão Fractal</b>
+            </Text>
+
+            <Flex direction="column" mt={'1em'}>
+              <Heading>Camiseta</Heading>
+
+              <Text>
+                <b>
+                  100% Algodão
+                  <br />
+                  Fio Penteado 30.1
+                  <br />
+                  Pré Lavada e Amaciada
+                  <br />
+                </b>
+                com reforço na gola
+                <br />
+                Estampa em{' '}
+                <b>
+                  Silk Screen
+                </b>
+                  <br />
+                <b>artesanal</b> e <b>digital</b>.
+              </Text>
+            </Flex>
+          </Flex>
+        </Flex>
+      </Table>
+>>>>>>> 9d89258bd716d26e2e3f0af4ff45e03594ad7fa6
 
       <CartDrawer
         checkoutUrl={checkoutUrl ?? ''}
