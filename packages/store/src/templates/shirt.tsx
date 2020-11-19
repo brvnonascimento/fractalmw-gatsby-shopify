@@ -345,7 +345,6 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
           </Text>
         </Table>
       </Grid>
-
       <CartDrawer
         checkoutUrl={checkoutUrl ?? ''}
         onDeleteItem={removeItemFromCart}
