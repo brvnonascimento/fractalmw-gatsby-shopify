@@ -108,7 +108,7 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
         const categorySlug = toSlug(category)
 
         actions.createPage({
-          path: `/categoria/camisetas/${categorySlug}/${
+          path: `/camisetas/categoria/${categorySlug}/${
             currentPageIndex !== 1 ? `${currentPageIndex}` : ''
           }`,
 

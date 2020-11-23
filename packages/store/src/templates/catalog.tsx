@@ -104,7 +104,7 @@ export default ({ pageContext }: any) => {
         <PaginationNav
           path={
             pageContext?.categorySlug
-              ? `/categoria/camisetas/${pageContext.categorySlug}`
+              ? `/camisetas/categoria/${pageContext.categorySlug}`
               : '/camisetas'
           }
           lastPage={lastPage as number}
