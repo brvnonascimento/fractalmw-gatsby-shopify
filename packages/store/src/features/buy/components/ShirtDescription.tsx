@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { BoxProps, Text } from '@chakra-ui/core'
+import { BoxProps, Text } from '@chakra-ui/react'
 import xss from 'xss'
 
 interface ShirtDescriptionProps extends BoxProps {

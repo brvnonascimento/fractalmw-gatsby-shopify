@@ -1,8 +1,6 @@
-// @ts-nocheck
 import { GatsbyNode } from 'gatsby'
+import { paginate, createPagePerItem } from 'gatsby-awesome-pagination'
 import path from 'path'
-// import { ProductPageQuery } from '../../graphql-types'
-import { ShirtTemplate } from '../templates/shirt'
 import { toSlug } from '../utils/toSlug'
 
 interface ProductPageResult {
@@ -10,243 +8,43 @@ interface ProductPageResult {
   errors?: any
 }
 
-// TODO: REFACTOR THE SHIT OUT OF THIS
-
-const missingParamError = (shirtId: string, param: string | number) => {
-  throw new Error(
-    `Shirt with id ${shirtId} does not contain a valid ${param} parameter.`
-  )
-}
-
-const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
-  const { data, errors }: ProductPageResult = await graphql(`
-    query ProductPage {
+const createPages: GatsbyNode['createPages'] = async ({
+  graphql,
+  actions: { createPage }
+}) => {
+  const {
+    data: {
+      allShopifyProduct: { nodes: shirts }
+    }
+  }: ProductPageResult = await graphql(`
+    query ProductPages {
       allShopifyProduct {
         nodes {
           title
-          handle
           id
-          productType
-          images {
-            altText
-            localFile {
-              childImageSharp {
-                fluid {
-                  base64
-                  aspectRatio
-                  src
-                  srcSet
-                  sizes
-                }
-              }
-            }
-          }
-          options {
-            values
-          }
-          variants {
-            id
-            title
-            price
-            sku
-          }
-          descriptionHtml
-          options {
-            name
-            values
-          }
         }
       }
     }
   `)
 
-  if (!data?.allShopifyProduct?.nodes) {
-    throw new Error(errors)
-  }
+  paginate({
+    createPage,
+    itemsPerPage: 9,
+    items: shirts,
+    pathPrefix: '/camisetas',
+    component: path.resolve(__dirname, '../templates/catalog.tsx')
+  })
 
-  const shirts = data.allShopifyProduct.nodes
-
-  const paginateAllShirts = (
-    pageProps: any,
-    currentPageIndex: number,
-    lastPage: number
-  ) => {
-    actions.createPage({
-      path: `/camisetas/${currentPageIndex !== 1 ? `${currentPageIndex}` : ''}`,
-      component: path.resolve(__dirname, '../templates/catalog.tsx'),
-      context: {
-        shirts: pageProps,
-        currentPage: currentPageIndex,
-        lastPage
+  createPagePerItem({
+    createPage,
+    items: shirts,
+    itemToId: 'id',
+    itemToPath: (props: any) => {
+      if (props?.title) {
+        return `/produto/${toSlug(props?.title)}`
       }
-    })
-  }
-
-  const generateEachShirt = (shirt: any) => {
-    actions.createPage({
-      path: `/produto/${shirt.sku as string}`,
-      component: path.resolve(__dirname, '../templates/shirt.tsx'),
-      context: {
-        shirt
-      }
-    })
-  }
-
-  generateShirts(shirts, generateEachShirt, paginateAllShirts)
-
-  const categories = shirts.map(({ productType }: any) => productType)
-
-  for (const category of categories) {
-    const shirtsByCategory = shirts.filter(
-      ({ productType }: any) => productType === category
-    )
-
-    generateShirts(
-      shirtsByCategory,
-      () => {},
-      (page, currentPageIndex, lastPage) => {
-        const categorySlug = toSlug(category)
-
-        actions.createPage({
-          path: `/categoria/camisetas/${categorySlug}/${
-            currentPageIndex !== 1 ? `${currentPageIndex}` : ''
-          }`,
-
-          component: path.resolve(__dirname, '../templates/catalog.tsx'),
-          context: {
-            shirts: page,
-            currentPage: currentPageIndex,
-            lastPage,
-            category,
-            categorySlug
-          }
-        })
-      }
-    )
-  }
-}
-
-const generateShirts = (
-  shirts: any[],
-  callback: (shirtPageProps: any) => void,
-  onPaginateCallback: (
-    catalogoPage: any,
-    currentPageIndex: number,
-    lastPage: number
-  ) => void
-) => {
-  let currentPageIndex = 1
-  let page = []
-  const lastPage = Math.ceil(shirts.length / 9)
-
-  shirts.forEach((shirt, i) => {
-    if (!shirt) {
-      throw new Error(
-        'One or more shirts given were undefined on Shirt Page Creation.'
-      )
-    }
-    const {
-      id,
-      // handle,
-      title,
-      productType,
-      descriptionHtml,
-      variants
-    } = shirt
-
-    const requiredFields: Array<keyof typeof shirt> = [
-      'descriptionHtml',
-      'handle',
-      'id',
-      'images',
-      'options',
-      'productType',
-      'title',
-      'variants'
-    ]
-
-    for (const field of requiredFields) {
-      if (!shirt[field]) {
-        return missingParamError(shirt.id, field as string)
-      }
-    }
-
-    const getOptionsByName = (name: string) =>
-      shirt.options?.find((option: any) => {
-        if (!option) {
-          throw new Error(
-            `Shirt with id ${shirt.id as string} does not contain any option.`
-          )
-        }
-
-        return option.name === name
-      })
-
-    const sizes = getOptionsByName('size')
-    if (!sizes?.values) {
-      return missingParamError(id, 'Size')
-    }
-
-    const colors = getOptionsByName('color')
-    if (!colors?.values) {
-      return missingParamError(id, 'Color')
-    }
-
-    const models = getOptionsByName('model')
-    if (!models?.values) {
-      return missingParamError(id, 'Model')
-    }
-
-    const getPrice = (): number => {
-      if (!variants) {
-        return missingParamError(id, 'Variant')
-      }
-
-      const price = variants[0]?.price
-
-      if (!price) {
-        return missingParamError(id, 'Price')
-      }
-
-      return parseFloat(price)
-    }
-
-    const props: ShirtTemplate = {
-      title: title,
-      variants: variants,
-      price: getPrice(),
-      category: productType,
-      description: descriptionHtml,
-      sizes: sizes.values,
-      models: models.values,
-      colors: colors.values,
-      images: shirt.images.map(
-        ({
-          altText,
-          localFile: {
-            childImageSharp: { fluid }
-          }
-        }) => ({
-          ...fluid,
-          alt: altText
-        })
-      )
-    }
-
-    const shirtPageProps = {
-      ...props,
-      sku: toSlug(title)
-    }
-
-    page.push(shirtPageProps)
-
-    if (page.length === 9 || i + 1 === shirts.length) {
-      onPaginateCallback(page, currentPageIndex, lastPage)
-      page = []
-      currentPageIndex++
-    }
-
-    callback(shirtPageProps)
+    },
+    component: path.resolve(__dirname, '../templates/shirt.tsx')
   })
 }
 

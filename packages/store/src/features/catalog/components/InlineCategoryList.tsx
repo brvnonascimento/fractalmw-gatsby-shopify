@@ -1,11 +1,10 @@
 import React from 'react'
 import { Link as GatsbyLink } from 'gatsby'
-import { BoxProps, Grid, Link, List, ListItem } from '@chakra-ui/core'
+import { css, Grid, Link, List, ListItem, ListProps } from '@chakra-ui/react'
 import { groovyBorder } from '../../../components/styles/groovyBorder'
 import { toSlug } from '../../../utils/toSlug'
-import styled from '@emotion/styled'
 
-interface CategoryListProps extends BoxProps {
+interface CategoryListProps extends ListProps {
   categories: string[]
   title?: string
 }
@@ -19,8 +18,13 @@ export const CategoryList = ({
     <ListItem fontWeight={'bold'} fontSize={'2xl'}>
       {title}
     </ListItem>
-    <StyledGridList
+    <Grid
       as="ul"
+      css={css`
+        li:nth-child(3n + 1) {
+          grid-column: span 2;
+        }
+      `}
       listStyleType="none"
       display={'grid'}
       gridTemplateColumns={'repeat(auto-fill, minmax(150px, 1fr))'}
@@ -54,12 +58,6 @@ export const CategoryList = ({
           </Link>
         </ListItem>
       ))}
-    </StyledGridList>
+    </Grid>
   </List>
 )
-
-const StyledGridList = styled(Grid)`
-  li:nth-child(3n + 1) {
-    grid-column: span 2;
-  }
-`

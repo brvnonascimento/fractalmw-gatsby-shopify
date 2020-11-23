@@ -1,3 +1,4 @@
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import {
   Box,
   BoxProps,
@@ -7,7 +8,7 @@ import {
   MenuItemOption,
   MenuList,
   MenuOptionGroup
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { groovyBorder } from '../../../components/styles/groovyBorder'
 
@@ -89,9 +90,11 @@ export const ShirtMenuBar = ({ categories, onChangeMenu, ...props }: FilterBarPr
           _hover={{ bg: 'gray.100' }}
           _expanded={{ bg: 'red.200' }}
           _focus={{ outline: 0, boxShadow: 'outline' }}
-          {...groovyBorder}
+          border={0}
+          borderBottom={'2px solid'}
+          borderRadius={0}
         >
-          Filtrar por <Icon name="chevron-down" />
+          Filtrar por <ChevronDownIcon />
         </MenuButton>
 
         <MenuList {...groovyBorder}>
@@ -119,12 +122,14 @@ export const ShirtMenuBar = ({ categories, onChangeMenu, ...props }: FilterBarPr
           _hover={{ bg: 'gray.100' }}
           _expanded={{ bg: 'red.200' }}
           _focus={{ outline: 0, boxShadow: 'outline' }}
-          {...groovyBorder}
+          border={0}
+          borderBottom={'2px solid'}
+          borderRadius={0}
         >
-          Ordenar Por <Icon name="chevron-down" />
+          Ordenar Por <ChevronDownIcon />
         </MenuButton>
 
-        <MenuList {...groovyBorder}>
+        <MenuList >
           <MenuOptionGroup onChange={handleShirtSorting} title="Preço" type="radio">
             <MenuItemOption value={'UP_PRICE'}>Menor preço</MenuItemOption>
             <MenuItemOption value={'DOWN_PRICE'}>Maior preço</MenuItemOption>

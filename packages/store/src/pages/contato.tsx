@@ -1,11 +1,11 @@
-import { Box, Grid, Heading, Text } from '@chakra-ui/core'
+import { Box, Grid, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 import { HeadingDivider } from '../components/HeadingDivider'
 
 export default () => (
   <Grid
     as="main"
-    gridTemplateColumns={{xs: 'auto', lg: '160px auto'}}
+    gridTemplateColumns={{base: 'auto', lg: '160px auto'}}
     gridTemplateRows={'64px auto'}
     rowGap={'1em'}
     columnGap={'10px'}

@@ -1,4 +1,4 @@
-import { BoxProps, Divider } from '@chakra-ui/core'
+import { BoxProps, Divider } from '@chakra-ui/react'
 import React from 'react'
 
 export const HeadingDivider = ({ ...props }: BoxProps) => (

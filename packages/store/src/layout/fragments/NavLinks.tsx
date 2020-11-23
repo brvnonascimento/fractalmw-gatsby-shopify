@@ -1,14 +1,13 @@
 import React, { ReactNode } from 'react'
-import { Box, BoxProps, List, ListItem } from '@chakra-ui/core'
-import { Link } from 'gatsby'
-import styled from '@emotion/styled'
+import { Box, BoxProps, List, ListItem, Link, ListItemProps } from '@chakra-ui/react'
+import GatsbyLink from 'gatsby-link'
 
 interface NavLinksProps extends BoxProps {
   links: {
     title: string
     to: string
     icon?: ReactNode
-    style?: BoxProps
+    style?: ListItemProps
   }[]
 }
 
@@ -16,28 +15,26 @@ export const NavLinks = ({ children, links, ...props }: NavLinksProps) => (
   <Box
     as="nav"
     position={{
-      xs: 'fixed',
+      base: 'fixed',
       lg: 'relative'
     }}
     display={'flex'}
     bottom={0}
     left={0}
     background={{
-      xs: 'rgba(0, 0, 0.5)',
+      base: 'rgba(0, 0, 0.5)',
       lg: 'transparent'
     }}
-    backgroundImage={{
-      xs: 'url(watermark.png)',
-      lg: undefined
-    }}
+    backgroundImage={'url(watermark.png)'}
     backgroundSize={'800px'}
     height={{
-      xs: '70px',
+      base: '70px',
       lg: 'auto'
     }}
     justifyContent={'center'}
     alignItems={'center'}
     width={'100%'}
+    fontWeight={'medium'}
     {...props}
   >
     <List
@@ -55,18 +52,14 @@ export const NavLinks = ({ children, links, ...props }: NavLinksProps) => (
           width={'100%'}
           height={'100%'}
           borderRight={
-            i + 1 !== links.length ? { xs: '1px', md: 0 } : undefined
+            i + 1 !== links.length ? { base: '1px', md: 0 } : undefined
           }
           {...style}
         >
           {icon}
-          <StyledLink to={to}>{title}</StyledLink>
+          <Link as={GatsbyLink} to={to} pl={'5px'}>{title}</Link>
         </ListItem>
       ))}
     </List>
   </Box>
 )
-
-const StyledLink = styled(Link)({
-  paddingLeft: '5px'
-})

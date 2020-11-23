@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import React from 'react'
 import { CheckoutButton } from '../../buy/components/ CheckoutButton'
 import { CartItem } from '../hooks/useCart'

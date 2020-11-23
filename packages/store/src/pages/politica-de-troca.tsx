@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Heading } from '@chakra-ui/core'
+import { Grid, Heading } from '@chakra-ui/react'
 import { useStaticQuery, graphql } from 'gatsby'
 import xss from 'xss'
 

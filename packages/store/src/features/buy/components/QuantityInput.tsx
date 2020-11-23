@@ -5,13 +5,14 @@ import {
   NumberInputField,
   NumberIncrementStepper,
   NumberInputProps,
-  PseudoBoxProps, NumberInputStepper
-} from '@chakra-ui/core'
-import { groovyBorder } from '../../../components/styles/groovyBorder'
+  BoxProps,
+  NumberInputStepper
+} from '@chakra-ui/react'
+import { MinusIcon, PlusSquareIcon, SmallAddIcon } from '@chakra-ui/icons'
 
 interface QuantityInputProps extends NumberInputProps {
-  decrementerProps?: PseudoBoxProps
-  incrementerProps?: PseudoBoxProps
+  decrementerProps?: BoxProps
+  incrementerProps?: BoxProps
 }
 
 export const QuantityInput = ({
@@ -21,22 +22,41 @@ export const QuantityInput = ({
   ...props
 }: QuantityInputProps) => {
   return (
-    <NumberInput size="sm" defaultValue={1} min={1} width={'100px'} onChange={onChange} height={'100%'} {...props} >
-      <NumberInputField focusBorderColor="red.200" height={'100%'} {...groovyBorder} />
-      <NumberInputStepper>
+    <NumberInput
+      size="sm"
+      defaultValue={1}
+      min={1}
+      width={'100px'}
+      onChange={onChange}
+      height={'100%'}
+      _after={{
+        content: '""',
+        position: 'absolute',
+        bottom: '5px',
+        left: 0,
+        width: '68%',
+        borderBottom: '2px solid'
+      }}
+      {...props}
+      >
+      <NumberInputField
+        focusBorderColor="red.200"
+        fontWeight={'medium'}
+        height={'100%'}
+        border={0}
+        borderRadius={0}
+      />
+      <NumberInputStepper color={'white'} top={'-3px'}>
         <NumberIncrementStepper
-          bg="green.200"
-          _active={{ bg: 'green.300' }}
-          children="+"
+          border={'2px solid black'}
+          children={<SmallAddIcon color={'black'} w={'36px'} height={'20px'} />}
           fontWeight={'bold'}
-          borderRight={'20px'}
+          mb={1}
         />
         <NumberDecrementStepper
-          bg="pink.200"
-          _active={{ bg: 'pink.300' }}
-          children="-"
+          border={'2px solid black'}
+          children={<MinusIcon color={'black'} w={'36px'} h={'10px'} />}
           fontWeight={'bold'}
-          borderRight={'20px'}
         />
       </NumberInputStepper>
     </NumberInput>

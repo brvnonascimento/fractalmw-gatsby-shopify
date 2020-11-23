@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Spinner, SpinnerProps } from '@chakra-ui/core'
+import { Spinner, SpinnerProps } from '@chakra-ui/react'
 import { useIntersection, IntersectionOptions } from 'use-intersection'
 
 export interface InfiniteLoadingSpinner extends SpinnerProps {

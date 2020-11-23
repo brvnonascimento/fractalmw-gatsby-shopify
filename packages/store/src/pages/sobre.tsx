@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, Text } from '@chakra-ui/core'
+import { Box, Grid, Heading, Text } from '@chakra-ui/react'
 import { useStaticQuery, graphql } from 'gatsby'
 import GatsbyImage from 'gatsby-image'
 import React from 'react'

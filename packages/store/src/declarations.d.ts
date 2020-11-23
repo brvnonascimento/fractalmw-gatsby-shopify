@@ -8,3 +8,5 @@ declare module '*.svg' {
 declare module 'gatsby-theme-shopify-manager' {
   export * from 'gatsby-theme-shopify-manager/src'
 }
+
+declare module 'gatsby-awesome-pagination'

@@ -7,7 +7,7 @@ import {
   Box,
   Flex,
   FlexProps
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import React from 'react'
 import { groovyBorder } from '../../../components/styles/groovyBorder'
 

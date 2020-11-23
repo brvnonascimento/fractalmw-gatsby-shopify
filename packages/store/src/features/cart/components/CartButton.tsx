@@ -1,8 +1,8 @@
 import React from 'react'
 import CartSvg from '../../../assets/cart.svg'
-import { PseudoBox, PseudoBoxProps, Text } from '@chakra-ui/core'
+import { Box, BoxProps, Text } from '@chakra-ui/react'
 
-export interface CartButtonProps extends PseudoBoxProps {
+export interface CartButtonProps extends BoxProps {
   iconWidth?: string
   fill?: string
   count: number
@@ -14,7 +14,7 @@ export const CartButton = ({
   count,
   ...props
 }: CartButtonProps) => (
-  <PseudoBox as="button" {...props}>
+  <Box as="button" {...props}>
     <CartSvg width={'48px'} height={'48px'} fill="white" />
     <Text
       as="span"
@@ -28,12 +28,12 @@ export const CartButton = ({
       justifyContent={'center'}
       alignContent={'center'}
       lineHeight={'16px'}
-      top={{ xs: '7px', lg: '12px' }}
+      top={{ base: '7px', lg: '12px' }}
       right={'22px'}
       padding={'5px'}
       rounded={'lg'}
     >
       {count}
     </Text>
-  </PseudoBox>
+  </Box>
 )

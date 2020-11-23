@@ -1,5 +1,5 @@
 import React from 'react'
-import { BoxProps, Grid } from '@chakra-ui/core'
+import { BoxProps, Grid } from '@chakra-ui/react'
 import { Navbar, NavbarProps } from './Navbar'
 import { useCartCount } from 'gatsby-theme-shopify-manager'
 
@@ -33,13 +33,15 @@ export const Header = ({
       color={'white'}
       display={'grid'}
       gridTemplateColumns={{
-        xs: '100px 1fr 100px',
+        base: '100px 1fr 100px',
         lg: '100px 0.5fr 0.25fr 0.25fr 100px'
       }}
       backgroundColor={'#000000'}
-      backgroundImage={'linear-gradient(-300deg, #000000 0%, rgba(0, 0, 0, 0.1) 70%)'}
-      boxShadow={'0.5px 0.5px 3px #000000'}
-      p={{lg: '5px'}}
+      backgroundImage={
+        'linear-gradient(-300deg, #000000 0%, rgba(0, 0, 0, 0.1) 70%)'
+      }
+      px={{ lg: '5px' }}
+      py={'10px'}
       // backgroundColor={'#373E4D'}
       // backgroundImage={`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E")`}
       {...(withBackground ? headerBackground : null)}
@@ -58,18 +60,18 @@ export const Header = ({
         }}
         searchBarStyle={{
           width: {
-            xs: '100%',
+            base: '100%',
             lg: '100%'
           },
           gridArea: {
-            xs: '2 / 1 / 2 / 4',
+            base: '2 / 1 / 2 / 4',
             lg: '1 / span 2'
           },
           justifySelf: 'start'
         }}
         cartButtonProps={{
           quantity: cartCount,
-          gridArea: { xs: '1 / 3', lg: '1 / 5' }
+          gridArea: { base: '1 / 3', lg: '1 / 5' }
         }}
         {...navbarStyles}
       />

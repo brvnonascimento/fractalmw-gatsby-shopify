@@ -11,13 +11,5 @@
     },
     "include": [
         "src"
-    ],
-    "references": [
-        {
-            "path": "../ui"
-        },
-        {
-            "path": "../../shared/utils"
-        }
     ]
 }

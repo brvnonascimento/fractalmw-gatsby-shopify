@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, Text } from '@chakra-ui/core'
+import { Box, Grid, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 import Image404 from '../assets/Image404.svg'
 

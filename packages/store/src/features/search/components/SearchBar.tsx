@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {
-  Box,
   BoxProps,
   Divider,
   Flex,
-  Icon,
   Image,
   Input,
   InputLeftElement,
   Spinner,
-  Text
-} from '@chakra-ui/core'
+  Text,
+  Link,
+  FormControl
+} from '@chakra-ui/react'
 import { groovyBorder } from '../../../components/styles/groovyBorder'
-import { Link } from 'gatsby'
-import styled from '@emotion/styled'
 import useOnClickOutside from 'use-onclickoutside'
+import GatsbyLink from 'gatsby-link'
+import { SearchIcon } from '@chakra-ui/icons'
 
 export interface SearchResult {
   title: string
@@ -55,7 +55,7 @@ export const SearchBar = ({
   }, [search])
 
   return (
-    <Box
+    <FormControl
       as="section"
       role="search"
       borderWidth={0}
@@ -69,8 +69,8 @@ export const SearchBar = ({
       <InputLeftElement
         top={'9px'}
         alignSelf={'center'}
-        left={'18px'}
-        children={<Icon name="search" color="gray.300" />}
+        left={'13px'}
+        children={<SearchIcon color="gray.300" />}
       />
       <Input
         paddingLeft={'40px'}
@@ -103,12 +103,16 @@ export const SearchBar = ({
           {searchResults.map(
             ({ title, image: { alt, src, fallbackSrc }, handle }, i) => (
               <>
-                <StyledLink
+                <Link
+                  as={GatsbyLink}
                   to={`/produto/${handle}`}
+                  d={'flex'}
+                  my={'10px'}
                   onClick={() => setIsSearchBoxOpen(false)}
                 >
                   <Flex>
                     <Image
+                    
                       width={'100px'}
                       height={'100px'}
                       htmlWidth={'100'}
@@ -124,7 +128,7 @@ export const SearchBar = ({
                       {title}
                     </Text>
                   </Flex>
-                </StyledLink>
+                </Link>
                 {i + 1 !== searchResults.length && (
                   <Divider borderColor={'black'} />
                 )}
@@ -133,12 +137,6 @@ export const SearchBar = ({
           )}
         </Flex>
       )}
-    </Box>
+    </FormControl>
   )
 }
-
-const StyledLink = styled(Link)`
-  display: flex;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`

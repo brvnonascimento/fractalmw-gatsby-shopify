@@ -3,7 +3,7 @@ dist/
 coverage/
 .DS_Store/
 .cache
-.env*
+.env
 tsconfig.tsbuildinfo
 .yarn/*
 !.yarn/cache

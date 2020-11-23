@@ -1,13 +1,23 @@
 import React from 'react'
-import { Box, Flex, Grid, Heading, Image, Link } from '@chakra-ui/core'
+import {
+  Box,
+  Flex,
+  Grid,
+  Heading,
+  Image,
+  Link,
+  ListItem,
+  SimpleGrid,
+  Text
+} from '@chakra-ui/react'
 import { useHomePageData } from '../hooks/home/useHomePageData'
 import { CategoryList } from '../features/catalog/components/InlineCategoryList'
-import { ShirtGrid } from '../features/catalog/components/ShirtGrid'
 import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
 import { SEO } from '../components/SEO'
 import { FigureOverlayed } from '../components/FigureOverlayed'
 import GatsbyImage from 'gatsby-image'
 import GatsbyLink from 'gatsby-link'
+import { toSlug } from '../utils/toSlug'
 
 export default () => {
   const { shirtList, bannerImages, asideImages } = useHomePageData()
@@ -16,7 +26,7 @@ export default () => {
   return (
     <Grid
       gridTemplateRows={'500px'}
-      gridTemplateColumns={{ lg: '1fr 400px' }}
+      gridTemplateColumns={{ md: '1fr 400px' }}
       rowGap={'1em'}
     >
       <SEO
@@ -30,18 +40,17 @@ export default () => {
 
       <Grid
         as="section"
-        gridArea={{ lg: '1 / 1 / 3 / 3' }}
+        gridArea={{ md: '1 / 1 / 3 / 3' }}
         gridTemplateColumns={{
-          xs: '10px 1fr 1fr 10px',
-          lg: 'auto auto 100px 300px 20px 250px 5%'
+          base: '10px 1fr 1fr 10px',
+          md: 'auto auto 100px 300px 20px 250px 5%'
         }}
         gridTemplateRows={{
-          xs: 'auto',
-          lg: '30px repeat(2, 25px) 1fr 1fr repeat(2, 25px) 30px'
+          base: 'auto',
+          md: '30px repeat(2, 25px) 1fr 1fr repeat(2, 25px) 30px'
         }}
         overflow={'hidden'}
-        mt={'-1em'}
-        rowGap={{ xs: '1em', lg: 0 }}
+        rowGap={{ base: '1em', md: 0 }}
         width={'100%'}
         height={'500px'}
         background={'rgba(146, 74, 205, 0.95)'}
@@ -50,8 +59,8 @@ export default () => {
       >
         <Flex
           gridArea={{
-            xs: '1 / 2 / -3 / 4',
-            lg: '4 / 1 / 6 / 4',
+            base: '1 / 2 / -3 / 4',
+            md: '4 / 1 / 6 / 4',
             xl: '4 / 1 / 6'
           }}
           direction="column"
@@ -81,8 +90,8 @@ export default () => {
           rounded={'100%'}
           zIndex={3}
           gridArea={{
-            xs: '2 / 2 / 6 / 4',
-            lg: '4 / 5 / 6 / 5',
+            base: '2 / 2 / 6 / 4',
+            md: '4 / 5 / 6 / 5',
             xl: '4 / 2 / 6'
           }}
           alignSelf={'center'}
@@ -108,15 +117,15 @@ export default () => {
         </Link>
 
         <Box
-          gridArea={{ xs: '1 / 1 / 7 / 3', lg: '2 / 4 / 8' }}
+          gridArea={{ base: '1 / 1 / 7 / 3', md: '2 / 4 / 8' }}
           zIndex={2}
           width={'100%'}
-          maxWidth={{ xs: '200px', lg: '400px' }}
+          maxWidth={{ base: '200px', md: '400px' }}
           maxHeight={{
-            xs: '300px',
-            lg: '430px'
+            base: '300px',
+            md: '430px'
           }}
-          justifySelf={{ xs: 'center', lg: 'start' }}
+          justifySelf={{ base: 'center', md: 'start' }}
         >
           <GatsbyImage
             fluid={bannerImages[0]}
@@ -131,45 +140,96 @@ export default () => {
           zIndex={2}
           height={'100%'}
           width={'100%'}
-          maxWidth={{ xs: '200px', lg: '250px' }}
-          gridArea={{ xs: '1 / 3 / 7 / 5', lg: '4 / 6 / 8' }}
-          justifySelf={{ xs: 'center', lg: 'start' }}
+          maxWidth={{ base: '200px', md: '250px' }}
+          gridArea={{ base: '1 / 3 / 7 / 5', md: '4 / 6 / 8' }}
+          justifySelf={{ base: 'center', md: 'start' }}
         >
           <GatsbyImage fluid={bannerImages[1]} loading="lazy" />
         </Box>
         <Box
-          gridArea={{ xs: '3 / 3 / -1 / -1', lg: '3 / 3 / 7 / 8' }}
+          gridArea={{ base: '3 / 3 / -1 / -1', md: '3 / 3 / 7 / 8' }}
           ml={'22px'}
           background={'#a26eb6'}
         />
       </Grid>
 
-      <ShirtGrid
+      <Box
         as="main"
         title={'Destaques'}
-        gridProps={{
-          minChildWidth: '300px'
-        }}
         shirtProps={{
           htmlHeight: '280',
           htmlWidth: '280'
         }}
         shirts={shirtList}
         px={{
-          lg: '1em'
+          md: '1em'
         }}
-        pl={{
-          xs: '1em'
-        }}
-        pr={{
-          xs: '3em'
-        }}
-      />
+      >
+        <Heading>Destaques</Heading>
+        <SimpleGrid
+          as="ul"
+          columns={{ base: '1', sm: '2', md: '3', xl: '4' }}
+          listStyleType={'none'}
+          display={'grid'}
+          spacing={2}
+        >
+          {shirtList.map(({ images: [image], title }) => (
+            <ListItem
+              key={title}
+              _hover={{ transform: 'scale(1.1)' }}
+              transition={'all .2s ease-in-out'}
+              background={'white'}
+            >
+              <Link
+                as={GatsbyLink as any}
+                {...{ to: `/produto/${toSlug(title)}` }}
+                display={'grid'}
+                gridTemplateColumns={'1fr'}
+              >
+                <Box
+                  as="figure"
+                  my={'10px'}
+                  gridTemplateColumns={'auto'}
+                  pr="10px"
+                >
+                  <GatsbyImage
+                    loading="lazy"
+                    fluid={image}
+                    alt={image.altText}
+                  />
+
+                  <Text
+                    as="figcaption"
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    fontWeight={'bold'}
+                    zIndex={2}
+                    fontSize={'sm'}
+                    px={'10px'}
+                  >
+                    {title}
+                    {/* <Badge
+                      height={'20px'}
+                      variant={'outline'}
+                      color={'#2e1d3e'}
+                      borderRadius={'4px'}
+                    >
+                      {numberToBRL(
+                        parseFloat(priceRange.minVariantPrice.amount)
+                      )}
+                    </Badge> */}
+                  </Text>
+                </Box>
+              </Link>
+            </ListItem>
+          ))}
+        </SimpleGrid>
+      </Box>
 
       <Flex
         as="aside"
         direction={'column'}
-        gridColumn={{ lg: '2' }}
+        gridColumn={{ md: '2' }}
         width={'100%'}
         maxWidth={'400px'}
         justifySelf={'center'}

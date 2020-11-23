@@ -1,6 +1,5 @@
 import React, { ReactNode, useMemo } from 'react'
-import styled from '@emotion/styled'
-import { Box, BoxProps, Heading } from '@chakra-ui/core'
+import { Box, BoxProps, Heading } from '@chakra-ui/react'
 
 export interface TableColumn {
   header: ReactNode
@@ -25,65 +24,50 @@ export const Table = ({
   const acessors = useMemo(() => columns.map(({ acessor }) => acessor), [data])
 
   return (
-    <Box
-      as="table"
-      display={'flex'}
-      flexDirection={'column'}
-      {...props}
-    >
+    <Box as="table" display={'flex'} flexDirection={'column'} {...props}>
       <Box as="thead" borderBottom={'1px'} pb={'1em'} mb={'2em'}>
-        <TableRow>
+        <Box as={'tr'} d={'flex'} w={'100%'}>
           <Box as="th" fontWeight="bold">
             <Heading as="h3">{title}</Heading>
           </Box>
-        </TableRow>
+        </Box>
       </Box>
 
-      <TableBody>
-        <TableRow>
+      <Box as={'tbody'} d={'flex'} flexDirection={'column'}>
+        <Box as={'tr'} d={'flex'}>
           {headers.map((header, i) => (
-            <TableHeader key={i}>{header}</TableHeader>
+            <Box as={'th'} w={'100%'} key={i}>
+              {header}
+            </Box>
           ))}
-        </TableRow>
+        </Box>
         {data.map((d, i) => (
-          <TableRow key={`row_${i}`}>
+          <Box as={'tr'} d={'flex'} key={`row_${i}`}>
             {acessors.map((acessor, i) => (
-              <TableCell key={`cell_${i}`}>{d[acessor]}</TableCell>
+              <Box
+                as={'td'}
+                d={'flex'}
+                w={'100%'}
+                justifyContent={'center'}
+                key={`cell_${i}`}
+              >
+                {d[acessor]}
+              </Box>
             ))}
-          </TableRow>
+          </Box>
         ))}
-      </TableBody>
+      </Box>
 
-      <TableFooter>{children}</TableFooter>
+      <Box
+        as={'tfoot'}
+        d={'flex'}
+        flexDirection={'column'}
+        mt={'0.5em'}
+        px={'1em'}
+        justifyContent={'center'}
+      >
+        {children}
+      </Box>
     </Box>
   )
 }
-
-const TableRow = styled.tr({
-  display: 'flex',
-  width: '100%'
-})
-
-const TableHeader = styled.th({
-  width: '100%'
-})
-
-const TableCell = styled.td({
-  display: 'flex',
-  width: '100%',
-  justifyContent: 'center'
-})
-
-const TableBody = styled.tbody({
-  display: 'flex',
-  flexDirection: 'column'
-})
-
-const TableFooter = styled.tfoot({
-  display: 'flex',
-  flexDirection: 'column',
-  marginTop: '0.5em',
-  paddingRight: '1em',
-  paddingLeft: '1em',
-  justifyContent: 'center'
-})

@@ -6,7 +6,7 @@ import {
   Link,
   ListItem,
   SimpleGrid
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import GatsbyLink from 'gatsby-link'
 import React, { memo } from 'react'
 import { LogoLink } from '../../components/LogoLink'
@@ -53,7 +53,7 @@ export const Footer = memo(({ ...props }: GridProps) => (
       htmlWidth={'120'}
       link={{
         gridColumn: {
-          xs: '1 / -1',
+          base: '1 / -1',
           lg: 'auto'
         },
         display: 'flex',
@@ -63,7 +63,7 @@ export const Footer = memo(({ ...props }: GridProps) => (
     <Grid
       as="ul"
       gridTemplateColumns={{
-        xs: 'repeat(3, 32vw)',
+        base: 'repeat(3, 32vw)',
         lg: 'repeat(4, auto)'
       }}
       columnGap={'10px'}
@@ -71,7 +71,7 @@ export const Footer = memo(({ ...props }: GridProps) => (
       alignItems={'center'}
       justifyItems={'center'}
     >
-      <Heading fontSize={'xs'} gridColumn={{ xs: '1 / -1', lg: 'unset' }}>
+      <Heading fontSize={'xs'} gridColumn={{ base: '1 / -1', lg: 'unset' }}>
         #FRACTALNASREDES
       </Heading>
 
@@ -118,7 +118,7 @@ export const Footer = memo(({ ...props }: GridProps) => (
       {links.map(({ to, name }) => (
         <ListItem
           gridColumn={{
-            xs: 'span 4',
+            base: 'span 4',
             lg: 'auto'
           }}
         >

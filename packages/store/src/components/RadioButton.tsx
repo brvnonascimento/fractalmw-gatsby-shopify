@@ -1,5 +1,5 @@
 import React, { ReactNode, RefObject } from 'react'
-import { Button, ButtonProps } from '@chakra-ui/core'
+import { Button, ButtonProps } from '@chakra-ui/react'
 import { forwardRef } from 'react'
 
 interface RadioButtonProps extends ButtonProps {

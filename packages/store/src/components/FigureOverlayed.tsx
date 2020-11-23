@@ -1,8 +1,7 @@
 import React from 'react'
-import { Box, BoxProps, Image, Text } from '@chakra-ui/core'
+import { Box, BoxProps, Image, Text } from '@chakra-ui/react'
 import { groovyBorder } from './styles/groovyBorder'
 import GatsbyImage, { GatsbyImageFluidProps } from 'gatsby-image'
-import styled from '@emotion/styled'
 
 export interface FigureOverlayed {
   image: GatsbyImageFluidProps['fluid']
@@ -25,7 +24,13 @@ export const FigureOverlayed = ({
     {...props}
   >
     {gatsbyImage ? (
-      <StyledImage loading="lazy" fluid={image} alt={image.alt} />
+      <Box
+        as={GatsbyImage}
+        gridArea={'1 / 1'}
+        loading="lazy"
+        fluid={image}
+        alt={image.alt}
+      />
     ) : (
       <Image
         loading="lazy"
@@ -54,8 +59,3 @@ export const FigureOverlayed = ({
     </Text>
   </Box>
 )
-
-const StyledImage = styled(GatsbyImage)({
-  gridArea: '1 / 1',
-  ...groovyBorder
-})

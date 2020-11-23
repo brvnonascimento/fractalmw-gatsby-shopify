@@ -9,7 +9,9 @@ import {
   MenuList,
   MenuOptionGroup,
   useDisclosure
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
+import { InfoOutlineIcon, PhoneIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import React from 'react'
 import {
   CartButton,
@@ -67,27 +69,29 @@ export const Navbar = ({
           {
             title: '',
             to: '/camisetas/',
+            style: {
+              d: 'flex',
+              justifyContent: 'space-around',
+            },
             icon: (
               <Menu>
+                <Link
+                  as={GatsbyLink}
+                  to={'/camisetas'}
+                  d={'flex'}
+                  alignItems={'center'}
+                  justifyContent={'space-around'}
+                >
+                  <ShirtIcon width={'20px'} height={'20px'} pr={2} />
+                  Camisetas
+                </Link>
                 <MenuButton
                   display={'flex'}
                   alignItems={'center'}
                   justifyContent={'space-around'}
                   transition="all 0.2s"
                 >
-                  <Link
-                    as={GatsbyLink as any}
-                    {...{ to: `/camisetas/` }}
-                    display={'flex'}
-                    alignItems={'center'}
-                    justifyContent={'space-around'}
-                    width={'113px'}
-                  >
-                    <ShirtIcon width={'20px'} height={'20px'} />
-                    Camisetas
-                  </Link>
-
-                  <Icon name="chevron-down" size={'30px'} />
+                  <ChevronDownIcon size={'30px'} />
                 </MenuButton>
 
                 <MenuList color={'black'} zIndex={10} {...groovyBorder}>
@@ -112,7 +116,7 @@ export const Navbar = ({
           {
             title: 'Contato',
             to: '/contato',
-            icon: <Icon name="phone" />,
+            icon: <PhoneIcon />,
             style: {
               opacity: 0.8
             }
@@ -120,7 +124,7 @@ export const Navbar = ({
           {
             title: 'Sobre',
             to: '/sobre',
-            icon: <Icon name="info-outline" />,
+            icon: <InfoOutlineIcon />,
             style: {
               opacity: 0.8
             }

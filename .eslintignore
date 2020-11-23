@@ -2,3 +2,5 @@ node_modules/
 dist/
 coverage/
 /shared/graphql-codegen/src/index.ts 
+.cache/
+/public

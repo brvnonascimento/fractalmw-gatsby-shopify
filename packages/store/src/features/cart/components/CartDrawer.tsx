@@ -9,7 +9,7 @@ import {
   DrawerOverlay,
   Flex,
   Heading
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import { CartItem } from '../hooks/useCart'
 import { CartItems } from './CartItems'
 import { CheckoutButton } from '../../buy/components/ CheckoutButton'
@@ -44,7 +44,7 @@ export const CartDrawer = ({
         <DrawerBody
           display={'flex'}
           flexDirection={'column'}
-          justifyContent={{ xs: 'space-between', lg: 'flex-start' }}
+          justifyContent={{ base: 'space-between', lg: 'flex-start' }}
           overflowY={'scroll'}
         >
           <CartItems items={items} onDeleteItem={onDeleteItem} />

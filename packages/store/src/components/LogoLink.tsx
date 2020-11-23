@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, ImageProps, Link, LinkProps } from '@chakra-ui/core'
+import { Image, ImageProps, Link, LinkProps } from '@chakra-ui/react'
 import GatsbyLink from 'gatsby-link'
 
 export interface LogoLink {

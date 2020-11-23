@@ -10,10 +10,11 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
-  Select
-} from '@chakra-ui/core'
+  Select,
+  useRadio
+} from '@chakra-ui/react'
 import { QuantityInput } from './QuantityInput'
-import { groovyBorder } from '../../../components/styles/groovyBorder'
+import CartSvg from '../../../assets/cart.svg'
 
 interface BuyFormProps extends BoxProps {
   onSubmit: (props: any) => void
@@ -36,6 +37,11 @@ export const BuyForm = ({
   sizes,
   ...props
 }: BuyFormProps) => {
+  const { getInputProps, getCheckboxProps } = useRadio(props)
+
+  const input = getInputProps()
+  const checkbox = getCheckboxProps()
+
   const validateFields = (value: string): string | undefined => {
     if (!value) {
       return 'Campo obrigatório.'
@@ -58,8 +64,6 @@ export const BuyForm = ({
         <Box
           as="form"
           onSubmit={handleSubmit}
-          gridColumn={'2'}
-          gridRow={'span 2'}
           display={'flex'}
           flexDirection={'column'}
           {...props}
@@ -70,21 +74,25 @@ export const BuyForm = ({
               validate={(value: string) => validateFields(value)}
             >
               {({ field, form }: any) => (
-                <FormControl isInvalid={form.errors.name && form.touched.name} mb={'1em'}>
+                <FormControl
+                  isInvalid={form.errors.name && form.touched.name}
+                  mb={'1em'}
+                  id={'model'}
+                >
                   <FormLabel htmlFor="model" fontWeight={'bold'}>
                     Modelo
                   </FormLabel>
                   <Select
                     display={'flex'}
-                    width={'50%'}
+                    width={{ base: '100%', md: '50%' }}
                     id="model"
-                    {...field} 
-                    {...groovyBorder}
+                    borderBottom={'2px'}
+                    border={0}
+                    borderRadius={0}
+                    {...field}
                   >
                     {models.map((model) => (
-                      <option key={model}>
-                        {model}
-                      </option>
+                      <option key={model}>{model}</option>
                     ))}
                   </Select>
                   <FormErrorMessage>{form.errors.name}</FormErrorMessage>
@@ -103,27 +111,49 @@ export const BuyForm = ({
                   flexDirection={'column'}
                   alignContent={'center'}
                   mb={'1em'}
+                  id={'tamanho'}
                 >
-                  <FormLabel htmlFor="size" fontWeight={'bold'}>
-                    Tamanho
-                  </FormLabel>
-                  <RadioGroup
-                    isInline
-                    spacing={4}
-                    minHeight={'50px'}
-                    p={'10px'}
-                    display={'flex'}
-                    alignItems={'center'}
-                    name="size"
-                    onChange={form.handleChange}
-                    {...groovyBorder}
+                  <FormLabel fontWeight={'bold'}>Tamanho</FormLabel>
+                  <Box
+                    as="label"
+                    d={'flex'}
+                    w={{ base: '100%', md: '70%' }}
+                    justifyContent={{
+                      base: 'space-around',
+                      md: 'space-between'
+                    }}
                   >
+                    <input {...input} />
                     {sizes.map((size) => (
-                      <Radio {...field} value={size} size="lg" key={size}>
+                      <Box
+                        {...checkbox}
+                        {...field}
+                        cursor="pointer"
+                        w={'50px'}
+                        h={'50px'}
+                        py={3}
+                        mr={2}
+                        borderColor={'black'}
+                        borderWidth={'2px'}
+                        color={'black'}
+                        fontWeight={'medium'}
+                        borderRadius={'md'}
+                        _checked={{
+                          bg: 'purple.800',
+                          color: 'white',
+                          borderColor: 'teal.600'
+                        }}
+                        _focus={{
+                          boxShadow: 'outline'
+                        }}
+                        alignItems={'center'}
+                        justifyContent={'center'}
+                        textAlign={'center'}
+                      >
                         {size?.toLocaleUpperCase()}
-                      </Radio>
+                      </Box>
                     ))}
-                  </RadioGroup>
+                  </Box>
                   <FormErrorMessage>{form.errors.size}</FormErrorMessage>
                 </FormControl>
               )}
@@ -153,13 +183,27 @@ export const BuyForm = ({
 
           <Button
             type="submit"
+            leftIcon={
+              <CartSvg
+                width={'24px'}
+                height={'24px'}
+                fill="white"
+                style={{ marginRight: '1em' }}
+              />
+            }
+            variant={'outline'}
+            bg={'black'}
+            borderRadius={0}
+            _hover={{
+              bg: 'gray.700'
+            }}
+            color={'white'}
+            borderWidth={'2px'}
             mt={'15px'}
             alignSelf={'center'}
             justifySelf={'center'}
             minHeight={'50px'}
             width={'100%'}
-            background={'rgba(0, 256, 0, 0.7)'}
-            color={'black'}
           >
             Adicionar ao Carrinho!
           </Button>

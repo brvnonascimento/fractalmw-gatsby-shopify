@@ -1,3 +1,4 @@
+import { DeleteIcon } from '@chakra-ui/icons'
 import {
   Box,
   Flex,
@@ -5,7 +6,7 @@ import {
   IconButton,
   Spinner,
   Text
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { ShirtImage } from '../../../components/ShirtImage'
 import { numberToBRL } from '../../../utils/price'
@@ -47,7 +48,7 @@ export const CartItems = ({
             />
             <Flex direction={'column'} width={'70%'} marginLeft={'10px'}>
               <Text fontWeight={'bold'} fontSize={'lg'}>
-                {title}  
+                {title}
               </Text>
               <Text fontWeight={'ligther'} fontSize={'lg'}>
                 {numberToBRL(price * quantity)}
@@ -74,6 +75,7 @@ export const CartItems = ({
             <Flex>
               {!isDeletingItem ? (
                 <IconButton
+                  icon={<DeleteIcon />}
                   onClick={async () => {
                     setIsDeletingItem(true)
                     await onDeleteItem(id)
@@ -85,7 +87,6 @@ export const CartItems = ({
                   color={'white'}
                   variantColor="white"
                   aria-label="Excluir item do carrinho"
-                  icon="delete"
                 />
               ) : (
                 <Spinner size="md" mx="10px" color="red.500" />

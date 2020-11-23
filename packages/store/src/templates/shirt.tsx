@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   Box,
   Flex,
@@ -8,11 +8,9 @@ import {
   Stack,
   Text,
   useDisclosure
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import { ShirtBreadcrumb } from '../features/buy/components/ShirtBreadcrumb'
-import { ShirtImageProps } from '../features/catalog/components/ShirtGrid'
 import { numberToBRL } from '../utils/price'
-import { groovyBorder } from '../components/styles/groovyBorder'
 import { BuyForm, BuyFormFieldsProps } from '../features/buy/components/BuyForm'
 import { CartDrawer } from '../features/cart/components/CartDrawer'
 import { Table } from '../components/Table'
@@ -25,21 +23,7 @@ import { useShopifyCartItems } from '../features/cart/hooks/useShopifyCart'
 import { ShirtDescription } from '../features/buy/components/ShirtDescription'
 import { ProductSEO } from '../features/buy/components/ProductSEO'
 import GatsbyImage from 'gatsby-image'
-import Magnifier from 'react-magnifier'
-
-export interface ShirtTemplate {
-  id: string
-  variants: any[]
-  sku: string
-  title: string
-  category: string
-  price: number
-  images: ShirtImageProps[]
-  description: string
-  sizes: string[]
-  models: string[]
-  colors: string[]
-}
+import { graphql } from 'gatsby'
 
 interface ShirtOptions {
   size: string
@@ -47,16 +31,25 @@ interface ShirtOptions {
   color: string
 }
 
-export interface ShirtTemplateProps {
-  pageContext: {
-    shirt: ShirtTemplate
+export default ({
+  data: {
+    allShopifyProduct: {
+      nodes: [shirt]
+    }
   }
-}
-
-export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
-  if (!shirt) {
-    return null
-  }
+}) => {
+  const {
+    category,
+    title,
+    priceRange: {
+      minVariantPrice: { amount: price }
+    },
+    images,
+    options,
+    sku,
+    description,
+    descriptionHtml
+  } = shirt
 
   const { onOpen, isOpen, onClose } = useDisclosure()
 
@@ -64,7 +57,30 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
   const addItemToCart = useAddItemToCart()
   const removeItemFromCart = useRemoveItemFromCart()
   const checkoutUrl = useCheckoutUrl()
-  const [currentImage, setCurrentImage] = useState(shirt.images[0])
+  const [currentImage, setCurrentImage] = useState(images[0])
+
+  const shirtTitle = useRef<HTMLDivElement>()
+  const [initialShirtTitleHeight, setInitialShirtTitleHeight] = useState<
+    number | undefined
+  >()
+  const [canHoverShirt, setCanHoverShirt] = useState(false)
+  const [isHoveringShirt, setIsHoveringShirt] = useState(false)
+  const [isWrappingText, setIsWrappingText] = useState(true)
+  useLayoutEffect(() => {
+    setInitialShirtTitleHeight(shirtTitle.current?.clientHeight)
+
+    setTimeout(() => {
+      setCanHoverShirt(true)
+    }, 500)
+  }, [])
+
+  useEffect(() => {
+    if (!isHoveringShirt) {
+      setTimeout(() => {
+        setIsWrappingText(true)
+      }, 1000)
+    }
+  }, [isHoveringShirt])
 
   const getVariantId = ({ color, model, size }: ShirtOptions) => {
     const variant = shirt.variants.find(
@@ -74,135 +90,157 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
     return variant.id.split(`Shopify__ProductVariant__`)[1]
   }
 
-  const {
-    category,
-    title,
-    price,
-    images,
-    sizes,
-    models,
-    colors,
-    sku,
-    description
-  } = shirt
+  const getOptionsValueByName = (optionName: string) =>
+    options.find(({ name }) => name === optionName).values
+
+  const sizes = getOptionsValueByName('size')
+  const models = getOptionsValueByName('model')
+  const colors = getOptionsValueByName('color')
 
   return (
-    <Grid
-      gridTemplateRows={'auto'}
-      gridTemplateColumns={{
-        lg: '10vw 0.5fr 0.5fr 10vw'
-      }}
-      px={{ xs: '1em', lg: 0 }}
-      pr={{ xs: '3em', lg: 0 }}
-    >
+    <Grid gridTemplateRows={'auto'}>
       <ProductSEO
         title={`${title} - Fractal Music Wear`}
         metaDescription={description}
         image={images[0].src}
-        keywords={`${title.replace(' ', ',')}, ${description.replace(
+        keywords={`${title.replace(' ', ',')}, ${descriptionHtml.replace(
           ' ',
           ','
         )}`}
         product={{
           brand: 'Fractal Music Wear',
-          description,
+          description: description,
           images: images.map(({ fallbackSrc }) => fallbackSrc),
           sku,
-          price: price.toFixed(2),
+          price: parseFloat(price).toFixed(2),
           name: title,
           url: `https://fractalmw.com.br/produto/${sku}`
         }}
       />
 
+      <ShirtBreadcrumb category={'test'} title={title} my={2} />
+
       <Grid
         as="main"
         display={'grid'}
-        // gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
-        gridArea={{ xs: '2 / 2 / 4 / 4', lg: '2 / 2 / 4 / 4' }}
-        gridTemplateColumns={{ xs: '1fr', lg: 'repeat(2, 0.5fr)' }}
-        gridTemplateRows={{ lg: '70px repeat(4, auto)' }}
-        columnGap={'15px'}
-        maxWidth={'1030px'}
-        justifySelf={'center'}
+        gridTemplateColumns={{ md: '50vw 1fr' }}
+        gridGap={2}
       >
-        <ShirtBreadcrumb
-          category={category}
-          title={title}
-          gridColumn={{ lg: '1 / 3' }}
-          background={'white'}
-          padding={'5px'}
-          mb={'10px'}
-          {...groovyBorder}
-        />
-
-        <Flex direction="column">
-          <Heading as="h1" gridColumn={{ lg: '2' }}>
+        <Flex direction="column" gridArea={'1 / 1'}>
+          <Heading
+            as="h1"
+            ref={shirtTitle}
+            bg={'red.500'}
+            w={!isHoveringShirt ? '500px' : '10px'}
+            h={`${initialShirtTitleHeight}px`}
+            color={!isWrappingText ? 'transparent' : 'white'}
+            transition={'width .8s ease-in;'}
+            display={'flex'}
+            whiteSpace={!isWrappingText ? 'nowrap' : 'unset'}
+            flexDirection={'column'}
+            justifyContent={'center'}
+            p={2}
+            zIndex={2}
+            textTransform={'uppercase'}
+          >
             {title}
           </Heading>
 
           <Heading
-            gridColumn={{ lg: '2' }}
-            gridRow={'3'}
+            gridArea={{ md: '2' }}
             fontSize={'lg'}
             my={'10px'}
             background={'red'}
-            color="white"
-            width={'100px'}
-            textAlign={'center'}
-            {...groovyBorder}
+            w={!isHoveringShirt ? '100px' : '10px'}
+            whiteSpace={!isWrappingText ? 'nowrap' : 'unset'}
+            color={!isWrappingText ? 'transparent' : 'white'}
+            transition={'width .8s ease-in'}
+            display={'flex'}
+            flexDirection={'column'}
+            justifyContent={'center'}
+            bg={'red.500'}
+            p={2}
+            zIndex={2}
           >
-            {numberToBRL(price)}
+            {numberToBRL(parseFloat(price))}
           </Heading>
         </Flex>
 
-        <Flex
-          direction={'column'}
-          gridArea={{ lg: '2 / 1 / 6' }}
-          justifySelf={'center'}
-          alignContent={'center'}
-          width={'100%'}
-          minWidth={'300px'}
-          maxWidth={'800px'}
+        <Grid
+          gridArea={{ base: '1 / 1', md: '1 / 1 / 6' }}
+          mt={`calc(${shirtTitle.current?.clientHeight}px - 36px)`}
+          onMouseEnter={() => {
+            console.log('HOVERING SHIRT!@')
+            if (canHoverShirt) {
+              setIsWrappingText(false)
+              setIsHoveringShirt(true)
+            }
+          }}
+          onMouseLeave={() => {
+            setIsHoveringShirt(false)
+          }}
+          height={'80vh'}
+          gridTemplateColumns={'15% 1fr 15%'}
         >
           <Box
-            as={Magnifier}
-            src={currentImage.src}
-            p={'10px'}
-            {...groovyBorder}
+            gridColumn={2}
+            as={GatsbyImage}
+            height={{ md: '50vh' }}
+            width={{ md: '50vh' }}
+            fluid={currentImage.localFile.childImageSharp.fluid}
+            alt={currentImage.altText}
           />
 
           <Stack
+            gridColumn={'1 / -1'}
             isInline
             alignSelf={'center'}
             mt={'10px'}
             height={'110px'}
             width={'100%'}
             padding={'5px'}
-            {...groovyBorder}
           >
-            {shirt.images.map((image) => {
-              return (
-                <Box
-                  width={'100px'}
-                  cursor="pointer"
-                  mr={'10px'}
-                  onClick={() => setCurrentImage(image)}
-                >
-                  <GatsbyImage fluid={image} alt={image.alt} />
-                </Box>
-              )
-            })}
+            {shirt.images.map(
+              ({
+                altText,
+                localFile: {
+                  childImageSharp: { fluid }
+                }
+              }) => {
+                return (
+                  <Box
+                    width={'100px'}
+                    cursor="pointer"
+                    mr={'10px'}
+                    onClick={() => setCurrentImage(fluid)}
+                  >
+                    <GatsbyImage
+                      fluid={fluid}
+                      alt={altText}
+                      imgStyle={{ maxHeight: '99px' }}
+                    />
+                  </Box>
+                )
+              }
+            )}
           </Stack>
-        </Flex>
+        </Grid>
+
+        <ShirtDescription
+          description={descriptionHtml}
+          gridArea={{ md: '1 / 2' }}
+          fontWeight={'medium'}
+          textAlign={'left'}
+          maxW={{ md: '455px' }}
+        />
 
         <BuyForm
-          gridColumn={{ xs: '1' }}
-          gridArea={{ lg: '3 / 2 / 6' }}
+          gridArea={{ md: '2 / 2' }}
           colors={colors}
           models={models}
           sizes={sizes}
-          justifyContent={'space-between'}
           mt={'15px'}
+          maxW={'455px'}
           onSubmit={async ({
             color,
             model,
@@ -218,31 +256,24 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
             } catch (err) {}
           }}
         />
-
-        <ShirtDescription
-          description={description}
-          gridArea={{ lg: '6 / 1 / 6 / 3' }}
-          textAlign={'left'}
-          p={'2em'}
-        />
       </Grid>
 
       <Grid
         as="section"
-        gridArea={'4 / 2 / 4 / 4'}
+        // gridArea={{'4 / 2 / 4 / 4'}}
         background={'#F3F3F3'}
         alignItems={'center'}
         justifyItems={'center'}
-        p={{ xs: '0', lg: '2em' }}
+        p={{ base: '0', md: '2em' }}
       >
         <Flex
           as="article"
-          direction={{ lg: 'column' }}
+          direction={{ md: 'column' }}
           justifyContent={'space-around'}
-          alignItems={{ xs: 'center', lg: 'start' }}
+          alignItems={{ base: 'center', md: 'start' }}
           width={'100%'}
-          gridArea={{ xs: '1', md: '1 / span 2', lg: 'unset' }}
-          fontSize={{ xs: 'sm', lg: 'md' }}
+          gridArea={{ base: '1', md: '1 / span 2', md: 'unset' }}
+          fontSize={{ base: 'sm', md: 'md' }}
         >
           <Text>
             <Box as="q">
@@ -263,7 +294,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
 
             <Text>
               <b>
-                100% Algodão
+                100% Amdodão
                 <br />
                 Fio Penteado 30.1
                 <br />
@@ -282,9 +313,9 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         <Image
           src="/measures.svg"
           gridArea={{
-            xs: '3',
+            base: '3',
             md: '3 / 1',
-            lg: 'unset'
+            md: 'unset'
           }}
           p={'1em'}
           htmlWidth={'300'}
@@ -292,9 +323,8 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         />
 
         <Table
-          gridArea={{ xs: '2', md: '3', lg: '1 / 3 / 3 / 3' }}
-          padding={'1em'}
-          justifySelf={'center'}
+          gridArea={{ base: '2', md: '3', md: '1 / 3 / 3 / 3' }}
+          // padding={'1em'}
           maxWidth={'1030px'}
           title={'GUIA DE MEDIDAS'}
           mt="0.5em"
@@ -340,7 +370,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
             }
           ]}
         >
-          <Text fontWeight={'lighter'} fontSize={'sm'} mb={'1em'}>
+          <Text fontWeight={'lighter'} mb={'1em'}>
             *as medidas podem variar em até 3cm tanto na largura como na altura
           </Text>
         </Table>
@@ -355,3 +385,46 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
     </Grid>
   )
 }
+
+export const ShirtPageQuery = graphql`
+  query ProductPages($pageId: String!) {
+    allShopifyProduct(filter: { id: { eq: $pageId } }) {
+      nodes {
+        id
+        title
+        handle
+        priceRange {
+          minVariantPrice {
+            amount
+          }
+        }
+        productType
+        images {
+          altText
+          localFile {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+        options {
+          values
+        }
+        variants {
+          id
+          title
+          price
+          sku
+        }
+        description
+        descriptionHtml
+        options {
+          name
+          values
+        }
+      }
+    }
+  }
+`
