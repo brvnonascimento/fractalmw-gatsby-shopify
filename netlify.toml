@@ -243,3 +243,69 @@
   to = "/"
   status = 301
   force = false  
+
+[[redirects]]
+  from = "/categoria/masculino-fractalmw/page/6"
+  to = "/camisetas"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/masculino-fractalmw/page/8"
+  to = "/camisetas"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/camisetas/page/2"
+  to = "/camisetas/2"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/camisetas/page/3"
+  to = "/camisetas/3"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/etiqueta/fractal-music-wear"
+  to = "/camisetas"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/camisetas/engracadas-e-divertidas/page/5"
+  to = "/camisetas/categoria/divertidas-e-engracadas"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/camisetas/piracicaba"
+  to = "/camisetas/categoria/piracicaba"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/cadastre-se"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/loja/page/12"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/loja/page/6"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/camisetas/page/15"
+  to = "/camisetas"
+  status = 301
+  force = false  
