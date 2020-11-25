@@ -83,7 +83,8 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
     models,
     colors,
     sku,
-    description
+    description,
+    descriptionText
   } = shirt
 
   return (
@@ -220,7 +221,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         />
 
         <ShirtDescription
-          description={description}
+          description={descriptionText}
           gridArea={{ lg: '6 / 1 / 6 / 3' }}
           textAlign={'left'}
           p={'2em'}
