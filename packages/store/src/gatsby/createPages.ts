@@ -50,6 +50,7 @@ const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
             price
             sku
           }
+          description
           descriptionHtml
           options {
             name
@@ -151,6 +152,7 @@ const generateShirts = (
       title,
       productType,
       descriptionHtml,
+      description,
       variants
     } = shirt
 
@@ -217,6 +219,7 @@ const generateShirts = (
       price: getPrice(),
       category: productType,
       description: descriptionHtml,
+      textDescription: description,
       sizes: sizes.values,
       models: models.values,
       colors: colors.values,
