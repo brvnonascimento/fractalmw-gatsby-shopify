@@ -106,7 +106,7 @@ export default ({ pageContext: { shirt } }: ShirtTemplateProps) => {
         product={{
           brand: 'Fractal Music Wear',
           description,
-          images: images.map(({ fallbackSrc }) => fallbackSrc),
+          images: images.map(({ src }) => src),
           sku,
           price: price.toFixed(2),
           name: title,
