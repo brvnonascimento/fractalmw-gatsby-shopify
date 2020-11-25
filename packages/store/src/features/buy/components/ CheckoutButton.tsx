@@ -12,7 +12,7 @@ export const CheckoutButton = ({
 }: CheckoutButtonProps) => (
   <Box
     as="a"
-    {...{ href: checkoutUrl, target: '_blank', rel: 'noopener noreferrer' }}
+    href={checkoutUrl}
     {...props}
   >
     <Button
