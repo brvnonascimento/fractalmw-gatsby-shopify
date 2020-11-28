@@ -1,0 +1,311 @@
+[[redirects]]
+  from = "/categoria/camisetas-personalizadas/camisetas-personalizadas-para-aniversarios"
+  to = "/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/categoria/camisetas/psicodelicas-e-fluorescente"
+  to = "/camisetas/categoria/camisetas-psicodelicas"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/categoria/camisetas/psicodelicas-e-fluorescente/page/2"
+  to = "/camisetas/categoria/camisetas-psicodelicas/2"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/categoria/camisetas/musica-e-bandas"
+  to = "/camisetas/categoria/musicas-e-bandas"
+  status = 301
+  force = false
+  
+[[redirects]]
+  from = "/categoria/camisetas"
+  to = "/camisetas"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/produto/camiseta-pil-public-image-ltd"
+  to = "/produto/camiseta-pil-public-imag-ltd-pos-punk"
+  status = 301
+  force = false
+  
+[[redirects]]
+  from = "/etiqueta/rock-progressivo"
+  to = "/camisetas/categoria/musicas-e-bandas"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/produto/camiseta-psy"
+  to = "/produto/camiseta-fluorescente-psicodelica-circles-musica-dj-psy"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/etiqueta/psy-trance"
+  to = "/camisetas/categoria/camisetas-psicodelicas"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/etiqueta/geometria-sagrada"
+  to = "/camisetas/categoria/camisetas-psicodelicas"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/produto/camiseta-friend-best-friend"
+  to = "/produto/camiseta-friends-serie-comedia-nbc-sitcom-americana-premiada"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/produto/camiseta-friends"
+  to = "/produto/camiseta-friends-serie-comedia-nbc-sitcom-americana-premiada"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/produto/camiseta-os-impossiveis"
+  to = "/produto/camiseta-os-impossiveis-the-impossibles-desenho-antigo-tv"
+  status = 301
+  force = false
+  
+[[redirects]]
+  from = "/produto/camiseta-personalizada-a-vida-comeca-aos"
+  to = "/"
+  status = 301
+  force = false
+    
+[[redirects]]
+  from = "/etiqueta/filmes-antigos"
+  to = "/camisetas/categoria/filmes-e-seriados/"
+  status = 301
+  force = false
+  
+[[redirects]]
+  from = "/etiqueta/filmes-cult"
+  to = "/camisetas/categoria/filmes-e-seriados/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/etiqueta/musica-eletronica"
+  to = "/camisetas/categoria/camisetas-psicodelicas/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/produto/camiseta-sheldon-cooper-seriado-the-big-bang-theory-bazinga"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/camisetas/filmes-series-cartoons-desenhos"
+  to = "/camisetas/categoria/filmes-e-seriados/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/produto/camiseta-intelligence-is-the-ability-to-adapt-to-change-stephen-hawking"
+  to = "/camisetas/categoria/filmes-e-seriados/"
+  status = 301
+  force = false
+  
+[[redirects]]
+  from = "/produto/camiseta-corrida-maluca-quadrilha-de-morte-whacky-races"
+  to = "/produto/camiseta-corrida-maluca-quadrilha-de-morte-desenho-retro-tv"
+  status = 301
+  force = false  
+  
+[[redirects]]
+  from = "/produto/camiseta-intelligence-is-the-ability-to-adapt-to-change-stephen-hawking"
+  to = "/"
+  status = 301
+  force = false
+  
+[[redirects]]
+  from = "/produto/camiseta-save-ferris-curtindo-a-vida-adoidado"
+  to = "/"
+  status = 301
+  force = false
+  
+[[redirects]]
+  from = "/produto/camiseta-kraftwerk-tour-de-france-soundtracks"
+  to = "/"
+  status = 301
+  force = false
+  
+[[redirects]]
+  from = "/produto/camiseta-pantera-negra-rosa"
+  to = "/produto/camiseta-pantera-negra-cor-de-rosa-satira-filme-desenho-heroi"
+  status = 301
+  force = false
+  
+[[redirects]]
+  from = "/produto/camiseta-pantera-negra-rosa"
+  to = "/produto/camiseta-pantera-negra-cor-de-rosa-satira-filme-desenho-heroi"
+  status = 301
+  force = false
+  
+[[redirects]]
+  from = "/produto/camiseta-fantomas-guerreiro-da-justica"
+  to = "/produto/camiseta-fantomas-guerreiro-da-justica-desenho-retro-antigo"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/produto/camiseta-kraftwerk-tour-de-france-soundtracks"
+  to = "/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/produto/camiseta-wavves"
+  to = "/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/produto/camiseta-psychedelic-pernambuco"
+  to = "/"
+  status = 301
+  force = false
+    
+[[redirects]]
+  from = "/loja"
+  to = "/"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/etiqueta/stoner-rock"
+  to = "/camisetas/categoria/musicas-e-bandas"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/produto/camiseta-mickey-mouse-kiss-rock-gene-simmons-disney"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/produto/camiseta-the-herculoids-os-herculoides"
+  to = "/produto/camiseta-os-herculoides-herculoids-desenho-retro-classico"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/produto/camiseta-esqueleto-he-man"
+  to = "/produto/camiseta-esqueleto-skeleto-he-man-retro-desenhos-eternia"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/produto/camiseta-aliens"
+  to = "/produto/camiseta-psicodelica-fluorescente-believe-in-yourself-and-aliens"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/produto/camiseta-david-bowie-major-tom"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/produto/camiseta-flor-da-vida-psicodelica"
+  to = "/produto/camiseta-psicodelica-fluorescente-flor-da-vida"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/produto/camiseta-laranja-mecanica"
+  to = "/produto/camiseta-laranja-mecanica-stanley-kubrick-orange-clockwork"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/produto/camiseta-django-livre"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/produto/camiseta-e-rinite-porra-nao-e-corona"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/masculino-fractalmw/page/6"
+  to = "/camisetas"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/masculino-fractalmw/page/8"
+  to = "/camisetas"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/camisetas/page/2"
+  to = "/camisetas/2"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/camisetas/page/3"
+  to = "/camisetas/3"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/etiqueta/fractal-music-wear"
+  to = "/camisetas"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/camisetas/engracadas-e-divertidas/page/5"
+  to = "/camisetas/categoria/divertidas-e-engracadas"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/camisetas/piracicaba"
+  to = "/camisetas/categoria/piracicaba"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/cadastre-se"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/loja/page/12"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/loja/page/6"
+  to = "/"
+  status = 301
+  force = false  
+
+[[redirects]]
+  from = "/categoria/camisetas/page/15"
+  to = "/camisetas"
+  status = 301
+  force = false  

@@ -101,7 +101,7 @@ export const Navbar = ({
                         <Link
                           as={GatsbyLink as any}
                           {...{
-                            to: `/categoria/camisetas/${toSlug(category)}`
+                            to: `/camisetas/categoria/${toSlug(category)}`
                           }}
                         >
                           {category}

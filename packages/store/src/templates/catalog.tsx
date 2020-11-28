@@ -184,7 +184,7 @@ export default ({ pageContext, data: { allShopifyProduct } }: any) => {
         <PaginationNav
           path={
             pageContext?.categorySlug
-              ? `/categoria/camisetas/${pageContext.categorySlug}`
+              ? `/camisetas/categoria/${pageContext.categorySlug}`
               : '/camisetas'
           }
           lastPage={numberOfPages as number}

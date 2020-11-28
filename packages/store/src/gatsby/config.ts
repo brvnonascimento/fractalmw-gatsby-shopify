@@ -22,6 +22,18 @@ const config: GatsbyConfig = {
       }
     },
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        // The property ID; the tracking code won't be generated without it
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+        // Set Variation ID. 0 for original 1,2,3....
+        variationId: 'YOUR_GOOGLE_OPTIMIZE_VARIATION_ID',
+        // Defers execution of google analytics script after page load
+        defer: true,
+        cookieDomain: process.env.GOOGLE_ANALYTICS_COOKIE_DOMAIN
+      }
+    },
+    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'Fractal Music Wear',

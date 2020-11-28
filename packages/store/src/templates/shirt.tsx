@@ -9,7 +9,7 @@ import {
   Text,
   useDisclosure
 } from '@chakra-ui/react'
-import { ShirtBreadcrumb } from '../features/buy/components/ShirtBreadcrumb'
+
 import { numberToBRL } from '../utils/price'
 import { BuyForm, BuyFormFieldsProps } from '../features/buy/components/BuyForm'
 import { CartDrawer } from '../features/cart/components/CartDrawer'
@@ -24,6 +24,7 @@ import { ShirtDescription } from '../features/buy/components/ShirtDescription'
 import { ProductSEO } from '../features/buy/components/ProductSEO'
 import GatsbyImage from 'gatsby-image'
 import { graphql } from 'gatsby'
+import { ShirtBreadcrumb } from '../features/buy/components/ShirtBreadcrumb'
 
 interface ShirtOptions {
   size: string
@@ -47,7 +48,7 @@ export default ({
     images,
     options,
     sku,
-    description,
+    descriptionText,
     descriptionHtml
   } = shirt
 
@@ -101,7 +102,7 @@ export default ({
     <Grid gridTemplateRows={'auto'}>
       <ProductSEO
         title={`${title} - Fractal Music Wear`}
-        metaDescription={description}
+        metaDescription={descriptionText}
         image={images[0].src}
         keywords={`${title.replace(' ', ',')}, ${descriptionHtml.replace(
           ' ',
@@ -109,8 +110,8 @@ export default ({
         )}`}
         product={{
           brand: 'Fractal Music Wear',
-          description: description,
-          images: images.map(({ fallbackSrc }) => fallbackSrc),
+          descriptionText,
+          images: images.map(({ src }) => src),
           sku,
           price: parseFloat(price).toFixed(2),
           name: title,
@@ -255,6 +256,13 @@ export default ({
               onOpen()
             } catch (err) {}
           }}
+        />
+
+        <ShirtDescription
+          description={descriptionText}
+          gridArea={{ lg: '6 / 1 / 6 / 3' }}
+          textAlign={'left'}
+          p={'2em'}
         />
       </Grid>
 
