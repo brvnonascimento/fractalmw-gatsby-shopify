@@ -1578,12 +1578,12 @@ export type Query = {
   allShopifyProductVariant: ShopifyProductVariantConnection;
   shopifyProduct?: Maybe<ShopifyProduct>;
   allShopifyProduct: ShopifyProductConnection;
-  shopifyShop?: Maybe<ShopifyShop>;
-  allShopifyShop: ShopifyShopConnection;
   shopifyShopPolicy?: Maybe<ShopifyShopPolicy>;
   allShopifyShopPolicy: ShopifyShopPolicyConnection;
   shopifyCollection?: Maybe<ShopifyCollection>;
   allShopifyCollection: ShopifyCollectionConnection;
+  shopifyShop?: Maybe<ShopifyShop>;
+  allShopifyShop: ShopifyShopConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   sitePlugin?: Maybe<SitePlugin>;
@@ -1861,24 +1861,6 @@ export type QueryAllShopifyProductArgs = {
 };
 
 
-export type QueryShopifyShopArgs = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  moneyFormat?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryAllShopifyShopArgs = {
-  filter?: Maybe<ShopifyShopFilterInput>;
-  sort?: Maybe<ShopifyShopSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
 export type QueryShopifyShopPolicyArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -1920,6 +1902,24 @@ export type QueryShopifyCollectionArgs = {
 export type QueryAllShopifyCollectionArgs = {
   filter?: Maybe<ShopifyCollectionFilterInput>;
   sort?: Maybe<ShopifyCollectionSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryShopifyShopArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  moneyFormat?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryAllShopifyShopArgs = {
+  filter?: Maybe<ShopifyShopFilterInput>;
+  sort?: Maybe<ShopifyShopSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -4179,6 +4179,9 @@ export type SitePageConnectionGroupArgs = {
 };
 
 export type SitePageContext = {
+  categoryRegex?: Maybe<Scalars['String']>;
+  categoryHandle?: Maybe<Scalars['String']>;
+  categoryTitle?: Maybe<Scalars['String']>;
   pageNumber?: Maybe<Scalars['Int']>;
   humanPageNumber?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
@@ -4187,13 +4190,12 @@ export type SitePageContext = {
   previousPagePath?: Maybe<Scalars['String']>;
   nextPagePath?: Maybe<Scalars['String']>;
   pageId?: Maybe<Scalars['String']>;
-  previousItem?: Maybe<SitePageContextPreviousItem>;
-  previousPageId?: Maybe<Scalars['String']>;
-  nextItem?: Maybe<SitePageContextNextItem>;
-  nextPageId?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextFilterInput = {
+  categoryRegex?: Maybe<StringQueryOperatorInput>;
+  categoryHandle?: Maybe<StringQueryOperatorInput>;
+  categoryTitle?: Maybe<StringQueryOperatorInput>;
   pageNumber?: Maybe<IntQueryOperatorInput>;
   humanPageNumber?: Maybe<IntQueryOperatorInput>;
   skip?: Maybe<IntQueryOperatorInput>;
@@ -4202,30 +4204,6 @@ export type SitePageContextFilterInput = {
   previousPagePath?: Maybe<StringQueryOperatorInput>;
   nextPagePath?: Maybe<StringQueryOperatorInput>;
   pageId?: Maybe<StringQueryOperatorInput>;
-  previousItem?: Maybe<SitePageContextPreviousItemFilterInput>;
-  previousPageId?: Maybe<StringQueryOperatorInput>;
-  nextItem?: Maybe<SitePageContextNextItemFilterInput>;
-  nextPageId?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePageContextNextItem = {
-  title?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextNextItemFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePageContextPreviousItem = {
-  title?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextPreviousItemFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageEdge = {
@@ -4327,6 +4305,9 @@ export type SitePageFieldsEnum =
   | 'internal___owner'
   | 'internal___type'
   | 'isCreatedByStatefulCreatePages'
+  | 'context___categoryRegex'
+  | 'context___categoryHandle'
+  | 'context___categoryTitle'
   | 'context___pageNumber'
   | 'context___humanPageNumber'
   | 'context___skip'
@@ -4335,12 +4316,6 @@ export type SitePageFieldsEnum =
   | 'context___previousPagePath'
   | 'context___nextPagePath'
   | 'context___pageId'
-  | 'context___previousItem___title'
-  | 'context___previousItem___id'
-  | 'context___previousPageId'
-  | 'context___nextItem___title'
-  | 'context___nextItem___id'
-  | 'context___nextPageId'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'

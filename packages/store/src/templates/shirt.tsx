@@ -1,12 +1,15 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Box,
   Flex,
   Grid,
   Heading,
-  Image,
-  Stack,
+  Img,
+  Link,
+  ListItem,
+  Slide,
   Text,
+  useBreakpointValue,
   useDisclosure
 } from '@chakra-ui/react'
 
@@ -25,6 +28,11 @@ import { ProductSEO } from '../features/buy/components/ProductSEO'
 import GatsbyImage from 'gatsby-image'
 import { graphql } from 'gatsby'
 import { ShirtBreadcrumb } from '../features/buy/components/ShirtBreadcrumb'
+import { useResize } from '../hooks/useResize'
+import { MouseZoom } from '../components/MouseZoom'
+import { toSlug } from '../utils/toSlug'
+import GatsbyLink from 'gatsby-link'
+import { ShirtItem } from '../components/ShirtItem'
 
 interface ShirtOptions {
   size: string
@@ -34,10 +42,10 @@ interface ShirtOptions {
 
 export default ({
   data: {
-    allShopifyProduct: {
-      nodes: [shirt]
-    }
-  }
+    shopifyProduct: shirt,
+    shopifyCollection: { products: relatedProducts }
+  },
+  pageContext
 }) => {
   const {
     category,
@@ -48,40 +56,35 @@ export default ({
     images,
     options,
     sku,
-    descriptionText,
+    description,
     descriptionHtml
   } = shirt
+  const { categoryTitle, categoryHandle } = pageContext
 
   const { onOpen, isOpen, onClose } = useDisclosure()
+  const isSmartphone = useBreakpointValue({ base: true, md: false })
 
   const items = useShopifyCartItems()
+  const [isAddingToCart, setIsAddingToCart] = useState(false)
   const addItemToCart = useAddItemToCart()
   const removeItemFromCart = useRemoveItemFromCart()
   const checkoutUrl = useCheckoutUrl()
+
   const [currentImage, setCurrentImage] = useState(images[0])
-
-  const shirtTitle = useRef<HTMLDivElement>()
-  const [initialShirtTitleHeight, setInitialShirtTitleHeight] = useState<
-    number | undefined
-  >()
-  const [canHoverShirt, setCanHoverShirt] = useState(false)
-  const [isHoveringShirt, setIsHoveringShirt] = useState(false)
-  const [isWrappingText, setIsWrappingText] = useState(true)
-  useLayoutEffect(() => {
-    setInitialShirtTitleHeight(shirtTitle.current?.clientHeight)
-
-    setTimeout(() => {
-      setCanHoverShirt(true)
-    }, 500)
-  }, [])
+  const [isHoveringImage, setIsHoveringImage] = useState(false)
+  const [canHoverImage, setCanHoverImage] = useState(false)
 
   useEffect(() => {
-    if (!isHoveringShirt) {
-      setTimeout(() => {
-        setIsWrappingText(true)
-      }, 1000)
+    if (!isSmartphone) {
+      setTimeout(() => setCanHoverImage(true), 1500)
     }
-  }, [isHoveringShirt])
+  }, [])
+
+  const breadcrumb = useRef<HTMLElement>(null)
+  const onResize = useResize()
+  const breadCrumbHeight = useMemo(() => breadcrumb.current?.clientHeight, [
+    onResize
+  ])
 
   const getVariantId = ({ color, model, size }: ShirtOptions) => {
     const variant = shirt.variants.find(
@@ -99,10 +102,10 @@ export default ({
   const colors = getOptionsValueByName('color')
 
   return (
-    <Grid gridTemplateRows={'auto'}>
+    <Grid rowGap={4} w={'100vw'}>
       <ProductSEO
         title={`${title} - Fractal Music Wear`}
-        metaDescription={descriptionText}
+        metaDescription={description}
         image={images[0].src}
         keywords={`${title.replace(' ', ',')}, ${descriptionHtml.replace(
           ' ',
@@ -110,34 +113,66 @@ export default ({
         )}`}
         product={{
           brand: 'Fractal Music Wear',
-          descriptionText,
-          images: images.map(({ src }) => src),
-          sku,
+          description: description,
+          images: images.map(({ originalSrc }) => originalSrc),
+          sku: toSlug(title),
           price: parseFloat(price).toFixed(2),
           name: title,
           url: `https://fractalmw.com.br/produto/${sku}`
         }}
       />
 
-      <ShirtBreadcrumb category={'test'} title={title} my={2} />
+      <ShirtBreadcrumb
+        ref={breadcrumb}
+        shirt={{
+          title,
+          handle: toSlug(title)
+        }}
+        category={{
+          title: categoryTitle,
+          handle: categoryHandle
+        }}
+        gridArea={'1 / 1'}
+        zIndex={1}
+        w={'max-content'}
+        maxW={{ md: '50vw' }}
+        alignSelf={'start'}
+        mb={2}
+      />
 
       <Grid
         as="main"
         display={'grid'}
+        gridArea={'1 / 1'}
+        w={'100vw'}
+        gridColumnGap={{ md: '20px' }}
         gridTemplateColumns={{ md: '50vw 1fr' }}
-        gridGap={2}
+        position={'relative'}
+        background={{ md: 'linear-gradient(to right, #f3f3f3 50%, white 50%)' }}
+        h={{ md: 'calc(100vh - 92px)' }}
       >
-        <Flex direction="column" gridArea={'1 / 1'}>
+        <Slide
+          direction={'left'}
+          in={!isHoveringImage}
+          style={{
+            transitionDelay: '1',
+            display: 'flex',
+            flexDirection: 'column',
+            gridArea: '1 / 1',
+            position: 'absolute',
+            top: `calc(${breadCrumbHeight ?? 58}px + 12px)`,
+            zIndex: 1,
+            width: 'max-content',
+            height: 'max-content'
+          }}
+        >
           <Heading
             as="h1"
-            ref={shirtTitle}
             bg={'red.500'}
-            w={!isHoveringShirt ? '500px' : '10px'}
-            h={`${initialShirtTitleHeight}px`}
-            color={!isWrappingText ? 'transparent' : 'white'}
-            transition={'width .8s ease-in;'}
+            w={'max-content'}
+            maxW={{ base: '70%', md: '48vw' }}
+            color={'white'}
             display={'flex'}
-            whiteSpace={!isWrappingText ? 'nowrap' : 'unset'}
             flexDirection={'column'}
             justifyContent={'center'}
             p={2}
@@ -152,9 +187,8 @@ export default ({
             fontSize={'lg'}
             my={'10px'}
             background={'red'}
-            w={!isHoveringShirt ? '100px' : '10px'}
-            whiteSpace={!isWrappingText ? 'nowrap' : 'unset'}
-            color={!isWrappingText ? 'transparent' : 'white'}
+            w={'100px'}
+            color={'white'}
             transition={'width .8s ease-in'}
             display={'flex'}
             flexDirection={'column'}
@@ -165,113 +199,126 @@ export default ({
           >
             {numberToBRL(parseFloat(price))}
           </Heading>
-        </Flex>
+        </Slide>
 
-        <Grid
-          gridArea={{ base: '1 / 1', md: '1 / 1 / 6' }}
-          mt={`calc(${shirtTitle.current?.clientHeight}px - 36px)`}
-          onMouseEnter={() => {
-            console.log('HOVERING SHIRT!@')
-            if (canHoverShirt) {
-              setIsWrappingText(false)
-              setIsHoveringShirt(true)
+        <Box
+          onMouseOver={() => {
+            if (canHoverImage) {
+              setIsHoveringImage(true)
             }
           }}
-          onMouseLeave={() => {
-            setIsHoveringShirt(false)
+          onMouseLeave={() => setIsHoveringImage(false)}
+          gridArea={{ md: '1 / 1 / 3' }}
+          alignSelf={'center'}
+          justifySelf={{ md: 'center' }}
+          mb={{
+            base: '15vh',
+            md: 'unset'
           }}
-          height={'80vh'}
-          gridTemplateColumns={'15% 1fr 15%'}
+          top={!isHoveringImage ? { base: '15vh', md: '7vh' } : 'unset'}
+          maxH={!isHoveringImage ? { md: '75vh' } : 'calc(100vh - 92px)'}
+          h={!isHoveringImage ? 'unset' : 'calc(100vh - 92px)'}
+          w={!isHoveringImage ? { base: '100vw', md: '100%' } : { md: '50vw' }}
+          maxW={!isHoveringImage ? { md: '75vh' } : { md: '50vw' }}
+          zIndex={!isHoveringImage ? 'unset' : 2}
+          position={'relative'}
         >
-          <Box
-            gridColumn={2}
-            as={GatsbyImage}
-            height={{ md: '50vh' }}
-            width={{ md: '50vh' }}
-            fluid={currentImage.localFile.childImageSharp.fluid}
+          <GatsbyImage
+            fluid={currentImage?.localFile?.childImageSharp?.fluid}
             alt={currentImage.altText}
+            imgStyle={{
+              mixBlendMode: 'multiply'
+            }}
           />
 
-          <Stack
-            gridColumn={'1 / -1'}
-            isInline
-            alignSelf={'center'}
-            mt={'10px'}
-            height={'110px'}
-            width={'100%'}
-            padding={'5px'}
-          >
-            {shirt.images.map(
-              ({
-                altText,
-                localFile: {
-                  childImageSharp: { fluid }
-                }
-              }) => {
-                return (
-                  <Box
-                    width={'100px'}
-                    cursor="pointer"
-                    mr={'10px'}
-                    onClick={() => setCurrentImage(fluid)}
-                  >
-                    <GatsbyImage
-                      fluid={fluid}
-                      alt={altText}
-                      imgStyle={{ maxHeight: '99px' }}
-                    />
-                  </Box>
+          <MouseZoom
+            scale={2}
+            bgColor={'gray.50'}
+            canZoom={canHoverImage}
+            image={currentImage?.localFile?.childImageSharp?.fluid?.src}
+          />
+        </Box>
+
+        <Flex
+          direction={'column'}
+          as={'section'}
+          gridArea={{ md: '1 / 2 / 3' }}
+          p={{ base: 4, md: 'unset' }}
+        >
+          <BuyForm
+            colors={colors}
+            models={models}
+            sizes={sizes}
+            mt={'15px'}
+            maxW={{ md: '455px' }}
+            isLoadingSubmit={isAddingToCart}
+            handleBuySubmit={async ({
+              color,
+              model,
+              quantity,
+              size
+            }: BuyFormFieldsProps) => {
+              try {
+                setIsAddingToCart(true)
+                await addItemToCart(
+                  getVariantId({ color, model, size }),
+                  quantity
                 )
+                onOpen()
+                setIsAddingToCart(false)
+              } catch (err) {
+                setIsAddingToCart(false)
               }
-            )}
-          </Stack>
-        </Grid>
+            }}
+          />
 
-        <ShirtDescription
-          description={descriptionHtml}
-          gridArea={{ md: '1 / 2' }}
-          fontWeight={'medium'}
-          textAlign={'left'}
-          maxW={{ md: '455px' }}
-        />
-
-        <BuyForm
-          gridArea={{ md: '2 / 2' }}
-          colors={colors}
-          models={models}
-          sizes={sizes}
-          mt={'15px'}
-          maxW={'455px'}
-          onSubmit={async ({
-            color,
-            model,
-            quantity,
-            size
-          }: BuyFormFieldsProps) => {
-            try {
-              await addItemToCart(
-                getVariantId({ color, model, size }),
-                quantity
-              )
-              onOpen()
-            } catch (err) {}
-          }}
-        />
-
-        <ShirtDescription
-          description={descriptionText}
-          gridArea={{ lg: '6 / 1 / 6 / 3' }}
-          textAlign={'left'}
-          p={'2em'}
-        />
+          <ShirtDescription
+            description={descriptionHtml}
+            maxW={{ lg: '60%' }}
+            minW={{ lg: '455px' }}
+            py={4}
+            fontWeight={'medium'}
+          />
+        </Flex>
       </Grid>
+
+      <Flex as={'aside'} direction={'column'} w={'100vw'} overflowX={'scroll'}>
+        <Heading mb={2}>Produtos Relacionados</Heading>
+        <Grid
+          as="ul"
+          d={'flex'}
+          overflowX={'scroll'}
+          overflowY={'hidden'}
+          listStyleType={'none'}
+          height={'300px'}
+        >
+          {relatedProducts.map(({ images: [image], title, priceRange }) => (
+            <ListItem
+              key={title}
+              _hover={{ transform: 'scale(1.1)' }}
+              transition={'all .2s ease-in-out'}
+              background={'white'}
+            >
+              <Link as={GatsbyLink} to={`/produto/${toSlug(title)}`} title={title}>
+                <ShirtItem
+                  w={'300px'}
+                  title={title}
+                  image={image}
+                  priceRange={priceRange}
+                />
+              </Link>
+            </ListItem>
+          ))}
+        </Grid>
+      </Flex>
 
       <Grid
         as="section"
-        // gridArea={{'4 / 2 / 4 / 4'}}
-        background={'#F3F3F3'}
+        w={'100vw'}
+        background={'gray.50'}
         alignItems={'center'}
         justifyItems={'center'}
+        mb={2}
         p={{ base: '0', md: '2em' }}
       >
         <Flex
@@ -280,7 +327,7 @@ export default ({
           justifyContent={'space-around'}
           alignItems={{ base: 'center', md: 'start' }}
           width={'100%'}
-          gridArea={{ base: '1', md: '1 / span 2', md: 'unset' }}
+          gridArea={{ base: '1', md: 'unset' }}
           fontSize={{ base: 'sm', md: 'md' }}
         >
           <Text>
@@ -302,7 +349,7 @@ export default ({
 
             <Text>
               <b>
-                100% Amdodão
+                100% Algodão
                 <br />
                 Fio Penteado 30.1
                 <br />
@@ -318,11 +365,10 @@ export default ({
           </Flex>
         </Flex>
 
-        <Image
+        <Img
           src="/measures.svg"
           gridArea={{
             base: '3',
-            md: '3 / 1',
             md: 'unset'
           }}
           p={'1em'}
@@ -331,9 +377,7 @@ export default ({
         />
 
         <Table
-          gridArea={{ base: '2', md: '3', md: '1 / 3 / 3 / 3' }}
-          // padding={'1em'}
-          maxWidth={'1030px'}
+          gridArea={{ base: '2', md: '1 / 3 / 3 / 3' }}
           title={'GUIA DE MEDIDAS'}
           mt="0.5em"
           columns={[
@@ -395,9 +439,46 @@ export default ({
 }
 
 export const ShirtPageQuery = graphql`
-  query ProductPages($pageId: String!) {
-    allShopifyProduct(filter: { id: { eq: $pageId } }) {
-      nodes {
+  query ProductPages($pageId: String!, $categoryHandle: String!) {
+    shopifyProduct(id: { eq: $pageId }) {
+      id
+      title
+      handle
+      priceRange {
+        minVariantPrice {
+          amount
+        }
+      }
+      productType
+      images {
+        altText
+        originalSrc
+        localFile {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+      options {
+        values
+      }
+      variants {
+        id
+        title
+        price
+        sku
+      }
+      description
+      descriptionHtml
+      options {
+        name
+        values
+      }
+    }
+    shopifyCollection(handle: { eq: $categoryHandle }) {
+      products {
         id
         title
         handle
@@ -406,9 +487,7 @@ export const ShirtPageQuery = graphql`
             amount
           }
         }
-        productType
         images {
-          altText
           localFile {
             childImageSharp {
               fluid {
@@ -416,21 +495,7 @@ export const ShirtPageQuery = graphql`
               }
             }
           }
-        }
-        options {
-          values
-        }
-        variants {
-          id
-          title
-          price
-          sku
-        }
-        description
-        descriptionHtml
-        options {
-          name
-          values
+          altText
         }
       }
     }

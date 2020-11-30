@@ -1,34 +1,68 @@
 import React from 'react'
 import {
   Box,
+  Divider,
   Flex,
   Grid,
   Heading,
-  Image,
+  Img,
   Link,
+  List,
   ListItem,
-  SimpleGrid,
   Text
 } from '@chakra-ui/react'
 import { useHomePageData } from '../hooks/home/useHomePageData'
-import { CategoryList } from '../features/catalog/components/InlineCategoryList'
-import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
 import { SEO } from '../components/SEO'
-import { FigureOverlayed } from '../components/FigureOverlayed'
 import GatsbyImage from 'gatsby-image'
 import GatsbyLink from 'gatsby-link'
 import { toSlug } from '../utils/toSlug'
+import { BrandingLogoIcon } from '../components/icons/BrandingLogoIcon'
+import { useStaticQuery, graphql } from 'gatsby'
+import { ShirtItem } from '../components/ShirtItem'
+import { CATEGORY_URL_PREFIX, SHIRTS_URL_PREFIX } from '../constants/url'
+import { WhatsappWhiteIcon } from '../components/icons/WhatsappWhiteIcon'
 
 export default () => {
-  const { shirtList, bannerImages, asideImages } = useHomePageData()
-  const categories = useStaticCategories()
+  const { bannerImages, asideImages } = useHomePageData()
+
+  const {
+    shopifyCollection: { products },
+    allShopifyCollection: { nodes: categories }
+  } = useStaticQuery(graphql`
+    query HomeShirts {
+      shopifyCollection(title: { eq: "Home" }) {
+        products {
+          id
+          title
+          handle
+          priceRange {
+            minVariantPrice {
+              amount
+            }
+          }
+          images {
+            localFile {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+            altText
+          }
+        }
+      }
+      allShopifyCollection(filter: { title: { ne: "Home" } }) {
+        nodes {
+          title
+          handle
+        }
+      }
+    }
+  `)
 
   return (
-    <Grid
-      gridTemplateRows={'500px'}
-      gridTemplateColumns={{ md: '1fr 400px' }}
-      rowGap={'1em'}
-    >
+    <Grid gridTemplateRows={'500px'} rowGap={'1em'} w={'100vw'}>
       <SEO
         title={'Camisetas com estampas criativas - Fractal Music Wear'}
         metaDescription={
@@ -40,7 +74,7 @@ export default () => {
 
       <Grid
         as="section"
-        gridArea={{ md: '1 / 1 / 3 / 3' }}
+        gridArea={{ md: '1' }}
         gridTemplateColumns={{
           base: '10px 1fr 1fr 10px',
           md: 'auto auto 100px 300px 20px 250px 5%'
@@ -70,9 +104,10 @@ export default () => {
           textAlign={'center'}
           justifySelf={'center'}
         >
-          <Image
-            src="/branding.svg"
-            alt={'Fractal Music Wear'}
+          <BrandingLogoIcon
+            w={'300px'}
+            h={'200px'}
+            aria-label={'Fractal Music Wear'}
             alignSelf={'center'}
             justifySelf={'center'}
             width={'300px'}
@@ -156,89 +191,158 @@ export default () => {
       <Box
         as="main"
         title={'Destaques'}
-        shirtProps={{
-          htmlHeight: '280',
-          htmlWidth: '280'
-        }}
-        shirts={shirtList}
         px={{
           md: '1em'
         }}
+        d={'flex'}
+        flexDirection={'column'}
+        justifyContent={'center'}
       >
-        <Heading>Destaques</Heading>
-        <SimpleGrid
+        <Heading mb={2}>Destaques</Heading>
+        <Grid
           as="ul"
-          columns={{ base: '1', sm: '2', md: '3', xl: '4' }}
+          d={'grid'}
+          gridColumnGap={2}
+          gridRowGap={2}
+          gridTemplateColumns={'repeat(auto-fill, minmax(250px, 1fr))'}
           listStyleType={'none'}
-          display={'grid'}
-          spacing={2}
         >
-          {shirtList.map(({ images: [image], title }) => (
-            <ListItem
-              key={title}
-              _hover={{ transform: 'scale(1.1)' }}
-              transition={'all .2s ease-in-out'}
-              background={'white'}
-            >
-              <Link
-                as={GatsbyLink as any}
-                {...{ to: `/produto/${toSlug(title)}` }}
-                display={'grid'}
-                gridTemplateColumns={'1fr'}
+          {products
+            .slice(0, 12)
+            .map(({ images: [image], title, priceRange }) => (
+              <ListItem
+                key={title}
+                _hover={{ transform: 'scale(1.1)' }}
+                transition={'all .2s ease-in-out'}
+                background={'white'}
               >
-                <Box
-                  as="figure"
-                  my={'10px'}
-                  gridTemplateColumns={'auto'}
-                  pr="10px"
+                <Link
+                  as={GatsbyLink}
+                  to={`/produto/${toSlug(title)}`}
+                  title={title}
                 >
-                  <GatsbyImage
-                    loading="lazy"
-                    fluid={image}
-                    alt={image.altText}
+                  <ShirtItem
+                    title={title}
+                    image={image}
+                    priceRange={priceRange}
                   />
+                </Link>
+              </ListItem>
+            ))}
+        </Grid>
 
-                  <Text
-                    as="figcaption"
-                    display={'flex'}
-                    justifyContent={'space-between'}
-                    fontWeight={'bold'}
-                    zIndex={2}
-                    fontSize={'sm'}
-                    px={'10px'}
-                  >
-                    {title}
-                    {/* <Badge
-                      height={'20px'}
-                      variant={'outline'}
-                      color={'#2e1d3e'}
-                      borderRadius={'4px'}
-                    >
-                      {numberToBRL(
-                        parseFloat(priceRange.minVariantPrice.amount)
-                      )}
-                    </Badge> */}
-                  </Text>
-                </Box>
+        <Link
+          as={GatsbyLink}
+          to={SHIRTS_URL_PREFIX}
+          borderColor={'black'}
+          textAlign={'center'}
+          p={2}
+          fontWeight={'bold'}
+          borderWidth={'2px'}
+          w={'200px'}
+          mx={'auto'}
+          my={6}
+        >
+          QUERO VER MAIS
+        </Link>
+      </Box>
+
+      <Divider />
+
+      <Box as={'section'} p={2}>
+        <Heading mb={4}>Categorias</Heading>
+        <List
+          d={'grid'}
+          gridTemplateColumns={'repeat(auto-fill, minmax(250px, 1fr))'}
+          gridColumnGap={4}
+          gridRowGap={2}
+          overflowX={'scroll'}
+        >
+          {categories.map(({ title, handle }) => (
+            <ListItem bg={'gray.50'} h={'250px'}>
+              <Link
+                as={GatsbyLink}
+                to={`${CATEGORY_URL_PREFIX}/${handle}`}
+                d={'flex'}
+                h={'100%'}
+                w={'100%'}
+                alignItems={'center'}
+                justifyContent={'center'}
+                fontWeight={'medium'}
+              >
+                {title}
               </Link>
             </ListItem>
           ))}
-        </SimpleGrid>
+        </List>
       </Box>
 
-      <Flex
+      <Divider />
+
+      <Grid
+        as={'article'}
+        p={2}
+        gridTemplateColumns={'auto 1fr'}
+        gridTemplateRows={'auto 1fr'}
+      >
+        <Flex as={'section'} direction={'column'} gridArea={'1 / 2'} px={4}>
+          <Heading mb={4}>Personalizamos sua ideia em camiseta!</Heading>
+          <Text>
+            Enim enim dolore occaecat nisi pariatur reprehenderit ipsum amet.
+            Dolore adipisicing proident in dolor sint laboris anim occaecat do.
+            Ipsum aliquip nulla occaecat eiusmod in cupidatat in id velit
+            occaecat eiusmod nisi. Laborum minim elit sint veniam laborum
+            laborum tempor reprehenderit duis. Tempor ipsum magna consectetur in
+            irure tempor. Nostrud aliquip occaecat cupidatat est commodo
+            officia. Qui qui qui commodo nulla.
+          </Text>
+        </Flex>
+
+        <Img
+          as={GatsbyImage}
+          fluid={asideImages[1]}
+          gridArea={'span 2 / 1'}
+          width={'400px'}
+          alt={'Como fazemos nossas camisetas!'}
+        />
+
+        <Link
+          gridArea={'2 / 2'}
+          isExternal
+          d={'flex'}
+          href={'https://wa.me/+5519984311890'}
+          bg={'black'}
+          borderColor={'black'}
+          textAlign={'center'}
+          p={2}
+          fontWeight={'bold'}
+          borderWidth={'2px'}
+          alignItems={'center'}
+          alignSelf={'center'}
+          justifyContent={'center'}
+          color={'white'}
+          w={{
+            base: '100%',
+            md: '50%'
+          }}
+          h={'50px'}
+          mx={'auto'}
+          my={6}
+        >
+          <WhatsappWhiteIcon w={'30px'} h={'30px'} mr={2} />
+          Entre em contato
+        </Link>
+      </Grid>
+
+      {/* <Flex
         as="aside"
         direction={'column'}
-        gridColumn={{ md: '2' }}
         width={'100%'}
         maxWidth={'400px'}
         justifySelf={'center'}
       >
-        <CategoryList categories={categories} />
-
         <a
           {...{
-            href: 'https://wa.me/+5519984311890',
             target: '_blank',
             rel: 'noopener noreferrer'
           }}
@@ -249,9 +353,7 @@ export default () => {
               alt: 'Como fazemos nossas estampas.'
             }}
             caption={{
-              children: (
-                <>Personalizamos sua ideia em camisetas, entre em contato!</>
-              )
+              children: <></>
             }}
           />
         </a>
@@ -265,7 +367,7 @@ export default () => {
             children: ''
           }}
         />
-      </Flex>
+      </Flex> */}
     </Grid>
   )
 }

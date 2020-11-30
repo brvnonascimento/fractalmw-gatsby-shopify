@@ -1,33 +1,37 @@
 import React, { useState } from 'react'
 import { graphql } from 'gatsby'
-import { groovyBorder } from '../components/styles/groovyBorder'
 import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
 import { PaginationNav } from '../components/PaginationNav'
 import { SEO } from '../components/SEO'
 import { useLazyShirtsCatalog } from '../features/catalog/hooks/useLazyShirts'
 import { ShirtMenuBar } from '../features/catalog/components/ShirtMenuBar'
 import {
-  Badge,
   Box,
   Grid,
   Heading,
   Link,
-  List,
   ListItem,
   SimpleGrid,
-  Spinner,
-  Text
+  Spinner
 } from '@chakra-ui/react'
 import { InfiniteLoadingSpinner } from '../components/InfiniteLoadingSpinner'
 import GatsbyLink from 'gatsby-link'
-import GatsbyImage from 'gatsby-image'
-import { numberToBRL } from '../utils/price'
 import { toSlug } from '../utils/toSlug'
+import { ShirtItem } from '../components/ShirtItem'
 
-export default ({ pageContext, data: { allShopifyProduct } }: any) => {
+export default ({
+  pageContext,
+  data: {
+    allShopifyProduct: { nodes: shirts },
+    shopifyCollection: category
+  }
+}: any) => {
   const { numberOfPages, humanPageNumber: currentPage } = pageContext
 
   const categories = useStaticCategories()
+  const categoryTitle = pageContext?.category?.title
+  const isCategoryPage = !!categoryTitle
+
   const [
     handleFetchShirts,
     { shirts: lazyShirts, hasMoreShirts, loading, fetchNextPage }
@@ -43,14 +47,10 @@ export default ({ pageContext, data: { allShopifyProduct } }: any) => {
     return (currentPage as number) + 1
   }
 
-  const shirts = allShopifyProduct.nodes
-
   return (
     <Grid
       as="main"
-      gridTemplateRows={'auto'}
       rowGap={'1em'}
-      maxWidth={'1077px'}
       justifySelf={'center'}
       px={'10px'}
       pl={{ base: '0', md: 'unset' }}
@@ -59,7 +59,7 @@ export default ({ pageContext, data: { allShopifyProduct } }: any) => {
     >
       <SEO
         title={`${
-          pageContext?.category ?? 'Camisetas'
+          categoryTitle ?? 'Camisetas'
         } ${currentPage} de ${numberOfPages} - Fractal Music Wear`}
         metaDescription={
           'A Fractal Music Wear oferece várias opções de estampas de camisetas de estampas criativas, engraçadas e inteligentes, seja de personagens especiais, bandas, filmes e cartoons conhecidos. Escolha uma ou envie seu seu desenho para personalizar a camiseta'
@@ -73,10 +73,6 @@ export default ({ pageContext, data: { allShopifyProduct } }: any) => {
         />
       </SEO>
 
-      <Heading as="h1" alignSelf={'center'} mb={'0.5em'}>
-        {pageContext?.category ?? 'Camisetas'}
-      </Heading>
-
       <ShirtMenuBar
         categories={categories as string[]}
         height={'60px'}
@@ -85,18 +81,16 @@ export default ({ pageContext, data: { allShopifyProduct } }: any) => {
           handleFetchShirts(query)
           setIsInfiniteLoading(true)
         }}
-        mt={'-20px'}
         mb={'0'}
       />
 
       <Box as="main">
+        <Heading as="h1" alignSelf={'center'} mb={'0.5em'}>
+          {categoryTitle ?? 'Camisetas'}
+        </Heading>
         <SimpleGrid
           as="ul"
-          columns={{
-            base: 1,
-            md: 2,
-            lg: 3
-          }}
+          minChildWidth={'300px'}
           listStyleType={'none'}
           display={'grid'}
           spacing={5}
@@ -114,49 +108,18 @@ export default ({ pageContext, data: { allShopifyProduct } }: any) => {
                 key={sku}
                 _hover={{ transform: 'scale(1.1)' }}
                 transition={'all .2s ease-in-out'}
-                background={'white'}
-                {...groovyBorder}
               >
                 <Link
+                  rel={'bookmark'}
                   as={GatsbyLink as any}
-                  {...{ to: `/produto/${toSlug(title)}` }}
-                  display={'grid'}
-                  gridTemplateColumns={'1fr'}
+                  to={`/produto/${toSlug(title)}`}
+                  h={'100%'}
                 >
-                  <Box
-                    as="figure"
-                    my={'10px'}
-                    gridTemplateColumns={'auto'}
-                    pr="10px"
-                  >
-                    <GatsbyImage
-                      loading="lazy"
-                      fluid={image.localFile.childImageSharp.fluid}
-                      alt={image.altText}
-                    />
-
-                    <Text
-                      as="figcaption"
-                      display={'flex'}
-                      justifyContent={'space-between'}
-                      fontWeight={'bold'}
-                      zIndex={2}
-                      fontSize={'sm'}
-                      px={'10px'}
-                    >
-                      {title}
-                      <Badge
-                        height={'20px'}
-                        variant={'outline'}
-                        color={'#2e1d3e'}
-                        borderRadius={'4px'}
-                      >
-                        {numberToBRL(
-                          parseFloat(priceRange.minVariantPrice.amount)
-                        )}
-                      </Badge>
-                    </Text>
-                  </Box>
+                  <ShirtItem
+                    title={title}
+                    image={image}
+                    priceRange={priceRange}
+                  />
                 </Link>
               </ListItem>
             ))
@@ -196,8 +159,21 @@ export default ({ pageContext, data: { allShopifyProduct } }: any) => {
 }
 
 export const CatalogQuery = graphql`
-  query CatalogQuery($skip: Int!, $limit: Int!) {
-    allShopifyProduct(skip: $skip, limit: $limit) {
+  query CatalogQuery(
+    $skip: Int!
+    $limit: Int!
+    $categoryRegex: String!
+    $categoryHandle: String!
+  ) {
+    shopifyCollection(handle: { eq: $categoryHandle }) {
+      title
+      description
+    }
+    allShopifyProduct(
+      filter: { productType: { regex: $categoryRegex } }
+      skip: $skip
+      limit: $limit
+    ) {
       nodes {
         id
         title

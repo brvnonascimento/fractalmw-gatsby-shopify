@@ -1,5 +1,5 @@
 import { GatsbyNode } from 'gatsby'
-import { paginate, createPagePerItem } from 'gatsby-awesome-pagination'
+import { paginate } from 'gatsby-awesome-pagination'
 import path from 'path'
 import { toSlug } from '../utils/toSlug'
 
@@ -14,7 +14,8 @@ const createPages: GatsbyNode['createPages'] = async ({
 }) => {
   const {
     data: {
-      allShopifyProduct: { nodes: shirts }
+      allShopifyProduct: { nodes: shirts },
+      allShopifyCollection: { nodes: shirtsByCategory }
     }
   }: ProductPageResult = await graphql(`
     query ProductPages {
@@ -22,6 +23,16 @@ const createPages: GatsbyNode['createPages'] = async ({
         nodes {
           title
           id
+        }
+      }
+      allShopifyCollection(filter: { title: { ne: "Home" } }) {
+        nodes {
+          title
+          handle
+          products {
+            id
+            title
+          }
         }
       }
     }
@@ -32,20 +43,40 @@ const createPages: GatsbyNode['createPages'] = async ({
     itemsPerPage: 9,
     items: shirts,
     pathPrefix: '/camisetas',
-    component: path.resolve(__dirname, '../templates/catalog.tsx')
+    component: path.resolve(__dirname, '../templates/catalog.tsx'),
+    context: {
+      categoryRegex: '',
+      categoryHandle: '',
+      categoryTitle: ''
+    }
   })
 
-  createPagePerItem({
-    createPage,
-    items: shirts,
-    itemToId: 'id',
-    itemToPath: (props: any) => {
-      if (props?.title) {
-        return `/produto/${toSlug(props?.title)}`
+  for (const { products, title, handle } of shirtsByCategory) {
+    paginate({
+      createPage,
+      itemsPerPage: 9,
+      items: products,
+      pathPrefix: `/camisetas/categoria/${handle}`,
+      component: path.resolve(__dirname, '../templates/catalog.tsx'),
+      context: {
+        categoryTitle: title,
+        categoryHandle: handle,
+        categoryRegex: `/${title}/`
       }
-    },
-    component: path.resolve(__dirname, '../templates/shirt.tsx')
-  })
+    })
+
+    for (const product of products) {
+      createPage({
+        path: `/produto/${toSlug(product?.title)}`,
+        context: {
+          pageId: product.id,
+          categoryTitle: title,
+          categoryHandle: handle
+        },
+        component: path.resolve(__dirname, '../templates/shirt.tsx')
+      })
+    }
+  }
 }
 
 export default createPages

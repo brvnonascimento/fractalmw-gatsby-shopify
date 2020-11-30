@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Heading } from '@chakra-ui/react'
+import { Box, Grid, Heading } from '@chakra-ui/react'
 import { useStaticQuery, graphql } from 'gatsby'
 import xss from 'xss'
 
@@ -27,9 +27,18 @@ export default () => {
   const refundPolicy = xss(body.replace('<meta charset="UTF-8" />', ''))
 
   return (
-    <Grid as="main" p={'1em'} maxWidth={'1200px'} justifySelf={'center'}>
-      <Heading as="h1">Política de Troca</Heading>
-      <article dangerouslySetInnerHTML={{ __html: refundPolicy }} />
+    <Grid
+      as="main"
+      p={'1em'}
+      maxWidth={'1200px'}
+      justifySelf={'center'}
+      h={'100%'}
+      minH={'100vh'}
+    >
+      <Box as={'section'}>
+        <Heading as="h1" my={2}>Política de Troca</Heading>
+        <article dangerouslySetInnerHTML={{ __html: refundPolicy }} />
+      </Box>
     </Grid>
   )
 }

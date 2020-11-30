@@ -1,26 +1,41 @@
 import React from 'react'
-import { BoxProps, Grid } from '@chakra-ui/react'
-import { Navbar, NavbarProps } from './Navbar'
-import { useCartCount } from 'gatsby-theme-shopify-manager'
+import {
+  BoxProps,
+  Grid,
+  Link,
+  Menu,
+  MenuButton,
+  MenuItemOption,
+  MenuList,
+  MenuOptionGroup,
+  useDisclosure
+} from '@chakra-ui/react'
+import {
+  useCartCount,
+  useCheckoutUrl,
+  useRemoveItemFromCart
+} from 'gatsby-theme-shopify-manager'
+import GatsbyLink from 'gatsby-link'
+import { LogoIcon } from '../../components/icons/LogoIcon'
+import { NavLinks } from './NavLinks'
+import { ShirtIcon } from '../../components/icons/ShirtIcon'
+import { ChevronDownIcon, InfoOutlineIcon, PhoneIcon } from '@chakra-ui/icons'
+import { SearchBar } from '../../features/search/components/SearchBar'
+import { CartButton } from '../../features/cart/components/CartButton'
+import { CartDrawer } from '../../features/cart/components/CartDrawer'
+import { useShopifyCartItems } from '../../features/cart/hooks/useShopifyCart'
+import { useSearch } from '../../features/search/hooks/useSearch'
+import { useStaticCategories } from '../../features/catalog/hooks/useStaticCategories'
+import { toSlug } from '../../utils/toSlug'
 
-interface HeaderProps extends BoxProps {
-  withBackground?: boolean
-  navbarStyles?: NavbarProps
-}
-
-const headerBackground: BoxProps = {
-  backgroundRepeat: 'repeat-x, repeat',
-  backgroundPosition: 'right center, left bottom',
-  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='350px' viewBox='0 0 1300 180' filter='url(%23f1)'%3E%3Cdefs%3E%3Cfilter id='f1' x='0' y='0' width='1px' height='1px'%3E%3CfeColorMatrix result='matrixOut' type='matrix' values='0.78 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 ' /%3E%3CfeOffset result='offOut' in='SourceGraphic' dx='20' dy='20' /%3E%3CfeGaussianBlur result='blurOut' in='matrixOut' stdDeviation='7' /%3E%3CfeBlend in='SourceGraphic' in2='blurOut' mode='normal' /%3E%3C/filter%3E%3C/defs%3E%3Cpath fill='%23ffff' fill-opacity='1' d='M0,32L30,64C60,96,120,160,180,160C240,160,300,96,360,64C420,32,480,32,540,58.7C600,85,660,139,720,133.3C780,128,840,64,900,53.3C960,43,1020,85,1080,90.7C1140,96,1200,64,1260,53.3C1320,43,1380,53,1410,58.7L1440,64L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z, 160C240,160,300,96,360,64C420,32,480,32,540,58.7C600,85,660,139,720,133.3C780,128,840,64,900,53.3C960,43,1020,85,1080,90.7C1140,96,1200,64,1260,53.3C1320,43,1380,53,1410,58.7L1440,64L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z, 160C240,160,300,96,360,64C420,32,480,32,540,58.7C600,85,660,139,720,133.3C780,128,840,64,900,53.3C960,43,1020,85,1080,90.7C1140,96,1200,64,1260,53.3C1320,43,1380,53,1410,58.7L1440,64L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z, 160C240,160,300,96,360,64C420,32,480,32,540,58.7C600,85,660,139,720,133.3C780,128,840,64,900,53.3C960,43,1020,85,1080,90.7C1140,96,1200,64,1260,53.3C1320,43,1380,53,1410,58.7L1440,64L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z'%3E%3C/path%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E")`
-}
-
-export const Header = ({
-  children,
-  withBackground,
-  navbarStyles,
-  ...props
-}: HeaderProps) => {
+export const Header = (props: BoxProps) => {
   const cartCount = useCartCount()
+  const { isOpen, onClose, onToggle } = useDisclosure()
+  const items = useShopifyCartItems()
+  const checkoutUrl = useCheckoutUrl()
+  const removeItemFromcart = useRemoveItemFromCart()
+  const [handleSearch, { searchResults, loading, error }] = useSearch()
+  const categories = useStaticCategories()
 
   return (
     <Grid
@@ -30,52 +45,138 @@ export const Header = ({
       justifyItems={'center'}
       width={'100vw'}
       alignItems={'center'}
-      color={'white'}
       display={'grid'}
       gridTemplateColumns={{
         base: '100px 1fr 100px',
         lg: '100px 0.5fr 0.25fr 0.25fr 100px'
       }}
-      backgroundColor={'#000000'}
-      backgroundImage={
-        'linear-gradient(-300deg, #000000 0%, rgba(0, 0, 0, 0.1) 70%)'
-      }
+      background={'black'}
+      color={'white'}
       px={{ lg: '5px' }}
       py={'10px'}
-      // backgroundColor={'#373E4D'}
-      // backgroundImage={`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E")`}
-      {...(withBackground ? headerBackground : null)}
       {...props}
     >
-      <Navbar
-        logoStyle={{
-          gridArea: '1 / 1',
-          alignSelf: 'center'
+      <Link
+        as={GatsbyLink}
+        to={'/'}
+        gridArea={'1 / 1'}
+        alignSelf={'center'}
+        title={'Home | Fractal Music Wear'}
+      >
+        <LogoIcon
+          width={'72px'}
+          height={'72px'}
+          aria-label={'Fractal Music Wear Logo'}
+        />
+      </Link>
+
+      <NavLinks
+        zIndex={10}
+        gridArea={{
+          sm: '1 / span 2',
+          md: '1 / 2'
         }}
-        navStyle={{
-          gridArea: {
-            sm: '1 / span 2',
-            md: '1 / 2'
+        fontSize={{ base: 'sm', md: 'md' }}
+        maxWidth={{ lg: '420px' }}
+        links={[
+          {
+            title: '',
+            to: '/camisetas/',
+            style: {
+              d: 'flex',
+              justifyContent: 'center',
+              px: '10px'
+            },
+            icon: (
+              <Menu>
+                <Link
+                  as={GatsbyLink}
+                  to={'/camisetas'}
+                  d={'flex'}
+                  alignItems={'center'}
+                  justifyContent={'space-around'}
+                >
+                  <ShirtIcon width={'1rem'} height={'1rem'} mr={2} />
+                  Camisetas
+                </Link>
+                <MenuButton
+                  display={'flex'}
+                  alignItems={'center'}
+                  justifyContent={'space-around'}
+                  transition="all 0.2s"
+                >
+                  <ChevronDownIcon size={'30px'} />
+                </MenuButton>
+
+                <MenuList color={'black'} zIndex={10}>
+                  <MenuOptionGroup title="Categorias" type="checkbox">
+                    {categories.map((category) => (
+                      <MenuItemOption key={category}>
+                        <Link
+                          as={GatsbyLink}
+                          to={`/camisetas/categoria/${toSlug(category)}`}
+                        >
+                          {category}
+                        </Link>
+                      </MenuItemOption>
+                    ))}
+                  </MenuOptionGroup>
+                </MenuList>
+              </Menu>
+            )
+          },
+          {
+            title: 'Contato',
+            to: '/contato',
+            icon: <PhoneIcon />,
+            style: {
+              opacity: 0.8
+            }
+          },
+          {
+            title: 'Sobre',
+            to: '/sobre',
+            icon: <InfoOutlineIcon />,
+            style: {
+              opacity: 0.8
+            }
           }
-        }}
-        searchBarStyle={{
-          width: {
-            base: '100%',
-            lg: '100%'
-          },
-          gridArea: {
-            base: '2 / 1 / 2 / 4',
-            lg: '1 / span 2'
-          },
-          justifySelf: 'start'
-        }}
-        cartButtonProps={{
-          quantity: cartCount,
-          gridArea: { base: '1 / 3', lg: '1 / 5' }
-        }}
-        {...navbarStyles}
+        ]}
       />
-      {children}
+
+      <SearchBar
+        loading={loading}
+        my={'10px'}
+        error={error}
+        handleSearch={(search) => {
+          handleSearch(5, search)
+        }}
+        searchResults={searchResults}
+        width={{
+          base: '100%',
+          lg: '100%'
+        }}
+        gridArea={{
+          base: '2 / 1 / 2 / 4',
+          lg: '1 / span 2'
+        }}
+        justifySelf={'start'}
+      >
+        <></>
+      </SearchBar>
+
+      <CartButton
+        gridArea={{ base: '1 / 3', lg: '1 / 5' }}
+        count={cartCount}
+        onClick={onToggle}
+      />
+      <CartDrawer
+        items={items}
+        onDeleteItem={removeItemFromcart}
+        checkoutUrl={checkoutUrl ?? ''}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </Grid>
   )
 }
