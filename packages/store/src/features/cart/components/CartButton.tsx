@@ -1,8 +1,8 @@
 import React from 'react'
-import CartSvg from '../../../assets/cart.svg'
-import { Box, BoxProps, Text } from '@chakra-ui/react'
+import { ButtonProps, IconButton } from '@chakra-ui/react'
+import { CartIcon } from '../../../components/icons'
 
-export interface CartButtonProps extends BoxProps {
+export interface CartButtonProps extends ButtonProps {
   iconWidth?: string
   fill?: string
   count: number
@@ -14,26 +14,37 @@ export const CartButton = ({
   count,
   ...props
 }: CartButtonProps) => (
-  <Box as="button" {...props}>
-    <CartSvg width={'48px'} height={'48px'} fill="white" />
-    <Text
-      as="span"
-      color="white"
-      background={'rgba(256, 0, 0, 0.7)'}
-      position={'absolute'}
-      height={'25px'}
-      textAlign={'center'}
-      width={'25px'}
-      display={'flex'}
-      justifyContent={'center'}
-      alignContent={'center'}
-      lineHeight={'16px'}
-      top={{ base: '7px', lg: '12px' }}
-      right={'22px'}
-      padding={'5px'}
-      rounded={'lg'}
-    >
-      {count}
-    </Text>
-  </Box>
+  <IconButton
+    icon={<CartIcon h={'100%'} w={'100%'} />}
+    variant={'ghost'}
+    aria-label={'Carrinho'}
+    w={'40px'}
+    h={'40px'}
+    _after={{
+      content: `"${count}"`,
+      background: 'rgba(256, 0, 0, 0.7)',
+      position: 'absolute',
+      fontWeight: 'medium',
+      fontSize: 'lg',
+      height: '25px',
+      textAlign: 'center',
+      width: '25px',
+      display: 'flex',
+      justifyContent: 'center',
+      alignContent: 'center',
+      lineHeight: '16px',
+      top: '-5px',
+      right: '-10px',
+      padding: '5px',
+      rounded: 'lg',
+      color: 'white'
+    }}
+    _hover={{
+      bg: 'none'
+    }}
+    _active={{
+      bg: 'none'
+    }}
+    {...props}
+  />
 )

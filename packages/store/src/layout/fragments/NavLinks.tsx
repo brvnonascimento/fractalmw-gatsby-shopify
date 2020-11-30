@@ -22,13 +22,11 @@ export const NavLinks = ({ children, links, ...props }: NavLinksProps) => (
     bottom={0}
     left={0}
     background={{
-      base: 'rgba(0, 0, 0.5)',
+      base: 'black',
       lg: 'transparent'
     }}
-    backgroundImage={'url(watermark.png)'}
-    backgroundSize={'800px'}
     height={{
-      base: '70px',
+      base: '40px',
       lg: 'auto'
     }}
     justifyContent={'center'}

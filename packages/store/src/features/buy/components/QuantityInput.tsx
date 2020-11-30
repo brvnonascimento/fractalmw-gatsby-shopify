@@ -28,6 +28,7 @@ export const QuantityInput = ({
       min={1}
       width={'100px'}
       onChange={onChange}
+      fontWeight={'medium'}
       height={'100%'}
       _after={{
         content: '""',

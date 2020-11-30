@@ -1,16 +1,30 @@
+import React, { useState } from 'react'
 import { DeleteIcon } from '@chakra-ui/icons'
 import {
   Box,
   Flex,
   FlexProps,
   IconButton,
-  Spinner,
   Text
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
 import { ShirtImage } from '../../../components/ShirtImage'
 import { numberToBRL } from '../../../utils/price'
-import { CartItem } from '../hooks/useCart'
+
+export interface CartItem {
+  id: string
+  title: string
+  sku: string
+  image: {
+    src: string
+    fallbackSrc: string
+    alt: string
+  }
+  quantity: number
+  price: number
+  color: string
+  size: string
+  model: string
+}
 
 export interface CartItemsProps extends FlexProps {
   items: CartItem[]
@@ -24,13 +38,13 @@ export const CartItems = ({
   emptyCartMessage = 'Não há itens no carrinho.',
   ...props
 }: CartItemsProps) => {
-  const [isDeletingItem, setIsDeletingItem] = useState(false)
+  const [deletingItem, setDeletingItem] = useState(-1)
   const isItemsEmpty = items.length === 0
 
   return (
     <Flex direction={'column'} justifyContent={'center'} {...props}>
       {!isItemsEmpty ? (
-        items.map(({ image, title, price, quantity, id, size, model }) => (
+        items.map(({ image, title, price, quantity, id, size, model }, i) => (
           <Flex
             key={id}
             my="10px"
@@ -73,24 +87,20 @@ export const CartItems = ({
               </Text>
             </Flex>
             <Flex>
-              {!isDeletingItem ? (
-                <IconButton
-                  icon={<DeleteIcon />}
-                  onClick={async () => {
-                    setIsDeletingItem(true)
-                    await onDeleteItem(id)
-                    setIsDeletingItem(false)
-                  }}
-                  width={'10px'}
-                  padding={'-10px'}
-                  background={'rgba(256, 0, 0, 0.6)'}
-                  color={'white'}
-                  variantColor="white"
-                  aria-label="Excluir item do carrinho"
-                />
-              ) : (
-                <Spinner size="md" mx="10px" color="red.500" />
-              )}
+              <IconButton
+                isLoading={deletingItem === i}
+                icon={<DeleteIcon />}
+                onClick={async () => {
+                  setDeletingItem(i)
+                  await onDeleteItem(id)
+                  setDeletingItem(-1)
+                }}
+                width={'10px'}
+                padding={'-10px'}
+                background={'rgba(256, 0, 0, 0.6)'}
+                color={'white'}
+                aria-label="Excluir item do carrinho"
+              />
             </Flex>
           </Flex>
         ))

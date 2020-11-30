@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Heading } from '@chakra-ui/react'
+import { Box, Grid, Heading } from '@chakra-ui/react'
 import { useStaticQuery, graphql } from 'gatsby'
 import xss from 'xss'
 
@@ -28,10 +28,10 @@ export default () => {
 
   return (
     <Grid as="main" px={'10px'}>
-      <Heading as="h1">Política de Privacidade</Heading>
-      <article
-        dangerouslySetInnerHTML={{ __html: privacyPolicy }}
-      />
+      <Box as={'section'}>
+        <Heading as="h1" my={2}>Política de Privacidade</Heading>
+        <article dangerouslySetInnerHTML={{ __html: privacyPolicy }} />
+      </Box>
     </Grid>
   )
 }

@@ -12,15 +12,16 @@ export const CheckoutButton = ({
 }: CheckoutButtonProps) => (
   <Box
     as="a"
+    variant={'ghost'}
+    bg={'black'}
+    color={'white'}
+    d={'flex'}
+    justifyContent={'center'}
+    alignItems={'center'}
+    fontWeight={'bold'}
     href={checkoutUrl}
     {...props}
   >
-    <Button
-      width={'100%'}
-      color={'black'}
-      background={'rgba(0, 256, 0, 0.7)'}
-    >
-      {children}
-    </Button>
+    {children}
   </Box>
 )

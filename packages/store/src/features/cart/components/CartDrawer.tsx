@@ -5,15 +5,16 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
+  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   Flex,
-  Heading
+  Heading,
+  Link
 } from '@chakra-ui/react'
 import { CartItem } from '../hooks/useCart'
 import { CartItems } from './CartItems'
-import { CheckoutButton } from '../../buy/components/ CheckoutButton'
-import { groovyBorder } from '../../../components/styles/groovyBorder'
+import { CheckIcon } from '@chakra-ui/icons'
 
 interface CartDrawerProps {
   items: CartItem[]
@@ -36,9 +37,9 @@ export const CartDrawer = ({
     <Drawer isOpen={isOpen} placement="right" onClose={onClose} size={'md'}>
       <DrawerOverlay />
       <DrawerContent py={'20px'}>
-        <DrawerCloseButton />
-        <DrawerHeader>
+        <DrawerHeader d={'flex'} w={'100%'} justifyContent={'space-between'}>
           <Heading>{header}</Heading>
+          <DrawerCloseButton mr={'12px'} />
         </DrawerHeader>
 
         <DrawerBody
@@ -48,17 +49,40 @@ export const CartDrawer = ({
           overflowY={'scroll'}
         >
           <CartItems items={items} onDeleteItem={onDeleteItem} />
+        </DrawerBody>
+        <DrawerFooter>
           {items.length !== 0 && (
             <Flex bottom={'100px'} width={'100%'} justifyContent={'center'}>
-              <CheckoutButton width={'48%'} checkoutUrl={checkoutUrl}>
+              <Link
+                href={
+                  process.env.GATSBY_CHECKOUT_SUBDOMAIN &&
+                  process.env.GATSBY_SHOPIFY_SHOPNAME
+                    ? checkoutUrl.replace(
+                        `${process.env.GATSBY_SHOPIFY_SHOPNAME}.myshopify.com`,
+                        process.env.GATSBY_CHECKOUT_SUBDOMAIN
+                      )
+                    : checkoutUrl
+                }
+                title={'Checkout'}
+                variant={'ghost'}
+                w={'48%'}
+                bg={'black'}
+                color={'white'}
+                d={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                fontWeight={'bold'}
+              >
+                <CheckIcon mr={2} />
                 Finalizar Compra!
-              </CheckoutButton>
+              </Link>
+
               <Button width={'48%'} ml={'3px'} onClick={onClose}>
                 Continuar Comprando
               </Button>
             </Flex>
           )}
-        </DrawerBody>
+        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   )

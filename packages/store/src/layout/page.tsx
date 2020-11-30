@@ -1,19 +1,13 @@
-import { Box, Grid, Link } from '@chakra-ui/react'
+import { Box, Link } from '@chakra-ui/react'
 import { GatsbyBrowser } from 'gatsby'
 import React from 'react'
 import { Header } from './fragments/Header'
-import '../styles/index.css'
 import { Footer } from './fragments/Footer'
-import WhatsappIcon from '../assets/whatsapp.svg'
+import { WhatsappIcon } from '../components/icons/WhatsappIcon'
 
 const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   return (
-    <Box
-      minHeight={'100vh'}
-      maxW={'100vw'}
-      overflowX={'hidden'}
-      rowGap={'1em'}
-    >
+    <Box minHeight={'100vh'} maxW={'100vw'} w={'100vw'} overflowX={'hidden'}>
       <Header />
 
       {element}
@@ -29,10 +23,10 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
           md: '64px'
         }}
         bottom={{ base: '90px', lg: '33px' }}
-        left={{ base: '8px', lg: '31px' }}
+        right={{ base: '8px', lg: '31px' }}
         zIndex={3}
         transition={'all .2s ease-in-out'}
-        background={'white'}
+        bg={'white'}
         p="5px"
         rounded={'100%'}
         _hover={{
@@ -46,14 +40,7 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
         <WhatsappIcon />
       </Link>
 
-      <Footer
-        pb={{ base: '5em', lg: 0 }}
-        mb={{ base: '5em', lg: 0 }}
-        minHeight={{
-          base: '265px',
-          lg: 'auto'
-        }}
-      />
+      <Footer position={'relative'} zIndex={4} />
     </Box>
   )
 }

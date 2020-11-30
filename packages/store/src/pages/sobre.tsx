@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, Text } from '@chakra-ui/react'
+import { Box, Grid, Heading, Img, Text } from '@chakra-ui/react'
 import { useStaticQuery, graphql } from 'gatsby'
 import GatsbyImage from 'gatsby-image'
 import React from 'react'
@@ -14,16 +14,16 @@ export default () => {
     }
   } = useStaticQuery(graphql`
     query AboutUsQuery {
-      bannerFile: file(name: {eq: "about-us-banner"}) {
+      bannerFile: file(name: { eq: "about-us-banner" }) {
         childImageSharp {
-          banner1: fluid(webpQuality: 80) {
+          banner1: fluid {
             ...GatsbyImageSharpFluid
           }
         }
       }
-      bannerFile2: file(name: {eq: "about-us"}) {
+      bannerFile2: file(name: { eq: "about-us" }) {
         childImageSharp {
-          banner2: fluid(webpQuality: 80) {
+          banner2: fluid {
             ...GatsbyImageSharpFluid
           }
         }
@@ -32,12 +32,25 @@ export default () => {
   `)
 
   return (
-    <Grid as="main" maxWidth={'926px'} justifySelf={'center'}>
-      <GatsbyImage fluid={banner1} alt={'Nosso espaco na Fractal Music Wear'} />
+    <Grid as="main" w={'100vw'} justifySelf={'center'}>
+      <Img
+        as={GatsbyImage}
+        h={'200px'}
+        fluid={banner1}
+        alt={'Nosso espaco na Fractal Music Wear'}
+      />
       {/* <Image src="/about-us-banner.png" htmlHeight={'174'} htmlWidth={'926'} /> */}
-      <Grid as="section" gridTemplateRows={'auto'} my="2em" px="2em">
+      <Grid
+        as="section"
+        gridTemplateRows={'auto'}
+        my="2em"
+        px="2em"
+        justifySelf={'center'}
+        w={'100%'}
+        gridRowGap={2}
+      >
         <Heading as="h1">SOBRE NÓS</Heading>
-        <Text>
+        <Text maxW={"1000px"}>
           A Fractal Music Wear, que está no mercado desde 2007, é um espaço
           multidimensional, onde diversas tendências musicais e de moda se
           encontram e se fundem, fazendo uma loja única. <br />
@@ -68,7 +81,8 @@ export default () => {
         <HeadingDivider gridArea={'2 / 2'} />
       </Grid>
       <Box as="figure">
-        <GatsbyImage
+        <Img
+          as={GatsbyImage}
           fluid={banner2}
           alt="Telminha e Sidão, fundadores da Fractal Music Wear"
         />

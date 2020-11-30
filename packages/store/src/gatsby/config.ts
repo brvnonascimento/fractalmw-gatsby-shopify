@@ -71,7 +71,8 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-theme-shopify-manager',
       options: {
         shopName: process.env.SHOPIFY_SHOPNAME,
-        accessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN
+        accessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+        apiVersion: '2021-01'
       }
     }
   ]
