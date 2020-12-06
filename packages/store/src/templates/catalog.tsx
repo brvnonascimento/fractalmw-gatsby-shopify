@@ -7,7 +7,6 @@ import { useLazyShirtsCatalog } from '../features/catalog/hooks/useLazyShirts'
 import { ShirtMenuBar } from '../features/catalog/components/ShirtMenuBar'
 import {
   Box,
-  Grid,
   Heading,
   Link,
   List,
