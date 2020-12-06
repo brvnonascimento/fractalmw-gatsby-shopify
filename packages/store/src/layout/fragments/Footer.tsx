@@ -7,7 +7,6 @@ import {
   Link,
   List,
   ListItem,
-  SimpleGrid,
   Tooltip
 } from '@chakra-ui/react'
 import GatsbyLink from 'gatsby-link'
