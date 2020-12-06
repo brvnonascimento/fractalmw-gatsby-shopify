@@ -1578,10 +1578,17 @@ export type Query = {
   allShopifyProductVariant: ShopifyProductVariantConnection;
   shopifyProduct?: Maybe<ShopifyProduct>;
   allShopifyProduct: ShopifyProductConnection;
+<<<<<<< HEAD
   shopifyShopPolicy?: Maybe<ShopifyShopPolicy>;
   allShopifyShopPolicy: ShopifyShopPolicyConnection;
   shopifyCollection?: Maybe<ShopifyCollection>;
   allShopifyCollection: ShopifyCollectionConnection;
+=======
+  shopifyCollection?: Maybe<ShopifyCollection>;
+  allShopifyCollection: ShopifyCollectionConnection;
+  shopifyShopPolicy?: Maybe<ShopifyShopPolicy>;
+  allShopifyShopPolicy: ShopifyShopPolicyConnection;
+>>>>>>> 8782d7e42469299031b5adf2994df2def0aad6ca
   shopifyShop?: Maybe<ShopifyShop>;
   allShopifyShop: ShopifyShopConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
@@ -1859,6 +1866,33 @@ export type QueryAllShopifyProductArgs = {
 };
 
 
+<<<<<<< HEAD
+=======
+export type QueryShopifyCollectionArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  descriptionHtml?: Maybe<StringQueryOperatorInput>;
+  handle?: Maybe<StringQueryOperatorInput>;
+  image?: Maybe<ShopifyCollectionImageFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  updatedAt?: Maybe<DateQueryOperatorInput>;
+  shopifyId?: Maybe<StringQueryOperatorInput>;
+  products?: Maybe<ShopifyProductFilterListInput>;
+};
+
+
+export type QueryAllShopifyCollectionArgs = {
+  filter?: Maybe<ShopifyCollectionFilterInput>;
+  sort?: Maybe<ShopifyCollectionSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+>>>>>>> 8782d7e42469299031b5adf2994df2def0aad6ca
 export type QueryShopifyShopPolicyArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -1900,24 +1934,6 @@ export type QueryShopifyCollectionArgs = {
 export type QueryAllShopifyCollectionArgs = {
   filter?: Maybe<ShopifyCollectionFilterInput>;
   sort?: Maybe<ShopifyCollectionSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QueryShopifyShopArgs = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  moneyFormat?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryAllShopifyShopArgs = {
-  filter?: Maybe<ShopifyShopFilterInput>;
-  sort?: Maybe<ShopifyShopSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
