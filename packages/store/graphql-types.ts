@@ -2106,6 +2106,7 @@ export type ShopifyCollectionFieldsEnum =
   | 'description'
   | 'descriptionHtml'
   | 'handle'
+  | 'image___altText'
   | 'image___id'
   | 'image___src'
   | 'image___localFile___sourceInstanceName'
@@ -2352,12 +2353,14 @@ export type ShopifyCollectionGroupConnection = {
 };
 
 export type ShopifyCollectionImage = {
+  altText?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   src?: Maybe<Scalars['String']>;
   localFile?: Maybe<File>;
 };
 
 export type ShopifyCollectionImageFilterInput = {
+  altText?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   src?: Maybe<StringQueryOperatorInput>;
   localFile?: Maybe<FileFilterInput>;

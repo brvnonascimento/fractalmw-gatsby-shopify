@@ -136,7 +136,7 @@ export const Footer = memo(({ ...props }: GridProps) => (
         Páginas
       </Heading>
       {links.map(({ to, name }) => (
-        <ListItem fontWeight={'medium'}>
+        <ListItem fontWeight={'medium'} key={name}>
           <Link as={GatsbyLink} to={to} height={'100%'}>
             {name}
           </Link>

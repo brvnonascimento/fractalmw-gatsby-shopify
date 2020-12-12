@@ -278,19 +278,25 @@ export default () => {
               textTransform={'uppercase'}
               textAlign={'center'}
               fontWeight={'bold'}
+              css={{
+                'li:first-child': {
+                  gridColumn: 'span 2'
+                },
+                'li:nth-child(4n)': {
+                  gridColumn: 'span 2'
+                },
+                'li:last-child': {
+                  gridColumn: 'span 3'
+                }
+              }}
             >
               {categories.map(({ title, handle, image }, i) => (
                 <ListItem
                   as={BackgroundImage}
-                  tag={'li'}
+                  Tag={'li'}
                   fluid={image.localFile.childImageSharp.fluid}
                   key={handle}
                   h={'250px'}
-                  gridColumn={
-                    i % 3 === 0 && i + 1 === categories.length
-                      ? '1 / -1'
-                      : 'unset'
-                  }
                   key={handle}
                 >
                   <Link
@@ -338,7 +344,7 @@ export default () => {
                 px={4}
               >
                 <Heading mb={4}>Personalizamos sua ideia em camiseta!</Heading>
-                <Text fontWeight={'medium'} w={'80%'}>
+                <Text fontWeight={'medium'} w={{ md: '80%' }} fontSize={'xl'}>
                   Aqui na Fractal, transformamos sua ideia em camiseta, você
                   pode ter uma camiseta personalizada só sua, com a qualidade
                   Fractal de tecido e estampa, envie sua arte digitalizada e

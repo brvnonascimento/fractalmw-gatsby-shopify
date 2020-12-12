@@ -18,8 +18,8 @@ export const CartButton = ({
     icon={<CartIcon h={'100%'} w={'100%'} />}
     variant={'ghost'}
     aria-label={'Carrinho'}
-    w={'40px'}
-    h={'40px'}
+    w={'52px'}
+    h={'52px'}
     _after={{
       content: `"${count}"`,
       background: 'rgba(256, 0, 0, 0.7)',

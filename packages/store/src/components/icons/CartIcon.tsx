@@ -2,6 +2,7 @@ import React from 'react'
 import { createIcon } from '@chakra-ui/icons'
 
 export const CartIcon = createIcon({
+  displayName: 'CartIcon',
   defaultProps: {
     viewBox: '0 -31 512.00026 512',
     fill: 'white'
