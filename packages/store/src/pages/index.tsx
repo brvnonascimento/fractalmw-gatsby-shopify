@@ -278,17 +278,21 @@ export default () => {
               textTransform={'uppercase'}
               textAlign={'center'}
               fontWeight={'bold'}
-              css={{
-                'li:first-child': {
-                  gridColumn: 'span 2'
-                },
-                'li:nth-child(4n)': {
-                  gridColumn: 'span 2'
-                },
-                'li:last-child': {
-                  gridColumn: 'span 3'
-                }
-              }}
+              css={
+                !isSmartphone
+                  ? {
+                      'li:first-child': {
+                        gridColumn: 'span 2'
+                      },
+                      'li:nth-child(4n)': {
+                        gridColumn: 'span 2'
+                      },
+                      'li:last-child': {
+                        gridColumn: 'span 3'
+                      }
+                    }
+                  : undefined
+              }
             >
               {categories.map(({ title, handle, image }, i) => (
                 <ListItem
