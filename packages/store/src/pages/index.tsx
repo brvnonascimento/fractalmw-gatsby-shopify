@@ -338,7 +338,7 @@ export default () => {
                 px={4}
               >
                 <Heading mb={4}>Personalizamos sua ideia em camiseta!</Heading>
-                <Text fontWeight={'medium'} w={'80%'}>
+                <Text fontWeight={'medium'} w={{ md: '80%' }} fontSize={'xl'}>
                   Aqui na Fractal, transformamos sua ideia em camiseta, você
                   pode ter uma camiseta personalizada só sua, com a qualidade
                   Fractal de tecido e estampa, envie sua arte digitalizada e

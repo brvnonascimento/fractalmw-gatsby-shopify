@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { graphql } from 'gatsby'
-import { useStaticCategories } from '../features/catalog/hooks/useStaticCategories'
 import { PaginationNav } from '../components/PaginationNav'
 import { SEO } from '../components/SEO'
 import { useLazyShirtsCatalog } from '../features/catalog/hooks/useLazyShirts'
@@ -23,11 +22,14 @@ import xss from 'xss'
 
 export default ({
   pageContext,
-  data: { allShopifyProduct, shopifyCollection: category }
+  data: {
+    allShopifyProduct,
+    shopifyCollection: category,
+    allShopifyCollection: { nodes: categories }
+  }
 }: any) => {
   const { numberOfPages, humanPageNumber: currentPage } = pageContext
 
-  const categories = useStaticCategories()
   const categoryTitle = pageContext?.category?.title
   const isCategoryPage = !!categoryTitle
 
@@ -46,7 +48,7 @@ export default ({
     return (currentPage as number) + 1
   }
 
-  const shirts = lazyShirts !== null ? lazyShirts : allShopifyProduct?.nodes 
+  const shirts = lazyShirts !== null ? lazyShirts : allShopifyProduct?.nodes
 
   return (
     <Box
@@ -203,6 +205,12 @@ export const CatalogQuery = graphql`
     shopifyCollection(handle: { eq: $categoryHandle }) {
       title
       descriptionHtml
+    }
+    allShopifyCollection(filter: { handle: { ne: "home" } }) {
+      nodes {
+        title
+        handle
+      }
     }
     allShopifyProduct(
       filter: { id: { in: $products } }

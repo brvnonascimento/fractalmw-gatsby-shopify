@@ -44,7 +44,7 @@ export const Header = (props: BoxProps) => {
     allShopifyCollection: { nodes: categories }
   } = useStaticQuery(graphql`
     query ShirtCategoryMenu {
-      allShopifyCollection {
+      allShopifyCollection(filter: { handle: { ne: "home" } }) {
         nodes {
           title
           handle
@@ -71,7 +71,7 @@ export const Header = (props: BoxProps) => {
       background={'black'}
       color={'white'}
       px={{ lg: '5px' }}
-      py={{ lg: '10px' }}
+      py={3}
       {...props}
     >
       <Link

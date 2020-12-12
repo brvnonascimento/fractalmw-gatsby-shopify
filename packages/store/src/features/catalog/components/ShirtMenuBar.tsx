@@ -18,14 +18,18 @@ export interface FilterBarProps extends BoxProps {
 }
 
 interface ShirtMenuQuery {
-  first: number,
-  after?: string,
-  query?: string,
-  sortBy?: string,
+  first: number
+  after?: string
+  query?: string
+  sortBy?: string
   reverse?: boolean
 }
 
-export const ShirtMenuBar = ({ categories, onChangeMenu, ...props }: FilterBarProps) => {
+export const ShirtMenuBar = ({
+  categories,
+  onChangeMenu,
+  ...props
+}: FilterBarProps) => {
   const isFiltered = useRef(false)
   const [currentQuery, setCurrentQuery] = useState<ShirtMenuQuery>({
     first: 9,
@@ -39,7 +43,7 @@ export const ShirtMenuBar = ({ categories, onChangeMenu, ...props }: FilterBarPr
     const OR_OPERATOR = ' OR '
 
     const nonEmptyCategories = categories.filter(filterEmptySpace)
-    if(!nonEmptyCategories) {
+    if (!nonEmptyCategories) {
       return
     }
 
@@ -62,7 +66,7 @@ export const ShirtMenuBar = ({ categories, onChangeMenu, ...props }: FilterBarPr
   }
 
   useEffect(() => {
-    if(isFiltered.current) {
+    if (isFiltered.current) {
       onChangeMenu(currentQuery)
     }
   }, [currentQuery])
@@ -98,19 +102,20 @@ export const ShirtMenuBar = ({ categories, onChangeMenu, ...props }: FilterBarPr
         </MenuButton>
 
         <MenuList {...groovyBorder}>
-          <MenuOptionGroup onChange={handleCategoryFiltering} title="Categorias" type="checkbox">
-            {categories.map((category) => (
-              <MenuItemOption
-                key={category}
-                value={category}
-              >
-                {category}
+          <MenuOptionGroup
+            onChange={handleCategoryFiltering}
+            title="Categorias"
+            type="checkbox"
+          >
+            {categories.map(({ title, handle }) => (
+              <MenuItemOption key={handle} value={title}>
+                {title}
               </MenuItemOption>
             ))}
           </MenuOptionGroup>
         </MenuList>
       </Menu>
-      <Menu closeOnSelect={false} >
+      <Menu closeOnSelect={false}>
         <MenuButton
           ml={'5px'}
           px={4}
@@ -129,8 +134,12 @@ export const ShirtMenuBar = ({ categories, onChangeMenu, ...props }: FilterBarPr
           Ordenar Por <ChevronDownIcon />
         </MenuButton>
 
-        <MenuList >
-          <MenuOptionGroup onChange={handleShirtSorting} title="Preço" type="radio">
+        <MenuList>
+          <MenuOptionGroup
+            onChange={handleShirtSorting}
+            title="Preço"
+            type="radio"
+          >
             <MenuItemOption value={'UP_PRICE'}>Menor preço</MenuItemOption>
             <MenuItemOption value={'DOWN_PRICE'}>Maior preço</MenuItemOption>
           </MenuOptionGroup>
