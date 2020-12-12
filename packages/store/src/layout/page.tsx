@@ -22,7 +22,7 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
           base: '48px',
           md: '64px'
         }}
-        bottom={{ base: '90px', lg: '33px' }}
+        bottom={{ base: '80px', lg: '33px' }}
         right={{ base: '8px', lg: '31px' }}
         zIndex={3}
         transition={'all .2s ease-in-out'}

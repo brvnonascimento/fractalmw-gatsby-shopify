@@ -37,7 +37,12 @@ export const CartDrawer = ({
     <Drawer isOpen={isOpen} placement="right" onClose={onClose} size={'md'}>
       <DrawerOverlay />
       <DrawerContent py={'20px'}>
-        <DrawerHeader d={'flex'} w={'100%'} justifyContent={'space-between'}>
+        <DrawerHeader
+          d={'flex'}
+          w={'100%'}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+        >
           <Heading>{header}</Heading>
           <DrawerCloseButton mr={'12px'} />
         </DrawerHeader>
@@ -50,9 +55,14 @@ export const CartDrawer = ({
         >
           <CartItems items={items} onDeleteItem={onDeleteItem} />
         </DrawerBody>
-        <DrawerFooter>
+        <DrawerFooter
+          d={'flex'}
+          flexDir={{ base: 'column', md: 'row' }}
+          justifyContent={'space-around'}
+          p={2}
+        >
           {items.length !== 0 && (
-            <Flex bottom={'100px'} width={'100%'} justifyContent={'center'}>
+            <>
               <Link
                 href={
                   process.env.GATSBY_CHECKOUT_SUBDOMAIN &&
@@ -63,24 +73,34 @@ export const CartDrawer = ({
                       )
                     : checkoutUrl
                 }
-                title={'Checkout'}
-                variant={'ghost'}
-                w={'48%'}
-                bg={'black'}
-                color={'white'}
                 d={'flex'}
                 justifyContent={'center'}
                 alignItems={'center'}
+                w={{ base: '100%', md: '48%' }}
+                h={'100%'}
+                my={1}
+                title={'Checkout'}
+                variant={'ghost'}
+                minH={'45px'}
+                bg={'black'}
+                color={'white'}
                 fontWeight={'bold'}
               >
                 <CheckIcon mr={2} />
                 Finalizar Compra!
               </Link>
 
-              <Button width={'48%'} ml={'3px'} onClick={onClose}>
+              <Button
+                w={{ base: '100%', md: '48%' }}
+                my={1}
+                minH={'45px'}
+                h={'100%'}
+                ml={'3px'}
+                onClick={onClose}
+              >
                 Continuar Comprando
               </Button>
-            </Flex>
+            </>
           )}
         </DrawerFooter>
       </DrawerContent>

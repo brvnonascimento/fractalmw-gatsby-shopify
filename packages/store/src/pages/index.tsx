@@ -24,6 +24,7 @@ import { CATEGORY_URL_PREFIX, SHIRTS_URL_PREFIX } from '../constants/url'
 import { WhatsappWhiteIcon } from '../components/icons/WhatsappWhiteIcon'
 import { WhatsappIcon } from '../components/icons/WhatsappIcon'
 import { BoxContainer } from '../components/BoxContainer'
+import BackgroundImage from 'gatsby-background-image'
 
 export default () => {
   const { bannerImages, asideImages } = useHomePageData()
@@ -60,6 +61,15 @@ export default () => {
         nodes {
           title
           handle
+          image {
+            localFile {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -199,12 +209,7 @@ export default () => {
           )}
         </Grid>
 
-        <Box
-          as="main"
-          d={'flex'}
-          flexDirection={'column'}
-          alignItems={'center'}
-        >
+        <Box as="main" d={'grid'} justifyItems={'center'}>
           <BoxContainer
             d={'flex'}
             flexDirection={'column'}
@@ -226,7 +231,7 @@ export default () => {
                 .map(({ images: [image], title, priceRange }) => (
                   <ListItem
                     key={title}
-                    _hover={{ transform: 'scale(1.1)' }}
+                    _hover={{ transform: 'scale(1.1)', zIndex: 10 }}
                     transition={'all .2s ease-in-out'}
                     background={'white'}
                   >
@@ -261,9 +266,9 @@ export default () => {
             </Link>
           </BoxContainer>
 
-          <Divider />
+          <Divider my={4} />
 
-          <BoxContainer as={'section'} p={2}>
+          <BoxContainer p={2}>
             <Heading mb={4}>Categorias</Heading>
             <List
               d={'grid'}
@@ -274,10 +279,12 @@ export default () => {
               textAlign={'center'}
               fontWeight={'bold'}
             >
-              {categories.map(({ title, handle }, i) => (
+              {categories.map(({ title, handle, image }, i) => (
                 <ListItem
+                  as={BackgroundImage}
+                  tag={'li'}
+                  fluid={image.localFile.childImageSharp.fluid}
                   key={handle}
-                  bg={'gray.50'}
                   h={'250px'}
                   gridColumn={
                     i % 3 === 0 && i + 1 === categories.length
@@ -293,16 +300,19 @@ export default () => {
                     h={'300px'}
                     w={'100%'}
                     alignItems={'center'}
+                    color={'white'}
                     justifyContent={'center'}
                   >
-                    {title}
+                    <Box as={'span'} bg={'purple.800'} p={2}>
+                      {title}
+                    </Box>
                   </Link>
                 </ListItem>
               ))}
             </List>
           </BoxContainer>
 
-          <Divider />
+          <Divider my={4} />
 
           <Box
             as={'aside'}
@@ -328,14 +338,11 @@ export default () => {
                 px={4}
               >
                 <Heading mb={4}>Personalizamos sua ideia em camiseta!</Heading>
-                <Text fontWeight={'medium'}>
-                  Enim enim dolore occaecat nisi pariatur reprehenderit ipsum
-                  amet. Dolore adipisicing proident in dolor sint laboris anim
-                  occaecat do. Ipsum aliquip nulla occaecat eiusmod in cupidatat
-                  in id velit occaecat eiusmod nisi. Laborum minim elit sint
-                  veniam laborum laborum tempor reprehenderit duis. Tempor ipsum
-                  magna consectetur in irure tempor. Nostrud aliquip occaecat
-                  cupidatat est commodo officia. Qui qui qui commodo nulla.
+                <Text fontWeight={'medium'} w={'80%'}>
+                  Aqui na Fractal, transformamos sua ideia em camiseta, você
+                  pode ter uma camiseta personalizada só sua, com a qualidade
+                  Fractal de tecido e estampa, envie sua arte digitalizada e
+                  faça um orçamento!
                 </Text>
               </Box>
 
@@ -375,7 +382,7 @@ export default () => {
                 ) : (
                   <WhatsappIcon w={'30px'} h={'30px'} mr={2} />
                 )}
-                Entre em contato
+                Faça um orçamento!
               </Link>
             </BoxContainer>
           </Box>

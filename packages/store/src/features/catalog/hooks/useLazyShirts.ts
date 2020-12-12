@@ -26,6 +26,11 @@ const SHIRT_QUERY = gql`
         node {
           title
           handle
+          priceRange {
+            minVariantPrice {
+              amount
+            }
+          }
           images(first: 1) {
             edges {
               node {
@@ -65,7 +70,7 @@ export type UseLazyShirtsCatalog = [
     fetchNextPage: () => void
     hasMoreShirts: boolean
     loading: boolean
-    shirts: ShirtResult[]
+    shirts: ShirtResult[] | null
     error: any
   }
 ]
@@ -130,16 +135,17 @@ export const useLazyShirtsCatalog = (): UseLazyShirtsCatalog => {
   const shirts = useMemo(
     () =>
       products
-        ? products.edges.map(({ node: { title, images } }: any) => {
+        ? products.edges.map(({ node: { title, images, priceRange } }: any) => {
             const parsedImages = images.edges.map(({ node }) => node)
 
             return {
               title,
               sku: toSlug(title),
-              images: parsedImages
+              images: parsedImages,
+              priceRange
             }
           })
-        : [],
+        : null,
     [products]
   )
 

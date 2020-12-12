@@ -5,9 +5,9 @@ import {
   Link,
   Menu,
   MenuButton,
-  MenuItemOption,
+  MenuGroup,
+  MenuItem,
   MenuList,
-  MenuOptionGroup,
   useBreakpointValue,
   useDisclosure
 } from '@chakra-ui/react'
@@ -31,8 +31,7 @@ import { CartButton } from '../../features/cart/components/CartButton'
 import { CartDrawer } from '../../features/cart/components/CartDrawer'
 import { useShopifyCartItems } from '../../features/cart/hooks/useShopifyCart'
 import { useSearch } from '../../features/search/hooks/useSearch'
-import { useStaticCategories } from '../../features/catalog/hooks/useStaticCategories'
-import { toSlug } from '../../utils/toSlug'
+import { useStaticQuery } from 'gatsby'
 
 export const Header = (props: BoxProps) => {
   const cartCount = useCartCount()
@@ -41,9 +40,20 @@ export const Header = (props: BoxProps) => {
   const checkoutUrl = useCheckoutUrl()
   const removeItemFromcart = useRemoveItemFromCart()
   const [handleSearch, { searchResults, loading, error }] = useSearch()
-  const categories = useStaticCategories()
+  const {
+    allShopifyCollection: { nodes: categories }
+  } = useStaticQuery(graphql`
+    query ShirtCategoryMenu {
+      allShopifyCollection {
+        nodes {
+          title
+          handle
+        }
+      }
+    }
+  `)
 
-  const isSmartphone = useBreakpointValue({ base: true, md: false })
+  const isMobile = useBreakpointValue({ base: true, lg: false })
 
   return (
     <Grid
@@ -61,7 +71,7 @@ export const Header = (props: BoxProps) => {
       background={'black'}
       color={'white'}
       px={{ lg: '5px' }}
-      py={'10px'}
+      py={{ lg: '10px' }}
       {...props}
     >
       <Link
@@ -113,26 +123,32 @@ export const Header = (props: BoxProps) => {
                   justifyContent={'space-around'}
                   transition="all 0.2s"
                 >
-                  {!isSmartphone ? (
-                    <ChevronDownIcon size={'30px'} />
+                  {!isMobile ? (
+                    <ChevronDownIcon fontSize={'1.5rem'} />
                   ) : (
-                    <ChevronUpIcon ml={1} fontSize={'1.35rem'} />
+                    <ChevronUpIcon ml={1} fontSize={'1.5rem'} />
                   )}
                 </MenuButton>
 
-                <MenuList color={'black'} zIndex={10}>
-                  <MenuOptionGroup title="Categorias" type="checkbox">
-                    {categories.map((category) => (
-                      <MenuItemOption key={category}>
+                <MenuList
+                  color={'black'}
+                  zIndex={10}
+                  w={{ base: '100vw', md: 'unset' }}
+                >
+                  <MenuGroup title="Categorias">
+                    {categories.map(({ title, handle }) => (
+                      <MenuItem key={handle}>
                         <Link
                           as={GatsbyLink}
-                          to={`/camisetas/categoria/${toSlug(category)}`}
+                          to={`/camisetas/categoria/${handle}`}
+                          w={'100%'}
+                          h={'100%'}
                         >
-                          {category}
+                          {title}
                         </Link>
-                      </MenuItemOption>
+                      </MenuItem>
                     ))}
-                  </MenuOptionGroup>
+                  </MenuGroup>
                 </MenuList>
               </Menu>
             )

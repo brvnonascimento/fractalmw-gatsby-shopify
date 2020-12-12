@@ -7,6 +7,8 @@ interface MouseZoomProps extends BoxProps {
   scale?: number
   canZoom?: boolean
   bgColor?: string
+  onMouseMoveContainer?: () => any
+  onMouseLeaveContainer?: () => any
 }
 
 interface MousePosition {
@@ -19,6 +21,8 @@ export const MouseZoom = ({
   scale = 3,
   canZoom = true,
   bgColor,
+  onMouseLeaveContainer,
+  onMouseMoveContainer,
   ...props
 }: MouseZoomProps) => {
   const containerPosition = useRef<HTMLDivElement | null>(null)
@@ -28,9 +32,13 @@ export const MouseZoom = ({
     <Box
       onMouseMove={(e) => {
         setMousePosition({ x: e.pageX, y: e.pageY })
+        
+        onMouseMoveContainer && onMouseMoveContainer()
       }}
       onMouseLeave={() => {
         setMousePosition(null)
+
+        onMouseLeaveContainer && onMouseLeaveContainer()
       }}
       position={'absolute'}
       h={'100%'}

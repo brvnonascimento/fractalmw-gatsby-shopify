@@ -11,6 +11,7 @@ const config: GatsbyConfig = {
     'gatsby-plugin-typescript',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    'gatsby-background-image',
     'gatsby-plugin-graphql-codegen',
     'gatsby-plugin-sitemap',
     {

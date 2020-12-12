@@ -1,6 +1,6 @@
 import React, { forwardRef, memo } from 'react'
 import { Link } from 'gatsby'
-import { BoxProps, Breadcrumb, BreadcrumbItem } from '@chakra-ui/react'
+import { BoxProps, Breadcrumb, BreadcrumbItem, useBreakpointValue } from '@chakra-ui/react'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import { CATEGORY_URL_PREFIX, PRODUCT_URL_PREFIX } from '../../../constants/url'
 
@@ -39,7 +39,7 @@ export const ShirtBreadcrumb = memo(
             </Link>
           </BreadcrumbItem>
           <BreadcrumbItem>
-            <Link to={`${PRODUCT_URL_PREFIX}/${shirt.handle}`}>{shirt.title}</Link>
+            <Link to={`${PRODUCT_URL_PREFIX}/${shirt.handle}`}>{shirt.title.slice(0, 100)}</Link>
           </BreadcrumbItem>
         </Breadcrumb>
       )

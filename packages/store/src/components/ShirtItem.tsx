@@ -1,22 +1,10 @@
-import React, { memo, useLayoutEffect, useRef, useState } from 'react'
-import { Box, BoxProps, Heading } from '@chakra-ui/react'
+import React, { memo } from 'react'
+import { Box, BoxProps, Heading, Image } from '@chakra-ui/react'
 import GatsbyImage from 'gatsby-image'
 import { numberToBRL } from '../utils/price'
 
 export const ShirtItem = memo(
   ({ title, image, priceRange, ...props }: BoxProps) => {
-    const shirtTitle = useRef<HTMLHeadingElement | null>(null)
-    const [shirtTitleHeight, setShirtTitleHeight] = useState<number | null>(
-      null
-    )
-
-    useLayoutEffect(() => {
-      const height = shirtTitle.current?.clientHeight
-      if (height) {
-        setShirtTitleHeight(height)
-      }
-    }, [shirtTitle])
-
     return (
       <Box
         as="article"
@@ -25,19 +13,26 @@ export const ShirtItem = memo(
         backgroundColor={'gray.50'}
         {...props}
       >
-        <Box
-          as={GatsbyImage}
-          // h={`calc(100% + ${shirtTitleHeight}px)`}
-          loading="lazy"
-          fluid={image.localFile.childImageSharp.fluid}
-          alt={image.altText}
-          imgStyle={{
-            mixBlendMode: 'multiply'
-          }}
-        />
+        {image?.localFile?.childImageSharp?.fluid ? (
+          <Box
+            as={GatsbyImage}
+            loading="lazy"
+            fluid={image.localFile.childImageSharp.fluid}
+            alt={image.altText}
+            imgStyle={{
+              mixBlendMode: 'multiply'
+            }}
+          />
+        ) : (
+          <Image 
+            src={image.src}
+            alt={image.alt}
+            fallbackSrc={image.fallbackSrc}
+            mixBlendMode={'multiply'}
+          />
+        )}
 
         <Heading
-          ref={shirtTitle}
           d={'flex'}
           position={'absolute'}
           p={2}
@@ -51,15 +46,15 @@ export const ShirtItem = memo(
           fontSize={'sm'}
           px={'10px'}
           textTransform={'uppercase'}
-          >
+        >
           {title}
         </Heading>
         <Heading
+          d={'inline-block'}
           position={'absolute'}
           p={2}
           top={0}
           right={0}
-          w={'max-content'}
           variant={'outline'}
           bg={'red.600'}
           color={'white'}

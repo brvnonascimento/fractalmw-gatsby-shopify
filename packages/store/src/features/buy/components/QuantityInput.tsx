@@ -26,7 +26,6 @@ export const QuantityInput = ({
       size="sm"
       defaultValue={1}
       min={1}
-      width={'100px'}
       onChange={onChange}
       fontWeight={'medium'}
       height={'100%'}
@@ -35,11 +34,11 @@ export const QuantityInput = ({
         position: 'absolute',
         bottom: '5px',
         left: 0,
-        width: '68%',
+        width: { base: '85%', md: '68%' },
         borderBottom: '2px solid'
       }}
       {...props}
-      >
+    >
       <NumberInputField
         focusBorderColor="red.200"
         fontWeight={'medium'}

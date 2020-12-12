@@ -4,6 +4,7 @@ import {
   Flex,
   Grid,
   Heading,
+  IconButton,
   Img,
   Link,
   List,
@@ -34,6 +35,7 @@ import { MouseZoom } from '../components/MouseZoom'
 import { toSlug } from '../utils/toSlug'
 import GatsbyLink from 'gatsby-link'
 import { ShirtItem } from '../components/ShirtItem'
+import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 
 interface ShirtOptions {
   size: string
@@ -71,7 +73,16 @@ export default ({
   const removeItemFromCart = useRemoveItemFromCart()
   const checkoutUrl = useCheckoutUrl()
 
-  const [currentImage, setCurrentImage] = useState(images[0])
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const currentImage = useMemo(() => images[currentImageIndex], [
+    currentImageIndex
+  ])
+  const hasNextImage = useMemo(() => !!images[currentImageIndex + 1], [
+    currentImageIndex
+  ])
+  const hasPrevImage = useMemo(() => !!images[currentImageIndex - 1], [
+    currentImageIndex
+  ])
   const [isHoveringImage, setIsHoveringImage] = useState(false)
   const [canHoverImage, setCanHoverImage] = useState(false)
 
@@ -135,7 +146,10 @@ export default ({
         }}
         gridArea={'1 / 1'}
         zIndex={1}
-        w={{ md: 'max-content' }}
+        w={{ base: '100vw', md: 'max-content' }}
+        whiteSpace={{ base: 'nowrap', md: 'unset' }}
+        overflowX={{ base: 'scroll', md: 'unset' }}
+        fontSize={{ base: 'sm' }}
         maxW={{ md: '50vw' }}
         alignSelf={'start'}
         mb={2}
@@ -170,15 +184,16 @@ export default ({
         >
           <Heading
             as="h1"
-            bg={'red.500'}
-            w={'max-content'}
-            maxW={{ base: '70%', md: '48vw' }}
-            color={'white'}
-            display={'flex'}
-            flexDirection={'column'}
+            d={'flex'}
+            flexDir={'column'}
+            fontSize={{ base: 'md', lg: '2xl' }}
             justifyContent={'center'}
+            w={'max-content'}
+            maxW={{ base: '100vw', md: '48vw' }}
             p={2}
             zIndex={2}
+            bg={'red.500'}
+            color={'white'}
             textTransform={'uppercase'}
           >
             {title}
@@ -204,11 +219,6 @@ export default ({
         </Box>
 
         <Box
-          onMouseOver={() => {
-            if (canHoverImage) {
-              setIsHoveringImage(true)
-            }
-          }}
           onMouseLeave={() => setIsHoveringImage(false)}
           gridArea={{ md: '1 / 1 / 3' }}
           alignSelf={'center'}
@@ -238,7 +248,41 @@ export default ({
             bgColor={'gray.50'}
             canZoom={canHoverImage}
             image={currentImage?.localFile?.childImageSharp?.fluid?.src}
+            onMouseLeaveContainer={() => setIsHoveringImage(false)}
+            onMouseMoveContainer={() => {
+              if (canHoverImage) {
+                setIsHoveringImage(true)
+              }
+            }}
           />
+
+          {hasPrevImage && (
+            <IconButton
+              onClick={() => setCurrentImageIndex((i) => i - 1)}
+              variant={'ghost'}
+              position={'absolute'}
+              fontSize={'5rem'}
+              h={'100%'}
+              left={0}
+              top={0}
+              icon={<ChevronLeftIcon />}
+              aria-label={'Ir para imagem anterior'}
+            />
+          )}
+
+          {hasNextImage && (
+            <IconButton
+              onClick={() => setCurrentImageIndex((i) => i + 1)}
+              variant={'ghost'}
+              position={'absolute'}
+              h={'100%'}
+              fontSize={'5rem'}
+              right={0}
+              top={0}
+              icon={<ChevronRightIcon />}
+              aria-label={'Ir para próxima imagem'}
+            />
+          )}
         </Box>
 
         <Flex
@@ -297,7 +341,6 @@ export default ({
           {relatedProducts.map(({ images: [image], title, priceRange }) => (
             <ListItem
               key={title}
-              _hover={{ transform: 'scale(1.1)' }}
               transition={'all .2s ease-in-out'}
               background={'white'}
             >
@@ -385,7 +428,8 @@ export default ({
         <Table
           gridArea={{ base: '2', md: '1 / 3 / 3 / 3' }}
           title={'GUIA DE MEDIDAS'}
-          mt="0.5em"
+          mt={2}
+          mb={4}
           columns={[
             {
               header: 'Tamanho',

@@ -27,6 +27,7 @@ const createPages: GatsbyNode['createPages'] = async ({
       }
       allShopifyCollection(filter: { title: { ne: "Home" } }) {
         nodes {
+          id
           title
           handle
           products {
@@ -38,12 +39,14 @@ const createPages: GatsbyNode['createPages'] = async ({
     }
   `)
 
+  const catalogTemplate = path.resolve(__dirname, '../templates/catalog.tsx')
+
   paginate({
     createPage,
     itemsPerPage: 12,
     items: shirts,
     pathPrefix: '/camisetas',
-    component: path.resolve(__dirname, '../templates/catalog.tsx'),
+    component: catalogTemplate,
     context: {
       categoryRegex: '',
       categoryHandle: '',
@@ -51,17 +54,18 @@ const createPages: GatsbyNode['createPages'] = async ({
     }
   })
 
-  for (const { products, title, handle } of shirtsByCategory) {
+  for (const { title, handle, products } of shirtsByCategory) {
     paginate({
       createPage,
       itemsPerPage: 12,
       items: products,
       pathPrefix: `/camisetas/categoria/${handle}`,
-      component: path.resolve(__dirname, '../templates/catalog.tsx'),
+      component: catalogTemplate,
       context: {
         categoryTitle: title,
         categoryHandle: handle,
-        categoryRegex: `/${title}/`
+        categoryRegex: `/${title}/`,
+        products: products.map((product: any) => product.id)
       }
     })
 

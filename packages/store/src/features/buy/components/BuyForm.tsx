@@ -38,7 +38,7 @@ export const BuyForm = ({
   sizes,
   ...props
 }: BuyFormProps) => {
-  const { handleSubmit, values, errors, touched, setFieldValue } = useFormik({
+  const { handleSubmit, errors, touched, setFieldValue } = useFormik({
     initialValues: {
       quantity: '1',
       model: models[0],
@@ -123,7 +123,8 @@ export const BuyForm = ({
           </FormLabel>
           <QuantityInput
             onChange={(val) => setFieldValue('quantity', val)}
-            height={'60px'}
+            h={'60px'}
+            w={{ md: '100px' }}
             id={'quantity'}
           />
           <FormErrorMessage>{errors.quantity}</FormErrorMessage>

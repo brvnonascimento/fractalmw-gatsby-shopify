@@ -46,7 +46,7 @@ export default ({
     return (currentPage as number) + 1
   }
 
-  const shirts = allShopifyProduct?.nodes
+  const shirts = lazyShirts !== null ? lazyShirts : allShopifyProduct?.nodes 
 
   return (
     <Box
@@ -78,13 +78,23 @@ export default ({
         alignItems={'center'}
         w={'100%'}
       >
-        <Box bg={'gray.50'} w={'100vw'} p={2}>
-          <Heading as="h1" mb={category?.descriptionHtml ? '0.5em' : undefined}>
+        <Box w={'100vw'}>
+          <Heading
+            as="h1"
+            p={2}
+            bg={'purple.800'}
+            d={'inline-block'}
+            color={'white'}
+          >
             {category?.title ?? 'Camisetas'}
           </Heading>
           {category?.descriptionHtml && (
             <Text
-              w={{ md: '75%' }}
+              bg={'gray.50'}
+              pt={2}
+              pl={2}
+              pr={{ md: '30vw' }}
+              w={{ md: '100vw' }}
               dangerouslySetInnerHTML={{
                 __html: xss(
                   category?.descriptionHtml.replace(
@@ -116,7 +126,7 @@ export default ({
             gridGap={2}
             listStyleType={'none'}
             display={'grid'}
-            spacing={5}
+            p={2}
             w={'100%'}
           >
             {loading ? (
@@ -130,7 +140,7 @@ export default ({
               shirts.map(({ images: [image], title, sku, priceRange }) => (
                 <ListItem
                   key={sku}
-                  _hover={{ transform: 'scale(1.1)' }}
+                  _hover={{ transform: 'scale(1.1)', zIndex: 10 }}
                   transition={'all .2s ease-in-out'}
                 >
                   <Link
@@ -169,8 +179,8 @@ export default ({
           {!isInfiniteLoading && numberOfPages !== 1 && (
             <PaginationNav
               path={
-                pageContext?.categoryTitle
-                  ? `/camisetas/categoria/${pageContext.categorySlug}`
+                pageContext?.categoryHandle
+                  ? `/camisetas/categoria/${pageContext.categoryHandle}`
                   : '/camisetas'
               }
               lastPage={numberOfPages as number}
@@ -187,7 +197,7 @@ export const CatalogQuery = graphql`
   query CatalogQuery(
     $skip: Int!
     $limit: Int!
-    $categoryRegex: String!
+    $products: [String!]
     $categoryHandle: String!
   ) {
     shopifyCollection(handle: { eq: $categoryHandle }) {
@@ -195,9 +205,9 @@ export const CatalogQuery = graphql`
       descriptionHtml
     }
     allShopifyProduct(
-      filter: { productType: { regex: $categoryRegex } }
-      skip: $skip
+      filter: { id: { in: $products } }
       limit: $limit
+      skip: $skip
     ) {
       nodes {
         id
