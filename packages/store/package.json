@@ -6,7 +6,7 @@
     "@apollo/client": "^3.2.4",
     "@chakra-ui/gatsby-plugin": "^1.0.0",
     "@chakra-ui/icons": "^1.0.1",
-    "@chakra-ui/react": "^1.0.0",
+    "@chakra-ui/react": "^1.0.3",
     "@chakra-ui/theme-tools": "^1.0.1",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
