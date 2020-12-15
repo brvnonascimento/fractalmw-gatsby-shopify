@@ -99,10 +99,17 @@ export default ({
   ])
 
   const getVariantId = ({ color, model, size }: ShirtOptions) => {
-    const variant = shirt.variants.find(
-      ({ title }) =>
-        title.includes(color) && title.includes(model) && title.includes(size)
-    )
+    console.log(size)
+    console.log(shirt.variants)
+
+    const variant = shirt.variants.find(({ title }) => {
+      const options = title.split(' / ')
+      return (
+        options.includes(color) &&
+        options.includes(model) &&
+        options.includes(size)
+      )
+    })
     return variant.id.split(`Shopify__ProductVariant__`)[1]
   }
 
