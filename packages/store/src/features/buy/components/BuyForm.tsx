@@ -14,6 +14,7 @@ import {
 import { QuantityInput } from './QuantityInput'
 import CartSvg from '../../../assets/cart.svg'
 import { RadioButton } from '../../../components/RadioButton'
+import { CheckIcon } from '@chakra-ui/icons'
 
 export interface BuyFormFieldsProps {
   quantity: number
@@ -38,7 +39,13 @@ export const BuyForm = ({
   sizes,
   ...props
 }: BuyFormProps) => {
-  const { handleSubmit, errors, touched, setFieldValue } = useFormik({
+  const {
+    handleSubmit,
+    errors,
+    touched,
+    setFieldValue,
+    values: { color: currentColor }
+  } = useFormik({
     initialValues: {
       quantity: '1',
       model: models[0],
@@ -61,6 +68,15 @@ export const BuyForm = ({
     onChange: (val) => setFieldValue('size', val)
   })
   const sizesRadioGroup = getRootProps()
+
+  const {
+    getRootProps: getColorRootProps,
+    getRadioProps: getColorRadioProps
+  } = useRadioGroup({
+    name: 'size',
+    onChange: (val) => setFieldValue('color', val)
+  })
+  const colorsRadioGroup = getColorRootProps()
 
   return (
     <Box
@@ -105,16 +121,86 @@ export const BuyForm = ({
         >
           <FormLabel fontWeight={'bold'}>Tamanho</FormLabel>
           <Flex {...sizesRadioGroup}>
-            {sizes.map((size) => {
-              const sizeRadio = getRadioProps({ value: size })
-              return (
-                <RadioButton {...sizeRadio}>
-                  {size.toLocaleUpperCase()}
-                </RadioButton>
-              )
-            })}
+            {sizes.map((size) => (
+              <RadioButton
+                {...getRadioProps({ value: size })}
+                containerProps={{
+                  w: { base: '100%', md: '70%' },
+                  justifyContent: {
+                    base: 'space-around',
+                    md: 'space-between'
+                  }
+                }}
+                cursor="pointer"
+                w={'50px'}
+                h={'50px'}
+                py={3}
+                mr={2}
+                borderColor={'black'}
+                borderWidth={'2px'}
+                color={'black'}
+                fontWeight={'medium'}
+                borderRadius={'md'}
+                _checked={{
+                  bg: 'black',
+                  color: 'white',
+                  border: 0
+                }}
+                _focus={{
+                  boxShadow: 'outline'
+                }}
+                alignItems={'center'}
+                justifyContent={'center'}
+                textAlign={'center'}
+              >
+                {size.toLocaleUpperCase()}
+              </RadioButton>
+            ))}
           </Flex>
           <FormErrorMessage>{errors.size}</FormErrorMessage>
+        </FormControl>
+
+        <FormControl
+          id={'cor'}
+          isInvalid={!!(errors.color && touched.color)}
+          d={'flex'}
+          flexDirection={'column'}
+          alignContent={'center'}
+          mb={'1em'}
+        >
+          <FormLabel fontWeight={'bold'}>Cor</FormLabel>
+          <Flex {...colorsRadioGroup}>
+            {colors.map((color) => (
+              <RadioButton
+                {...getColorRadioProps({ value: color })}
+                containerProps={{
+                  justifyContent: 'space-around',
+                  pr: '10px'
+                }}
+                position={'relative'}
+                opacity={currentColor === color ? 0.8 : undefined}
+                bg={color.toLowerCase()}
+                w={'50px'}
+                h={'50px'}
+                rounded={'100%'}
+                border={'1px'}
+              >
+                {currentColor === color && (
+                  <CheckIcon
+                    position={'absolute'}
+                    w={'25px'}
+                    h={'25px'}
+                    top={'28%'}
+                    left={'25%'}
+                    color={
+                      currentColor.toLowerCase() !== 'white' ? 'white' : 'black'
+                    }
+                  />
+                )}
+              </RadioButton>
+            ))}
+          </Flex>
+          <FormErrorMessage>{errors.color}</FormErrorMessage>
         </FormControl>
 
         <FormControl isInvalid={!!(errors.quantity && touched.quantity)}>

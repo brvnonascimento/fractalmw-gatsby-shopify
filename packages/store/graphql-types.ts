@@ -1817,6 +1817,7 @@ export type QueryShopifyProductVariantArgs = {
   weightUnit?: Maybe<StringQueryOperatorInput>;
   presentmentPrices?: Maybe<ShopifyProductVariantPresentmentPricesFilterInput>;
   shopifyId?: Maybe<StringQueryOperatorInput>;
+  priceNumber?: Maybe<FloatQueryOperatorInput>;
   product?: Maybe<ShopifyProductFilterInput>;
 };
 
@@ -2292,6 +2293,7 @@ export type ShopifyCollectionFieldsEnum =
   | 'products___variants___weightUnit'
   | 'products___variants___presentmentPrices___edges'
   | 'products___variants___shopifyId'
+  | 'products___variants___priceNumber'
   | 'products___variants___product___id'
   | 'products___variants___product___children'
   | 'products___variants___product___availableForSale'
@@ -2697,6 +2699,7 @@ export type ShopifyProductFieldsEnum =
   | 'variants___weightUnit'
   | 'variants___presentmentPrices___edges'
   | 'variants___shopifyId'
+  | 'variants___priceNumber'
   | 'variants___product___id'
   | 'variants___product___parent___id'
   | 'variants___product___parent___children'
@@ -2739,6 +2742,7 @@ export type ShopifyProductFieldsEnum =
   | 'variants___product___variants___weight'
   | 'variants___product___variants___weightUnit'
   | 'variants___product___variants___shopifyId'
+  | 'variants___product___variants___priceNumber'
   | 'variants___product___options'
   | 'variants___product___options___id'
   | 'variants___product___options___children'
@@ -3050,6 +3054,7 @@ export type ShopifyProductVariant = Node & {
   weightUnit?: Maybe<Scalars['String']>;
   presentmentPrices?: Maybe<ShopifyProductVariantPresentmentPrices>;
   shopifyId?: Maybe<Scalars['String']>;
+  priceNumber?: Maybe<Scalars['Float']>;
   product?: Maybe<ShopifyProduct>;
 };
 
@@ -3236,6 +3241,7 @@ export type ShopifyProductVariantFieldsEnum =
   | 'weightUnit'
   | 'presentmentPrices___edges'
   | 'shopifyId'
+  | 'priceNumber'
   | 'product___id'
   | 'product___parent___id'
   | 'product___parent___parent___id'
@@ -3363,6 +3369,7 @@ export type ShopifyProductVariantFieldsEnum =
   | 'product___variants___weightUnit'
   | 'product___variants___presentmentPrices___edges'
   | 'product___variants___shopifyId'
+  | 'product___variants___priceNumber'
   | 'product___variants___product___id'
   | 'product___variants___product___children'
   | 'product___variants___product___availableForSale'
@@ -3416,6 +3423,7 @@ export type ShopifyProductVariantFilterInput = {
   weightUnit?: Maybe<StringQueryOperatorInput>;
   presentmentPrices?: Maybe<ShopifyProductVariantPresentmentPricesFilterInput>;
   shopifyId?: Maybe<StringQueryOperatorInput>;
+  priceNumber?: Maybe<FloatQueryOperatorInput>;
   product?: Maybe<ShopifyProductFilterInput>;
 };
 
