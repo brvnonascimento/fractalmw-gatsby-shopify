@@ -124,7 +124,7 @@ export default ({
   const colors = getOptionsValueByName('color')
 
   return (
-    <Grid rowGap={4} w={'100vw'}>
+    <Grid rowGap={4} w={'100vw'} pb={4}>
       <ProductSEO
         title={`${title} - Fractal Music Wear`}
         metaDescription={description}

@@ -10,7 +10,9 @@ import {
   List,
   ListItem,
   useBreakpointValue,
-  Text
+  Text,
+  useClipboard,
+  IconButton
 } from '@chakra-ui/react'
 import { useHomePageData } from '../hooks/home/useHomePageData'
 import { SEO } from '../components/SEO'
@@ -25,10 +27,15 @@ import { WhatsappWhiteIcon } from '../components/icons/WhatsappWhiteIcon'
 import { WhatsappIcon } from '../components/icons/WhatsappIcon'
 import { BoxContainer } from '../components/BoxContainer'
 import BackgroundImage from 'gatsby-background-image'
+import { CopyIcon } from '@chakra-ui/icons'
+import { COUPON_CODE } from '../constants/coupon'
+import { DiscountCouponTooltip } from '../components/DiscountCouponTooltip'
 
 export default () => {
   const { bannerImages, asideImages } = useHomePageData()
   const isSmartphone = useBreakpointValue({ base: true, md: false })
+
+  const { onCopy, hasCopied } = useClipboard(COUPON_CODE)
 
   const {
     shopifyCollection: { products },
@@ -97,11 +104,11 @@ export default () => {
           gridTemplateRows={{
             md: '30px repeat(2, 25px) 1fr 1fr repeat(2, 25px) 30px'
           }}
+          bg={'#ffc80a'}
           overflow={'hidden'}
           rowGap={{ base: '1em', md: 0 }}
           width={'100%'}
           height={'500px'}
-          background={'rgba(146, 74, 205, 0.95)'}
           justifySelf={'center'}
           backgroundBlendMode={'exclusion'}
           backgroundImage={`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='white' stroke-width='1' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E")`}
@@ -132,6 +139,43 @@ export default () => {
             <Heading as="h1" py={'10px'}>
               Desde 2007
             </Heading>
+
+            <DiscountCouponTooltip hasCopied={hasCopied}>
+              <Text
+                pos={'relative'}
+                role={'button'}
+                top={{ base: '50px', md: 'unset' }}
+                textAlign={'left'}
+                bg={'black'}
+                // borderRadius={'20px'}
+                fontWeight={'bold'}
+                mt={4}
+                p={2}
+                onClick={(e) => {
+                  e.preventDefault()
+
+                  onCopy()
+                }}
+              >
+                CUPOM{' '}
+                <Text as={'span'} color={'#ffc80a'} fontSize={'lg'}>
+                  {COUPON_CODE}
+                </Text>
+                <br />
+                R$20.00 OFF
+                <br />
+                EM PRODUTOS FRACTAL
+                <IconButton
+                  variant={'unstyled'}
+                  aria-label={'Copiar código do cupom'}
+                  icon={<CopyIcon />}
+                  onClick={onCopy}
+                  pos={'absolute'}
+                  top={0}
+                  right={0}
+                />
+              </Text>
+            </DiscountCouponTooltip>
           </Flex>
 
           <Link
@@ -281,39 +325,44 @@ export default () => {
               css={{
                 '@media (min-width: 30em)': {
                   'li:first-child': {
-                    gridColumn: 'span 2'
+                    gridColumn: 'span 3'
                   },
-                  'li:nth-child(4n)': {
+                  'li:last-child': {
+                    gridColumn: 'span 3'
+                  },
+                  'li:nth-child(5n - 2)': {
                     gridColumn: 'span 2'
                   }
                 }
               }}
             >
-              {categories.map(({ title, handle, image }, i) => (
-                <ListItem
-                  as={BackgroundImage}
-                  Tag={'li'}
-                  fluid={image.localFile.childImageSharp.fluid}
-                  key={handle}
-                  h={'250px'}
-                  key={handle}
-                >
-                  <Link
-                    as={GatsbyLink}
-                    to={`${CATEGORY_URL_PREFIX}/${handle}`}
-                    d={'flex'}
-                    h={'300px'}
-                    w={'100%'}
-                    alignItems={'center'}
-                    color={'white'}
-                    justifyContent={'center'}
+              {categories.map(
+                ({ title, handle, image }, i) => (
+                  <ListItem
+                    as={BackgroundImage}
+                    Tag={'li'}
+                    fluid={image.localFile.childImageSharp.fluid}
+                    key={handle}
+                    h={'250px'}
+                    key={handle}
                   >
-                    <Box as={'span'} bg={'purple.800'} p={2}>
-                      {title}
-                    </Box>
-                  </Link>
-                </ListItem>
-              ))}
+                    <Link
+                      as={GatsbyLink}
+                      to={`${CATEGORY_URL_PREFIX}/${handle}`}
+                      d={'flex'}
+                      h={'300px'}
+                      w={'100%'}
+                      alignItems={'center'}
+                      color={'white'}
+                      justifyContent={'center'}
+                    >
+                      <Box as={'span'} bg={'purple.800'} p={2}>
+                        {title}
+                      </Box>
+                    </Link>
+                  </ListItem>
+                )
+              )}
             </List>
           </BoxContainer>
 

@@ -15,7 +15,7 @@
     "env-cmd": "^10.1.0",
     "env-var": "^7.0.0",
     "formik": "^2.2.0",
-    "framer-motion": "^2.9.4",
+    "framer-motion": "^4.1.11",
     "gatsby": "^2.24.65",
     "gatsby-awesome-pagination": "^0.3.6",
     "gatsby-background-image": "^1.3.1",

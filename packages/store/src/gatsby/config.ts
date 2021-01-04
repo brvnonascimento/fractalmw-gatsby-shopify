@@ -6,6 +6,9 @@ const config: GatsbyConfig = {
     title: 'Fractal Music Wear',
     siteUrl: process.env.BASE_DOMAIN
   },
+  flags: {
+    DEV_SSR: false
+  },
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-typescript',
