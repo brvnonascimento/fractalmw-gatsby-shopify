@@ -298,6 +298,7 @@ export default ({
         <Flex
           direction={'column'}
           as={'section'}
+          overflow={'scroll'}
           gridArea={{ md: '1 / 2 / 3' }}
           p={{ base: 4, md: 'unset' }}
         >

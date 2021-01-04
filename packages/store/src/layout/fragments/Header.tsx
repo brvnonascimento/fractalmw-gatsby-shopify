@@ -58,9 +58,10 @@ export const Header = (props: BoxProps) => {
   return (
     <Grid
       as="header"
+      justifyItems={'center'}
+      gridColumnGap={5}
       fontWeight={'bold'}
       fontSize={'xl'}
-      justifyItems={'center'}
       width={'100vw'}
       alignItems={'center'}
       display={'grid'}
@@ -68,7 +69,7 @@ export const Header = (props: BoxProps) => {
         base: '100px 1fr 100px',
         lg: '100px 0.5fr 0.25fr 0.25fr 100px'
       }}
-      background={'black'}
+      bg={'black'}
       color={'white'}
       px={{ lg: '5px' }}
       py={3}
@@ -90,6 +91,7 @@ export const Header = (props: BoxProps) => {
 
       <NavLinks
         zIndex={10}
+        justifySelf={'start'}
         gridArea={{
           sm: '1 / span 2',
           md: '1 / 2'
