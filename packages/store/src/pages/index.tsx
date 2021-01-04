@@ -285,9 +285,6 @@ export default () => {
                   },
                   'li:nth-child(4n)': {
                     gridColumn: 'span 2'
-                  },
-                  'li:last-child': {
-                    gridColumn: 'span 3'
                   }
                 }
               }}
