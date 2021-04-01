@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { graphql } from 'gatsby'
-import { PaginationNav } from '../components/PaginationNav'
-import { SEO } from '../components/SEO'
-import { useLazyShirtsCatalog } from '../features/catalog/hooks/useLazyShirts'
-import { ShirtMenuBar } from '../features/catalog/components/ShirtMenuBar'
+import { PaginationNav } from '../src/components/PaginationNav'
+import { SEO } from '../src/components/SEO'
+import { useLazyShirtsCatalog } from '../src/features/catalog/hooks/useLazyShirts'
+import { ShirtMenuBar } from '../src/features/catalog/components/ShirtMenuBar'
 import {
   Box,
   Heading,
@@ -13,11 +13,11 @@ import {
   Spinner,
   Text
 } from '@chakra-ui/react'
-import { InfiniteLoadingSpinner } from '../components/InfiniteLoadingSpinner'
+import { InfiniteLoadingSpinner } from '../src/components/InfiniteLoadingSpinner'
 import GatsbyLink from 'gatsby-link'
-import { toSlug } from '../utils/toSlug'
-import { ShirtItem } from '../components/ShirtItem'
-import { BoxContainer } from '../components/BoxContainer'
+import { toSlug } from '../src/utils/toSlug'
+import { ShirtItem } from '../src/components/ShirtItem'
+import { BoxContainer } from '../src/components/BoxContainer'
 import xss from 'xss'
 
 export default ({

@@ -31,7 +31,7 @@ import { CartButton } from '../../features/cart/components/CartButton'
 import { CartDrawer } from '../../features/cart/components/CartDrawer'
 import { useShopifyCartItems } from '../../features/cart/hooks/useShopifyCart'
 import { useSearch } from '../../features/search/hooks/useSearch'
-import { useStaticQuery } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 
 export const Header = (props: BoxProps) => {
   const cartCount = useCartCount()
@@ -40,18 +40,19 @@ export const Header = (props: BoxProps) => {
   const checkoutUrl = useCheckoutUrl()
   const removeItemFromcart = useRemoveItemFromCart()
   const [handleSearch, { searchResults, loading, error }] = useSearch()
-  const {
-    allShopifyCollection: { nodes: categories }
-  } = useStaticQuery(graphql`
-    query ShirtCategoryMenu {
-      allShopifyCollection(filter: { handle: { ne: "home" } }) {
-        nodes {
-          title
-          handle
-        }
-      }
-    }
-  `)
+  // const {
+  // } = useStaticQuery(graphql`
+  //   allShopifyCollection: { nodes: categories }
+  //   query ShirtCategoryMenu {
+  //     allShopifyCollection(filter: { handle: { ne: "home" } }) {
+  //       nodes {
+  //         title
+  //         handle
+  //       }
+  //     }
+  //   }
+  // `)
+  const categories: any[] = []
 
   const isMobile = useBreakpointValue({ base: true, lg: false })
 

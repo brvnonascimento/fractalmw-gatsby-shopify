@@ -2,7 +2,7 @@ import { Box, Grid, Heading, Img, Text } from '@chakra-ui/react'
 import { useStaticQuery, graphql } from 'gatsby'
 import GatsbyImage from 'gatsby-image'
 import React from 'react'
-import { HeadingDivider } from '../components/HeadingDivider'
+import { HeadingDivider } from '../src/components/HeadingDivider'
 
 export default () => {
   const {

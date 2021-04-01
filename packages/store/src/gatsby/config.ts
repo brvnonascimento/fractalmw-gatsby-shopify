@@ -12,16 +12,10 @@ const config: GatsbyConfig = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-background-image',
+    'gatsby-plugin-compiled',
     'gatsby-plugin-graphql-codegen',
     'gatsby-plugin-sitemap',
-    {
-      resolve: '@chakra-ui/gatsby-plugin',
-      options: {
-        isResettingCSS: true,
-        isUsingColorMode: false,
-        portalZIndex: 40
-      }
-    },
+    'gatsby-plugin-preact',
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
@@ -73,9 +67,19 @@ const config: GatsbyConfig = {
       options: {
         shopName: process.env.SHOPIFY_SHOPNAME,
         accessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-        apiVersion: '2021-01'
+        apiVersion: '2021-01',
+        shouldConfigureSourcePlugin: false
       }
-    }
+    },
+    {
+      resolve: 'gatsby-source-shopify-experimental',
+      options: {
+        apiKey: process.env.SHOPIFY_ADMIN_API_KEY,
+        password: process.env.SHOPIFY_ADMIN_PASSWORD,
+        storeUrl: process.env.SHOPIFY_STORE_URL
+      }
+    },
+    'gatsby-plugin-image'
   ]
 }
 

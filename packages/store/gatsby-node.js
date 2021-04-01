@@ -1,3 +1,3 @@
-module.exports = {
-  createPages: require('./src/gatsby/createPages').default
-}
+// module.exports = {
+//   createPages: require('./src/gatsby/createPages').default
+// }

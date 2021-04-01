@@ -1,6 +1,6 @@
 import { Box, Grid, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
-import { HeadingDivider } from '../components/HeadingDivider'
+import { HeadingDivider } from '../src/components/HeadingDivider'
 
 export default () => (
   <Grid
