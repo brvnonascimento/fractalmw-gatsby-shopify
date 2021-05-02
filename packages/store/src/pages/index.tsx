@@ -31,7 +31,7 @@ import { CopyIcon } from '@chakra-ui/icons'
 import { COUPON_CODE } from '../constants/coupon'
 import { DiscountCouponTooltip } from '../components/DiscountCouponTooltip'
 
-export default () => {
+const IndexPage = () => {
   const { bannerImages, asideImages } = useHomePageData()
   const isSmartphone = useBreakpointValue({ base: true, md: false })
 
@@ -336,33 +336,31 @@ export default () => {
                 }
               }}
             >
-              {categories.map(
-                ({ title, handle, image }, i) => (
-                  <ListItem
-                    as={BackgroundImage}
-                    Tag={'li'}
-                    fluid={image.localFile.childImageSharp.fluid}
-                    key={handle}
-                    h={'250px'}
-                    key={handle}
+              {categories.map(({ title, handle, image }, i) => (
+                <ListItem
+                  as={BackgroundImage}
+                  Tag={'li'}
+                  fluid={image.localFile.childImageSharp.fluid}
+                  key={handle}
+                  h={'250px'}
+                  key={handle}
+                >
+                  <Link
+                    as={GatsbyLink}
+                    to={`${CATEGORY_URL_PREFIX}/${handle}`}
+                    d={'flex'}
+                    h={'300px'}
+                    w={'100%'}
+                    alignItems={'center'}
+                    color={'white'}
+                    justifyContent={'center'}
                   >
-                    <Link
-                      as={GatsbyLink}
-                      to={`${CATEGORY_URL_PREFIX}/${handle}`}
-                      d={'flex'}
-                      h={'300px'}
-                      w={'100%'}
-                      alignItems={'center'}
-                      color={'white'}
-                      justifyContent={'center'}
-                    >
-                      <Box as={'span'} bg={'purple.800'} p={2}>
-                        {title}
-                      </Box>
-                    </Link>
-                  </ListItem>
-                )
-              )}
+                    <Box as={'span'} bg={'purple.800'} p={2}>
+                      {title}
+                    </Box>
+                  </Link>
+                </ListItem>
+              ))}
             </List>
           </BoxContainer>
 
@@ -445,3 +443,5 @@ export default () => {
     </Box>
   )
 }
+
+export default IndexPage

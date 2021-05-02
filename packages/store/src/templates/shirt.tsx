@@ -43,7 +43,7 @@ interface ShirtOptions {
   color: string
 }
 
-export default ({
+const ShirtTemplate = ({
   data: {
     shopifyProduct: shirt,
     shopifyCollection: { products: relatedProducts }
@@ -317,11 +317,14 @@ export default ({
             }: BuyFormFieldsProps) => {
               try {
                 setIsAddingToCart(true)
+
                 await addItemToCart(
                   getVariantId({ color, model, size }),
                   quantity
                 )
+
                 onOpen()
+
                 setIsAddingToCart(false)
               } catch (err) {
                 setIsAddingToCart(false)
@@ -562,3 +565,5 @@ export const ShirtPageQuery = graphql`
     }
   }
 `
+
+export default ShirtTemplate

@@ -31,7 +31,7 @@ import { CartButton } from '../../features/cart/components/CartButton'
 import { CartDrawer } from '../../features/cart/components/CartDrawer'
 import { useShopifyCartItems } from '../../features/cart/hooks/useShopifyCart'
 import { useSearch } from '../../features/search/hooks/useSearch'
-import { useStaticQuery } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 
 export const Header = (props: BoxProps) => {
   const cartCount = useCartCount()

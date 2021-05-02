@@ -16,7 +16,7 @@
     "env-var": "^7.0.0",
     "formik": "^2.2.0",
     "framer-motion": "^4.1.11",
-    "gatsby": "^2.24.65",
+    "gatsby": "^3.4.0",
     "gatsby-awesome-pagination": "^0.3.6",
     "gatsby-background-image": "^1.3.1",
     "gatsby-cli": "^2.12.100",
@@ -31,18 +31,18 @@
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-robots-txt": "^1.5.3",
     "gatsby-plugin-schema-export": "^1.1.1",
-    "gatsby-plugin-sharp": "^2.6.38",
+    "gatsby-plugin-sharp": "^3.4.0",
     "gatsby-plugin-sitemap": "^2.5.0",
     "gatsby-plugin-transition-link": "^1.20.5",
     "gatsby-plugin-typescript": "^2.4.20",
     "gatsby-source-filesystem": "^2.3.32",
     "gatsby-source-shopify": "^3.2.34",
     "gatsby-theme-shopify-manager": "^0.1.8",
-    "gatsby-transformer-sharp": "^2.5.16",
-    "graphql": "^15.3.0",
+    "gatsby-transformer-sharp": "^3.4.0",
+    "graphql": "^15.5.0",
     "isomorphic-fetch": "^3.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-magnifier": "^3.0.4",
     "react-use-infinite-loader": "^1.0.0-beta.1",
@@ -85,11 +85,16 @@
     "typescript": "^4.0.2"
   },
   "scripts": {
-    "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build",
+    "build": "gatsby build",
     "clean": "gatsby clean",
     "dev": "gatsby develop",
     "generate": "graphql-codegen --config codegen.yml"
   },
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "resolutions": {
+    "graphql": "^15.4.0",
+    "graphql-compose": "^7.25.0",
+    "webpack": "^5.24.2"
+  }
 }

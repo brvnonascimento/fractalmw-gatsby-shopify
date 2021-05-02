@@ -2,7 +2,7 @@ import { Box, Grid, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 import Image404 from '../assets/Image404.svg'
 
-export default () => {
+const Page404 =  () => {
   return(
     <Grid as='main' justifyItems={'center'} p='2em' minHeight={'80vh'}>
       <Heading as='h1' >OPS...</Heading>
@@ -12,3 +12,5 @@ export default () => {
     </Grid>
   )
 }
+
+export default Page404

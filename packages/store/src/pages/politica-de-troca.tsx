@@ -3,7 +3,7 @@ import { Box, Grid, Heading } from '@chakra-ui/react'
 import { useStaticQuery, graphql } from 'gatsby'
 import xss from 'xss'
 
-export default () => {
+const RefundPolicy = () => {
   const {
     allShopifyShopPolicy: {
       edges: [
@@ -42,3 +42,5 @@ export default () => {
     </Grid>
   )
 }
+
+export default RefundPolicy

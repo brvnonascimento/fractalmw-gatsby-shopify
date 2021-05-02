@@ -3,7 +3,7 @@ import { Box, Grid, Heading } from '@chakra-ui/react'
 import { useStaticQuery, graphql } from 'gatsby'
 import xss from 'xss'
 
-export default () => {
+const PrivacyPolicy = () => {
   const {
     allShopifyShopPolicy: {
       edges: [
@@ -35,3 +35,5 @@ export default () => {
     </Grid>
   )
 }
+
+export default PrivacyPolicy

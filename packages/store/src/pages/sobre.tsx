@@ -4,7 +4,7 @@ import GatsbyImage from 'gatsby-image'
 import React from 'react'
 import { HeadingDivider } from '../components/HeadingDivider'
 
-export default () => {
+const AboutPage = () => {
   const {
     bannerFile: {
       childImageSharp: { banner1 }
@@ -50,7 +50,7 @@ export default () => {
         gridRowGap={2}
       >
         <Heading as="h1">SOBRE NÓS</Heading>
-        <Text maxW={"1000px"}>
+        <Text maxW={'1000px'}>
           A Fractal Music Wear, que está no mercado desde 2007, é um espaço
           multidimensional, onde diversas tendências musicais e de moda se
           encontram e se fundem, fazendo uma loja única. <br />
@@ -93,3 +93,5 @@ export default () => {
     </Grid>
   )
 }
+
+export default AboutPage

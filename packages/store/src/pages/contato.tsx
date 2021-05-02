@@ -2,7 +2,7 @@ import { Box, Grid, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 import { HeadingDivider } from '../components/HeadingDivider'
 
-export default () => (
+const ContactPage = () => (
   <Grid
     as="main"
     gridTemplateColumns={{base: 'auto', lg: '160px auto'}}
@@ -126,3 +126,5 @@ export default () => (
     <HeadingDivider gridArea={'7 / 1 / 7 / -1'} />
   </Grid>
 )
+
+export default ContactPage
