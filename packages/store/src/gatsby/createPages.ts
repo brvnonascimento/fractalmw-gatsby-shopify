@@ -77,7 +77,7 @@ const createPages: GatsbyNode['createPages'] = async ({
           categoryTitle: title,
           categoryHandle: handle
         },
-        component: path.resolve(__dirname, '../templates/shirt.tsx')
+        component: path.resolve(__dirname, '../templates/product.tsx')
       })
     }
   }

@@ -22,7 +22,8 @@ export const useShopifyCartItems = () => {
       cartItems.map(({ id, title, image, quantity, price, variant }) => {
         const color = variant.selectedOptions.find(
           ({ name }) => name === 'color'
-        ).value
+        )?.value
+
         return {
           id: variant.id,
           title,
@@ -34,10 +35,10 @@ export const useShopifyCartItems = () => {
             fallbackSrc: variant.image.src
           },
           size: variant.selectedOptions.find(({ name }) => name === 'size')
-            .value,
+            ?.value,
           model: variant.selectedOptions.find(({ name }) => name === 'model')
-            .value,
-          color: colors[color.toLowerCase()] ?? color
+            ?.value,
+          color: colors[color?.toLowerCase()] ?? color
         }
       }),
     [cartItems]

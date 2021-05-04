@@ -20,7 +20,7 @@ import { ShirtItem } from '../components/ShirtItem'
 import { BoxContainer } from '../components/BoxContainer'
 import xss from 'xss'
 
-export default ({
+const Catalog = ({
   pageContext,
   data: {
     allShopifyProduct,
@@ -240,3 +240,5 @@ export const CatalogQuery = graphql`
     }
   }
 `
+
+export default Catalog

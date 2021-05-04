@@ -8,7 +8,7 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 import { GatsbyBrowser } from 'gatsby'
-import React, { useEffect } from 'react'
+import React, { cloneElement, useEffect } from 'react'
 import { Header } from './fragments/Header'
 import { Footer } from './fragments/Footer'
 import { WhatsappIcon } from '../components/icons/WhatsappIcon'
@@ -18,7 +18,7 @@ import { COUPON_CODE } from '../constants/coupon'
 
 const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   return (
-    <Box minHeight={'100vh'} maxW={'100vw'} w={'100vw'} >
+    <Box minHeight={'100vh'} maxW={'100vw'} w={'100vw'}>
       <InfoBar />
 
       <Header />
@@ -58,7 +58,6 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   )
 }
 
-
 const InfoBar = () => {
   const { onCopy, hasCopied } = useClipboard(COUPON_CODE)
 
@@ -70,10 +69,10 @@ const InfoBar = () => {
 
   return (
     <Box
-      pos={{md: 'sticky'}}
+      pos={{ md: 'sticky' }}
       top={0}
       left={0}
-      zIndex={'banner'}
+      zIndex={'docked'}
       w={'100vw'}
       d={'flex'}
       flexDir={{

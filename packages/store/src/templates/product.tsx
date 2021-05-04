@@ -16,7 +16,10 @@ import {
 } from '@chakra-ui/react'
 
 import { numberToBRL } from '../utils/price'
-import { BuyForm, BuyFormFieldsProps } from '../features/buy/components/BuyForm'
+import {
+  ShirtForm,
+  BuyFormFieldsProps
+} from '../features/buy/components/ShirtForm'
 import { CartDrawer } from '../features/cart/components/CartDrawer'
 import { Table } from '../components/Table'
 import {
@@ -43,9 +46,12 @@ interface ShirtOptions {
   color: string
 }
 
-const ShirtTemplate = ({
+const parseVariantId = (variantId: string) =>
+  variantId.split(`Shopify__ProductVariant__`)[1]
+
+const ProductTemplate = ({
   data: {
-    shopifyProduct: shirt,
+    shopifyProduct: product,
     shopifyCollection: { products: relatedProducts }
   },
   pageContext
@@ -61,7 +67,7 @@ const ShirtTemplate = ({
     sku,
     description,
     descriptionHtml
-  } = shirt
+  } = product
   const { categoryTitle, categoryHandle } = pageContext
 
   const { onOpen, isOpen, onClose } = useDisclosure()
@@ -98,30 +104,32 @@ const ShirtTemplate = ({
     onResize
   ])
 
-  const getVariantId = ({ color, model, size }: ShirtOptions) => {
-    console.log(size)
-    console.log(shirt.variants)
+  const getVariantId = (selectedVariants: Record<string, any>) => {
+    const selectedVariantsKeys = Object.keys(selectedVariants)
 
-    const variant = shirt.variants.find(({ title }: { title: string }) => {
+    const variant = product.variants.find(({ title }: { title: string }) => {
       const options = title
         .split(' / ')
         .map((option) => option.toLocaleLowerCase())
 
-      return (
-        options.includes(color.toLocaleLowerCase()) &&
-        options.includes(model.toLocaleLowerCase()) &&
-        options.includes(size.toLocaleLowerCase())
+      return selectedVariantsKeys.every((key) =>
+        options.includes(selectedVariants[key].toLowerCase())
       )
     })
-    return variant.id.split(`Shopify__ProductVariant__`)[1]
+
+    return parseVariantId(variant.id)
   }
 
   const getOptionsValueByName = (optionName: string) =>
-    options.find(({ name }) => name === optionName).values
+    options.find(({ name }) => name === optionName)?.values
 
   const sizes = getOptionsValueByName('size')
   const models = getOptionsValueByName('model')
   const colors = getOptionsValueByName('color')
+
+  // const sizes = undefined
+  // const models = undefined
+  // const colors = undefined
 
   return (
     <Grid rowGap={4} w={'100vw'} pb={4}>
@@ -302,7 +310,7 @@ const ShirtTemplate = ({
           gridArea={{ md: '1 / 2 / 3' }}
           p={{ base: 4, md: 'unset' }}
         >
-          <BuyForm
+          <ShirtForm
             colors={colors}
             models={models}
             sizes={sizes}
@@ -318,8 +326,12 @@ const ShirtTemplate = ({
               try {
                 setIsAddingToCart(true)
 
+                const hasVariant = !!color || !!model || !!size
+
                 await addItemToCart(
-                  getVariantId({ color, model, size }),
+                  hasVariant
+                    ? getVariantId({ color, model, size })
+                    : parseVariantId(product.variants[0].id),
                   quantity
                 )
 
@@ -352,26 +364,29 @@ const ShirtTemplate = ({
           listStyleType={'none'}
           height={'340px'}
         >
-          {relatedProducts.map(({ images: [image], title, priceRange }) => (
-            <ListItem
-              key={title}
-              transition={'all .2s ease-in-out'}
-              background={'white'}
-            >
-              <Link
-                as={GatsbyLink}
-                to={`/produto/${toSlug(title)}`}
-                title={title}
-              >
-                <ShirtItem
-                  w={'300px'}
-                  title={title}
-                  image={image}
-                  priceRange={priceRange}
-                />
-              </Link>
-            </ListItem>
-          ))}
+          {relatedProducts.map(
+            ({ images: [image], title, priceRange, id }) =>
+              id !== product.id && (
+                <ListItem
+                  key={title}
+                  transition={'all .2s ease-in-out'}
+                  background={'white'}
+                >
+                  <Link
+                    as={GatsbyLink}
+                    to={`/produto/${toSlug(title)}`}
+                    title={title}
+                  >
+                    <ShirtItem
+                      w={'300px'}
+                      title={title}
+                      image={image}
+                      priceRange={priceRange}
+                    />
+                  </Link>
+                </ListItem>
+              )
+          )}
         </List>
       </Flex>
 
@@ -566,4 +581,4 @@ export const ShirtPageQuery = graphql`
   }
 `
 
-export default ShirtTemplate
+export default ProductTemplate

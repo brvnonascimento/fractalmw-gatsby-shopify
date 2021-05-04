@@ -68,24 +68,33 @@ export const CartItems = ({
                   </Box>
                   {quantity}
                 </Text>
-                <Text>
-                  <Box as="b" mr={'4px'}>
-                    Tamanho:
-                  </Box>
-                  {size.toUpperCase()}
-                </Text>
-                <Text>
-                  <Box as="b" mr={'4px'}>
-                    Modelo:
-                  </Box>
-                  {model}
-                </Text>
-                <Text>
-                  <Box as="b" mr={'4px'}>
-                    Cor:
-                  </Box>
-                  {color}
-                </Text>
+
+                {size && (
+                  <Text>
+                    <Box as="b" mr={'4px'}>
+                      Tamanho:
+                    </Box>
+                    {size.toUpperCase()}
+                  </Text>
+                )}
+
+                {model && (
+                  <Text>
+                    <Box as="b" mr={'4px'}>
+                      Modelo:
+                    </Box>
+                    {model}
+                  </Text>
+                )}
+
+                {color && (
+                  <Text>
+                    <Box as="b" mr={'4px'}>
+                      Cor:
+                    </Box>
+                    {color}
+                  </Text>
+                )}
               </Flex>
               <Flex>
                 <IconButton

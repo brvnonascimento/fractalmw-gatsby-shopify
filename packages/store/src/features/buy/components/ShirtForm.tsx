@@ -31,7 +31,7 @@ interface BuyFormProps extends BoxProps {
   sizes: string[]
 }
 
-export const BuyForm = ({
+export const ShirtForm = ({
   handleBuySubmit,
   isLoadingSubmit,
   models,
@@ -48,14 +48,14 @@ export const BuyForm = ({
   } = useFormik({
     initialValues: {
       quantity: '1',
-      model: models[0],
-      color: colors[0],
-      size: ''
+      model: models?.[0] ?? undefined,
+      color: colors?.[0] ?? undefined,
+      size: sizes?.length >= 0 ? '' : undefined
     },
     onSubmit: ({ quantity, ...values }) =>
       handleBuySubmit({ ...values, quantity: parseInt(quantity) }),
     validate: (values) => {
-      if (values.size.length === 0) {
+      if (values.size?.length === 0) {
         return {
           size: 'Por favor, escolha um tamanho.'
         }
@@ -87,7 +87,7 @@ export const BuyForm = ({
       {...props}
     >
       <Flex direction="column">
-        <FormControl
+        {models && <FormControl
           isInvalid={!!(errors.model && touched.model)}
           mb={'1em'}
           id={'model'}
@@ -109,9 +109,9 @@ export const BuyForm = ({
             ))}
           </Select>
           <FormErrorMessage>{errors.model}</FormErrorMessage>
-        </FormControl>
+        </FormControl>}
 
-        <FormControl
+        {sizes && <FormControl
           isInvalid={!!(errors.size && touched.size)}
           display={'flex'}
           flexDirection={'column'}
@@ -158,9 +158,9 @@ export const BuyForm = ({
             ))}
           </Flex>
           <FormErrorMessage>{errors.size}</FormErrorMessage>
-        </FormControl>
+        </FormControl>}
 
-        <FormControl
+        {colors && <FormControl
           id={'cor'}
           isInvalid={!!(errors.color && touched.color)}
           d={'flex'}
@@ -201,7 +201,7 @@ export const BuyForm = ({
             ))}
           </Flex>
           <FormErrorMessage>{errors.color}</FormErrorMessage>
-        </FormControl>
+        </FormControl>}
 
         <FormControl isInvalid={!!(errors.quantity && touched.quantity)}>
           <FormLabel htmlFor="quantity" fontWeight={'bold'}>
