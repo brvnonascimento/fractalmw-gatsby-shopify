@@ -58,6 +58,7 @@ const ProductTemplate = ({
 }) => {
   const {
     category,
+    tags,
     title,
     priceRange: {
       minVariantPrice: { amount: price }
@@ -130,6 +131,13 @@ const ProductTemplate = ({
   // const sizes = undefined
   // const models = undefined
   // const colors = undefined
+
+  const lowercasedTags: string[] = tags?.map((tag) => tag.toLowerCase())
+
+  const hasSweatshirt = lowercasedTags?.includes('moletom')
+
+  const hasOnlySweatshirt =
+    hasSweatshirt && !lowercasedTags?.includes('camiseta')
 
   return (
     <Grid rowGap={4} w={'100vw'} pb={4}>
@@ -390,122 +398,100 @@ const ProductTemplate = ({
         </List>
       </Flex>
 
-      <Grid
-        as="section"
-        w={'100vw'}
-        background={'gray.50'}
-        alignItems={'center'}
-        justifyItems={'center'}
-        mb={2}
-        p={{ base: '0', md: '2em' }}
-      >
-        <Flex
-          as="article"
-          direction={{ md: 'column' }}
-          justifyContent={'space-around'}
-          alignItems={{ base: 'center', md: 'start' }}
-          width={'100%'}
-          gridArea={{ base: '1', md: 'unset' }}
-          fontSize={{ base: 'sm', md: 'md' }}
+      {!hasOnlySweatshirt && (
+        <Grid
+          as="section"
+          w={'100vw'}
+          background={'gray.50'}
+          alignItems={'center'}
+          justifyItems={'center'}
+          p={{ base: '0', md: '2em' }}
         >
-          <Text>
-            <Box as="q">
-              As camisetas
-              <br />
-              são estampadas
-              <br />
-              <b>uma a uma</b> na nossa loja em
-              <br />
-              Piracicaba...
-            </Box>
-            <br />
-            <b>...pelo Sidão Fractal</b>
-          </Text>
-
-          <Flex direction="column" mt={'1em'}>
-            <Heading>Camiseta</Heading>
-
+          <Flex
+            as="article"
+            direction={{ md: 'column' }}
+            justifyContent={'space-around'}
+            alignItems={{ base: 'center', md: 'start' }}
+            width={'100%'}
+            gridArea={{ base: '1', md: 'unset' }}
+            fontSize={{ base: 'sm', md: 'md' }}
+          >
             <Text>
-              <b>
-                100% Algodão
+              <Box as="q">
+                As camisetas
                 <br />
-                Fio Penteado 30.1
+                são estampadas
                 <br />
-                Pré Lavada e Amaciada
+                <b>uma a uma</b> na nossa loja em
                 <br />
-              </b>
-              com reforço na gola
+                Piracicaba...
+              </Box>
               <br />
-              Estampa em <b>Silk Screen</b>
-              <br />
-              <b>artesanal</b> e <b>digital</b>.
+              <b>...pelo Sidão Fractal</b>
             </Text>
+
+            <Flex direction="column" mt={'1em'}>
+              <Heading>Camiseta</Heading>
+
+              <Text>
+                <b>
+                  100% Algodão
+                  <br />
+                  Fio Penteado 30.1
+                  <br />
+                </b>
+                com reforço na gola
+                <br />
+                Estampa em <b>Silk Screen</b>
+                <br />
+                <b>artesanal</b> e <b>digital</b>.
+              </Text>
+            </Flex>
           </Flex>
+
+          <Img
+            src="/measures.svg"
+            gridArea={{
+              base: '3',
+              md: 'unset'
+            }}
+            p={'1em'}
+            htmlWidth={'300'}
+            htmlHeight={300}
+          />
+
+          <Table
+            gridArea={{ base: '2', md: '1 / 3 / 3 / 3' }}
+            title={'GUIA DE MEDIDAS DA CAMISETA'}
+            mt={2}
+            mb={4}
+            columns={measurementGuideColumns}
+            data={shirtMeasurementGuideData}
+          >
+            <Text fontWeight={'lighter'} mb={'1em'}>
+              *as medidas podem variar até 5% tanto na largura como na altura
+            </Text>
+          </Table>
+        </Grid>
+      )}
+
+      {hasSweatshirt && (
+        <Flex background={'gray.50'} justifyContent={'center'}>
+          <Table
+            gridArea={{ base: '2', md: '1 / 3 / 3 / 3' }}
+            title={'GUIA DE MEDIDAS DO MOLETOM'}
+            mt={2}
+            mb={4}
+            columns={measurementGuideColumns}
+            data={sweatshirtMeasurementGuideData}
+          >
+            <Text fontWeight={'lighter'} mb={'1em'}>
+              *as medidas podem variar até 5% tanto na largura como na altura
+            </Text>
+          </Table>
         </Flex>
+      )}
 
-        <Img
-          src="/measures.svg"
-          gridArea={{
-            base: '3',
-            md: 'unset'
-          }}
-          p={'1em'}
-          htmlWidth={'300'}
-          htmlHeight={300}
-        />
-
-        <Table
-          gridArea={{ base: '2', md: '1 / 3 / 3 / 3' }}
-          title={'GUIA DE MEDIDAS'}
-          mt={2}
-          mb={4}
-          columns={[
-            {
-              header: 'Tamanho',
-              acessor: 'size'
-            },
-            {
-              header: 'Altura',
-              acessor: 'height'
-            },
-            {
-              header: 'Largura',
-              acessor: 'width'
-            }
-          ]}
-          data={[
-            {
-              size: 'P',
-              height: '70cm',
-              width: '49cm'
-            },
-            {
-              size: 'M',
-              height: '72cm',
-              width: '53cm'
-            },
-            {
-              size: 'G',
-              height: '74cm',
-              width: '56cm'
-            },
-            {
-              size: 'GG',
-              height: '76cm',
-              width: '59cm'
-            },
-            {
-              size: 'XG',
-              height: '80cm',
-              width: '65cm'
-            }
-          ]}
-        >
-          <Text fontWeight={'lighter'} mb={'1em'}>
-            *as medidas podem variar em até 3cm tanto na largura como na altura
-          </Text>
-        </Table>
-      </Grid>
       <CartDrawer
         checkoutUrl={checkoutUrl ?? ''}
         onDeleteItem={removeItemFromCart}
@@ -516,6 +502,72 @@ const ProductTemplate = ({
     </Grid>
   )
 }
+
+const measurementGuideColumns = [
+  {
+    header: 'Tamanho',
+    acessor: 'size'
+  },
+  {
+    header: 'Largura',
+    acessor: 'width'
+  },
+  {
+    header: 'Altura',
+    acessor: 'height'
+  }
+]
+
+const shirtMeasurementGuideData = [
+  {
+    size: 'P',
+    height: '70cm',
+    width: '49cm'
+  },
+  {
+    size: 'M',
+    height: '72cm',
+    width: '53cm'
+  },
+  {
+    size: 'G',
+    height: '74cm',
+    width: '56cm'
+  },
+  {
+    size: 'GG',
+    height: '76cm',
+    width: '59cm'
+  },
+  {
+    size: 'XG',
+    height: '80cm',
+    width: '65cm'
+  }
+]
+
+const sweatshirtMeasurementGuideData = [
+  {
+    size: 'P',
+    width: '56cm',
+    height: '68cm'
+  },
+  {
+    size: 'M',
+    width: '57cm',
+    height: '72cm'
+  },
+  {
+    size: 'G',
+    width: '60cm',
+    height: '75cm'
+  },
+  {
+    size: 'GG',
+    width: '63cm',
+    height: '78cm'
+  }
+]
 
 export const ShirtPageQuery = graphql`
   query ProductPages($pageId: String!, $categoryHandle: String!) {
@@ -529,6 +581,7 @@ export const ShirtPageQuery = graphql`
         }
       }
       productType
+      tags
       images {
         altText
         originalSrc
