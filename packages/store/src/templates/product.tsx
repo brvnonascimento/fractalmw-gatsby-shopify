@@ -39,6 +39,7 @@ import { toSlug } from '../utils/toSlug'
 import GatsbyLink from 'gatsby-link'
 import { ShirtItem } from '../components/ShirtItem'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
+import { filterUndefined } from '../utils/object'
 
 interface ShirtOptions {
   size: string
@@ -106,7 +107,7 @@ const ProductTemplate = ({
   ])
 
   const getVariantId = (selectedVariants: Record<string, any>) => {
-    const selectedVariantsKeys = Object.keys(selectedVariants)
+    const selectedVariantsKeys = Object.keys(filterUndefined(selectedVariants))
 
     const variant = product.variants.find(({ title }: { title: string }) => {
       const options = title

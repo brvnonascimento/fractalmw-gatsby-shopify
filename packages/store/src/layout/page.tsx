@@ -1,26 +1,13 @@
-import {
-  Box,
-  IconButton,
-  Link,
-  Text,
-  Tooltip,
-  useClipboard,
-  useDisclosure
-} from '@chakra-ui/react'
+import { Box, Link } from '@chakra-ui/react'
 import { GatsbyBrowser } from 'gatsby'
-import React, { cloneElement, useEffect } from 'react'
+import React from 'react'
 import { Header } from './fragments/Header'
 import { Footer } from './fragments/Footer'
 import { WhatsappIcon } from '../components/icons/WhatsappIcon'
-import { CopyIcon } from '@chakra-ui/icons'
-import { DiscountCouponTooltip } from '../components/DiscountCouponTooltip'
-import { COUPON_CODE } from '../constants/coupon'
 
 const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   return (
     <Box minHeight={'100vh'} maxW={'100vw'} w={'100vw'}>
-      <InfoBar />
-
       <Header />
 
       {element}
@@ -58,68 +45,68 @@ const page: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
   )
 }
 
-const InfoBar = () => {
-  const { onCopy, hasCopied } = useClipboard(COUPON_CODE)
+// const InfoBar = () => {
+//   const { onCopy, hasCopied } = useClipboard(COUPON_CODE)
 
-  // const { isOpen,  } = useDisclosure({ defaultIsOpen: true })
+//   // const { isOpen,  } = useDisclosure({ defaultIsOpen: true })
 
-  // useEffect(() => {
-  //   const wasInfoBarDismissed = localStorage.getItem('wasInfoBarDismissed_1')
-  // }, [])
+//   // useEffect(() => {
+//   //   const wasInfoBarDismissed = localStorage.getItem('wasInfoBarDismissed_1')
+//   // }, [])
 
-  return (
-    <Box
-      pos={{ md: 'sticky' }}
-      top={0}
-      left={0}
-      zIndex={'docked'}
-      w={'100vw'}
-      d={'flex'}
-      flexDir={{
-        base: 'column',
-        md: 'row'
-      }}
-      justifyContent={'center'}
-      alignItems={'center'}
-      textAlign={'left'}
-      bg={'black'}
-      color={'white'}
-      fontWeight={'bold'}
-      bg={'red.500'}
-      textAlign={'center'}
-      letterSpacing={1}
-    >
-      CUPOM{' '}
-      <DiscountCouponTooltip hasCopied={hasCopied}>
-        <Text
-          as={'span'}
-          d={'flex'}
-          w={'110px'}
-          h={'20px'}
-          alignItems={'center'}
-          bg={'black'}
-          color={'white'}
-          mx={2}
-          p={1}
-          cursor={'pointer'}
-          onClick={(e) => {
-            e.preventDefault()
-            onCopy()
-          }}
-        >
-          {COUPON_CODE}
-          <IconButton
-            variant={'unstyled'}
-            aria-label={'Copiar código do cupom'}
-            icon={<CopyIcon />}
-            pos={'relative'}
-            bottom={'1px'}
-          />
-        </Text>
-      </DiscountCouponTooltip>{' '}
-      R$20.00 OFF EM PRODUTOS FRACTAL
-    </Box>
-  )
-}
+//   return (
+//     <Box
+//       pos={{ md: 'sticky' }}
+//       top={0}
+//       left={0}
+//       zIndex={'docked'}
+//       w={'100vw'}
+//       d={'flex'}
+//       flexDir={{
+//         base: 'column',
+//         md: 'row'
+//       }}
+//       justifyContent={'center'}
+//       alignItems={'center'}
+//       textAlign={'left'}
+//       bg={'black'}
+//       color={'white'}
+//       fontWeight={'bold'}
+//       bg={'red.500'}
+//       textAlign={'center'}
+//       letterSpacing={1}
+//     >
+//       CUPOM{' '}
+//       <DiscountCouponTooltip hasCopied={hasCopied}>
+//         <Text
+//           as={'span'}
+//           d={'flex'}
+//           w={'110px'}
+//           h={'20px'}
+//           alignItems={'center'}
+//           bg={'black'}
+//           color={'white'}
+//           mx={2}
+//           p={1}
+//           cursor={'pointer'}
+//           onClick={(e) => {
+//             e.preventDefault()
+//             onCopy()
+//           }}
+//         >
+//           {COUPON_CODE}
+//           <IconButton
+//             variant={'unstyled'}
+//             aria-label={'Copiar código do cupom'}
+//             icon={<CopyIcon />}
+//             pos={'relative'}
+//             bottom={'1px'}
+//           />
+//         </Text>
+//       </DiscountCouponTooltip>{' '}
+//       R$20.00 OFF EM PRODUTOS FRACTAL
+//     </Box>
+//   )
+// }
 
 export default page

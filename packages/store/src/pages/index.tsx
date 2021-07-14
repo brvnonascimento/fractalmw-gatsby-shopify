@@ -139,43 +139,6 @@ const IndexPage = () => {
             <Heading as="h1" py={'10px'}>
               Desde 2007
             </Heading>
-
-            <DiscountCouponTooltip hasCopied={hasCopied}>
-              <Text
-                pos={'relative'}
-                role={'button'}
-                top={{ base: '50px', md: 'unset' }}
-                textAlign={'left'}
-                bg={'black'}
-                // borderRadius={'20px'}
-                fontWeight={'bold'}
-                mt={4}
-                p={2}
-                onClick={(e) => {
-                  e.preventDefault()
-
-                  onCopy()
-                }}
-              >
-                CUPOM{' '}
-                <Text as={'span'} color={'#ffc80a'} fontSize={'lg'}>
-                  {COUPON_CODE}
-                </Text>
-                <br />
-                R$20.00 OFF
-                <br />
-                EM PRODUTOS FRACTAL
-                <IconButton
-                  variant={'unstyled'}
-                  aria-label={'Copiar código do cupom'}
-                  icon={<CopyIcon />}
-                  onClick={onCopy}
-                  pos={'absolute'}
-                  top={0}
-                  right={0}
-                />
-              </Text>
-            </DiscountCouponTooltip>
           </Flex>
 
           <Link
@@ -323,7 +286,7 @@ const IndexPage = () => {
               textAlign={'center'}
               fontWeight={'bold'}
               css={{
-                '@media (min-width: 30em)': {
+                '@media (minWidth: 30em)': {
                   'li:first-child': {
                     gridColumn: 'span 3'
                   },
